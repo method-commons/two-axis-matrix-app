@@ -1,0 +1,54 @@
+/* Schmale Bildschirme: Seitenleisten unter die Fläche, Navigation unten */
+@layer responsive {
+  @media (max-width: 1250px) {
+    .work { grid-template-columns: 210px minmax(0, 1fr); }
+    .work .side { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; align-items: start; }
+    .work .side .card { margin: 0; }
+  }
+  @media (max-width: 900px) {
+    .work { grid-template-columns: minmax(0, 1fr); }
+    .inbox { position: static; }
+    .pick { grid-template-columns: 1fr; }
+    .pick-side { border-left: 0; border-top: 1px solid var(--border); }
+    .report-top, .report-regions, .axes-grid { grid-template-columns: 1fr; }
+    .region-edit { grid-template-columns: 1fr 1fr; }
+    .region-edit .swatches { grid-column: 1 / -1; }
+  }
+  @media (max-width: 760px) {
+    :root { --gutter: 12px; }
+    main { padding-bottom: 90px; }
+    .brand-name, .hide-narrow { display: none; }
+    /* backdrop-filter würde die feste Navigation an die Kopfzeile binden */
+    .app-header { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--surface); gap: 6px; }
+    .app-header .icon-btn { width: 28px; }
+    .app-header .btn.ghost { padding: 0 8px; }
+    .project-name { max-width: 150px; padding: 0 9px; }
+    .nav {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; border-radius: 0; border: 0; border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(3, 1fr); padding: 6px 4px calc(8px + env(safe-area-inset-bottom)); background: var(--surface);
+    }
+    .nav > a { display: flex; flex-direction: column; align-items: center; gap: 1px; font-size: 11px; }
+    .nav > a.on { box-shadow: none; color: var(--accent); background: var(--accent-soft); }
+    .nav-icon { display: block; font-size: 17px; }
+    .page-head .actions { width: 100%; }
+    .boards { grid-template-columns: 1fr; }
+    .mcard-home { grid-template-columns: 96px minmax(0, 1fr); }
+    .thumb-link { width: 96px; height: 80px; }
+    .thumb-link .matrix-svg { width: 96px !important; height: 80px !important; }
+    .title-input { font-size: 16px; flex-basis: 100%; }
+    /* Karten: Felder untereinander statt 2 × 2 (Reihenfolge = Nummer des Felds) */
+    .board { grid-template-columns: 1fr; grid-template-rows: none; }
+    .board .axis-x, .board .axis-y, .board > span { display: none; }
+    .quad { grid-column: auto !important; grid-row: auto !important; }
+    .plot { height: 62vh; }
+    .tok span { max-width: 110px; }
+    .cell { min-height: 56px; padding: 3px 3px 14px; }
+    .heat { gap: 2px; }
+    .heat-yl small, .heat-xl small { display: none; }
+    .paper { padding: 16px; }
+    .help { grid-template-columns: 1fr; }
+    .help-nav { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--border); padding: 0 12px 10px; }
+    .help-regions { grid-template-columns: 1fr; }
+    .toasts { bottom: 84px; }
+  }
+}

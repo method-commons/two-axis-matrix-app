@@ -1,0 +1,256 @@
+{
+  "version": 1,
+  "id": "example-stadtfest-risiken",
+  "name": "City festival 2026 – risks",
+  "context": "Food truck · 3 days with drinks stand",
+  "method": "risk",
+  "config": {
+    "x": {
+      "label": "Impact",
+      "low": "negligible",
+      "high": "severe",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Probability",
+      "low": "very rare",
+      "high": "very likely",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "grid",
+    "view": "heatmap",
+    "split": {
+      "x": 3,
+      "y": 3
+    },
+    "regions": [
+      {
+        "id": "low",
+        "label": "Low",
+        "hint": "monitor",
+        "color": "green",
+        "min": 0
+      },
+      {
+        "id": "medium",
+        "label": "Medium",
+        "hint": "consider actions",
+        "color": "yellow",
+        "min": 5
+      },
+      {
+        "id": "high",
+        "label": "High",
+        "hint": "define actions",
+        "color": "orange",
+        "min": 10
+      },
+      {
+        "id": "critical",
+        "label": "Very high",
+        "hint": "act now",
+        "color": "red",
+        "min": 15
+      }
+    ],
+    "fields": [
+      {
+        "key": "response",
+        "label": "Response",
+        "type": "choice",
+        "options": [
+          {
+            "id": "avoid",
+            "label": "avoid"
+          },
+          {
+            "id": "reduce",
+            "label": "reduce"
+          },
+          {
+            "id": "transfer",
+            "label": "transfer"
+          },
+          {
+            "id": "accept",
+            "label": "accept"
+          }
+        ]
+      },
+      {
+        "key": "measure",
+        "label": "Action",
+        "type": "textarea"
+      },
+      {
+        "key": "owner",
+        "label": "Owner",
+        "type": "person"
+      },
+      {
+        "key": "residual",
+        "label": "After action",
+        "type": "point"
+      }
+    ],
+    "questions": [],
+    "rank": "product",
+    "itemName": {
+      "one": "risk",
+      "many": "risks"
+    },
+    "noteLabel": "Cause / consequence"
+  },
+  "items": [
+    {
+      "id": "stadtfest-risiken-1",
+      "no": 1,
+      "title": "Generator fails",
+      "note": "",
+      "x": 4,
+      "y": 3,
+      "values": {
+        "response": "reduce",
+        "measure": "Book mains power from the organiser",
+        "owner": "Lea",
+        "residual": {
+          "x": 4,
+          "y": 1
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-2",
+      "no": 2,
+      "title": "Storm interrupts the festival",
+      "note": "",
+      "x": 5,
+      "y": 3,
+      "values": {
+        "response": "transfer",
+        "measure": "Cancellation insurance, storm-proof gazebo",
+        "residual": {
+          "x": 3,
+          "y": 3
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-3",
+      "no": 3,
+      "title": "Staff illness",
+      "note": "",
+      "x": 3,
+      "y": 4,
+      "values": {
+        "response": "reduce",
+        "measure": "2 helpers on call",
+        "owner": "Ben",
+        "residual": {
+          "x": 3,
+          "y": 2
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-4",
+      "no": 4,
+      "title": "Food inspection finds defects",
+      "note": "Inspection on day one is common",
+      "x": 5,
+      "y": 2,
+      "values": {
+        "response": "avoid"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-5",
+      "no": 5,
+      "title": "Card payment offline",
+      "note": "",
+      "x": 2,
+      "y": 4,
+      "values": {
+        "response": "reduce",
+        "measure": "Change money, test offline mode",
+        "residual": {
+          "x": 2,
+          "y": 2
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-6",
+      "no": 6,
+      "title": "Running out of stock on Saturday",
+      "note": "Last year no fries after 7 pm",
+      "x": 4,
+      "y": 4,
+      "values": {
+        "response": "reduce",
+        "measure": "Fix a second delivery Sat 2 pm",
+        "owner": "Ben",
+        "residual": {
+          "x": 4,
+          "y": 2
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-7",
+      "no": 7,
+      "title": "Fryer fails (overheating)",
+      "note": "See 5 Why analysis “Long wait on Saturday”",
+      "x": 4,
+      "y": 2,
+      "values": {
+        "response": "reduce",
+        "measure": "Replace grease filter beforehand",
+        "residual": {
+          "x": 4,
+          "y": 1
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-8",
+      "no": 8,
+      "title": "Theft from the till",
+      "note": "",
+      "x": 3,
+      "y": 1,
+      "values": {
+        "response": "accept"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-9",
+      "no": 9,
+      "title": "Grease fire at the stand",
+      "note": "",
+      "x": 5,
+      "y": 1,
+      "values": {
+        "response": "accept",
+        "measure": "Fire blanket and extinguisher on hand"
+      },
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

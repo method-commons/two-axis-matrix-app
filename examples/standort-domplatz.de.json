@@ -1,0 +1,261 @@
+{
+  "version": 1,
+  "id": "example-standort-domplatz",
+  "name": "Standort Domplatz",
+  "context": "Food-Truck · Genehmigung fester Stellplatz 2027",
+  "method": "stakeholder",
+  "config": {
+    "x": {
+      "label": "Interesse / Betroffenheit",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "y": {
+      "label": "Macht / Einfluss",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "plot",
+    "split": {
+      "x": 3,
+      "y": 3
+    },
+    "regions": [
+      {
+        "id": "satisfy",
+        "label": "Zufriedenstellen",
+        "hint": "bei Bedarf einbeziehen, nicht überfrachten",
+        "color": "orange",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "manage",
+        "label": "Eng einbinden",
+        "hint": "Schlüsselpersonen – aktiv beteiligen",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "monitor",
+        "label": "Beobachten",
+        "hint": "minimaler Aufwand",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "inform",
+        "label": "Informieren",
+        "hint": "regelmäßig auf dem Laufenden halten",
+        "color": "blue",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "stance",
+        "label": "Haltung",
+        "type": "choice",
+        "options": [
+          {
+            "id": "pro",
+            "label": "unterstützend",
+            "color": "green"
+          },
+          {
+            "id": "neutral",
+            "label": "neutral",
+            "color": "gray"
+          },
+          {
+            "id": "contra",
+            "label": "kritisch",
+            "color": "red"
+          }
+        ]
+      },
+      {
+        "key": "stanceTarget",
+        "label": "Ziel-Haltung",
+        "type": "choice",
+        "options": [
+          {
+            "id": "pro",
+            "label": "unterstützend",
+            "color": "green"
+          },
+          {
+            "id": "neutral",
+            "label": "neutral",
+            "color": "gray"
+          },
+          {
+            "id": "contra",
+            "label": "kritisch",
+            "color": "red"
+          }
+        ]
+      },
+      {
+        "key": "target",
+        "label": "Ziel-Position",
+        "type": "point"
+      },
+      {
+        "key": "strategy",
+        "label": "Strategie",
+        "type": "textarea"
+      },
+      {
+        "key": "comms",
+        "label": "Kommunikation (Kanal, Häufigkeit)",
+        "type": "text"
+      },
+      {
+        "key": "owner",
+        "label": "Ansprechperson",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "Stakeholder",
+      "many": "Stakeholder"
+    },
+    "noteLabel": "Anliegen / Befürchtung"
+  },
+  "items": [
+    {
+      "id": "standort-domplatz-1",
+      "no": 1,
+      "title": "Stadtrat Wirtschaft",
+      "note": "Kennt das Vorhaben kaum",
+      "x": 1.5,
+      "y": 4.5,
+      "values": {
+        "stance": "neutral",
+        "stanceTarget": "pro",
+        "target": {
+          "x": 3.5,
+          "y": 4.5
+        },
+        "strategy": "In der Bürgersprechstunde vorstellen, Bedeutung für die Innenstadt zeigen",
+        "comms": "Sprechstunde, einmalig",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-2",
+      "no": 2,
+      "title": "Ordnungsamt",
+      "note": "Prüft Lärm, Abstand, Brandschutz",
+      "x": 2.5,
+      "y": 4,
+      "values": {
+        "stance": "neutral",
+        "strategy": "Antrag vollständig und früh einreichen",
+        "comms": "E-Mail, bei Bedarf"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-3",
+      "no": 3,
+      "title": "Marktverwaltung",
+      "note": "",
+      "x": 4,
+      "y": 4,
+      "values": {
+        "stance": "pro",
+        "strategy": "Stellplatz und Zeiten gemeinsam festlegen",
+        "comms": "Treffen, monatlich",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-4",
+      "no": 4,
+      "title": "Anwohnerinitiative Domviertel",
+      "note": "Geruch und Lärm am Abend, Müll rund um den Stellplatz",
+      "x": 4.5,
+      "y": 3.5,
+      "values": {
+        "stance": "contra",
+        "stanceTarget": "neutral",
+        "strategy": "Vor dem Antrag persönlich treffen; Betrieb bis 20 Uhr, Müllrunde zusagen",
+        "comms": "Treffen, monatlich",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-5",
+      "no": 5,
+      "title": "Lokalzeitung",
+      "note": "",
+      "x": 2,
+      "y": 3.5,
+      "values": {
+        "stance": "neutral",
+        "comms": "Pressemitteilung zum Start"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-6",
+      "no": 6,
+      "title": "Café am Dom",
+      "note": "Befürchtet Konkurrenz beim Mittagstisch",
+      "x": 4.5,
+      "y": 1.5,
+      "values": {
+        "stance": "contra",
+        "strategy": "Kein Kaffee-Angebot; gemeinsame Aktion zum Stadtfest"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-7",
+      "no": 7,
+      "title": "Stammgäste",
+      "note": "",
+      "x": 3.5,
+      "y": 2,
+      "values": {
+        "stance": "pro",
+        "comms": "Instagram, wöchentlich",
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-8",
+      "no": 8,
+      "title": "Kartoffelhof Berger",
+      "note": "",
+      "x": 2,
+      "y": 1.5,
+      "values": {
+        "stance": "pro"
+      },
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

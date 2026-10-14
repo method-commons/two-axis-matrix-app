@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "id": "example-ideen-saison",
+  "name": "Ideas for season 2027",
+  "context": "Food truck · team ideas",
+  "method": "value-effort",
+  "config": {
+    "x": {
+      "label": "Effort",
+      "low": "low",
+      "high": "high",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "reverse": false
+    },
+    "y": {
+      "label": "Value / impact",
+      "low": "low",
+      "high": "high",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "plot",
+    "split": {
+      "x": 5,
+      "y": 5
+    },
+    "regions": [
+      {
+        "id": "quick",
+        "label": "Quick wins",
+        "hint": "do first",
+        "color": "green",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "major",
+        "label": "Major projects",
+        "hint": "plan carefully",
+        "color": "blue",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "fill",
+        "label": "Fill-ins",
+        "hint": "when there is time",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "sink",
+        "label": "Time sinks",
+        "hint": "drop",
+        "color": "red",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [],
+    "questions": [],
+    "rank": "ratio",
+    "itemName": {
+      "one": "idea",
+      "many": "ideas"
+    },
+    "noteLabel": "Rationale"
+  },
+  "items": [
+    {
+      "id": "ideen-saison-1",
+      "no": 1,
+      "title": "Pre-ordering via app",
+      "note": "Compare providers",
+      "x": 7,
+      "y": 8,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-2",
+      "no": 2,
+      "title": "Card payment everywhere",
+      "note": "Second card reader",
+      "x": 2,
+      "y": 8,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-3",
+      "no": 3,
+      "title": "Vegan fries option",
+      "note": "Same fryer, separate oil; 3 requests a week",
+      "x": 3,
+      "y": 6.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-4",
+      "no": 4,
+      "title": "Second truck",
+      "note": "Decide after the 2027 season",
+      "x": 9,
+      "y": 7,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-5",
+      "no": 5,
+      "title": "Loyalty card",
+      "note": "",
+      "x": 2.5,
+      "y": 4,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-6",
+      "no": 6,
+      "title": "Bottle and sell sauces",
+      "note": "Labelling rules",
+      "x": 7,
+      "y": 3.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-7",
+      "no": 7,
+      "title": "Instagram: today’s spot",
+      "note": "Mia posts daily",
+      "x": 1.5,
+      "y": 7.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-8",
+      "no": 8,
+      "title": "Corporate catering",
+      "note": "2 requests received",
+      "x": 6,
+      "y": 8.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-9",
+      "no": 9,
+      "title": "New logo",
+      "note": "",
+      "x": 6,
+      "y": 1.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-10",
+      "no": 10,
+      "title": "Digital menu board",
+      "note": "",
+      "x": 3.5,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-11",
+      "no": 11,
+      "title": "Delivery platform",
+      "note": "Fees 30 %",
+      "x": 7.5,
+      "y": 4.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-12",
+      "no": 12,
+      "title": "Lunch combo",
+      "note": "Only change the till",
+      "x": 1,
+      "y": 5.5,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

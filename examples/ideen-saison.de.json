@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "id": "example-ideen-saison",
+  "name": "Ideen Saison 2027",
+  "context": "Food-Truck · Ideensammlung des Teams",
+  "method": "value-effort",
+  "config": {
+    "x": {
+      "label": "Aufwand",
+      "low": "gering",
+      "high": "hoch",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "reverse": false
+    },
+    "y": {
+      "label": "Wert / Nutzen",
+      "low": "gering",
+      "high": "hoch",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "plot",
+    "split": {
+      "x": 5,
+      "y": 5
+    },
+    "regions": [
+      {
+        "id": "quick",
+        "label": "Quick Wins",
+        "hint": "zuerst umsetzen",
+        "color": "green",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "major",
+        "label": "Großprojekte",
+        "hint": "sorgfältig planen",
+        "color": "blue",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "fill",
+        "label": "Lückenfüller",
+        "hint": "nebenbei, wenn Zeit ist",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "sink",
+        "label": "Zeitfresser",
+        "hint": "streichen",
+        "color": "red",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [],
+    "questions": [],
+    "rank": "ratio",
+    "itemName": {
+      "one": "Idee",
+      "many": "Ideen"
+    },
+    "noteLabel": "Begründung"
+  },
+  "items": [
+    {
+      "id": "ideen-saison-1",
+      "no": 1,
+      "title": "Vorbestellung per App",
+      "note": "Anbieter vergleichen",
+      "x": 7,
+      "y": 8,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-2",
+      "no": 2,
+      "title": "Kartenzahlung überall",
+      "note": "Zweites Lesegerät",
+      "x": 2,
+      "y": 8,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-3",
+      "no": 3,
+      "title": "Vegane Pommes-Variante",
+      "note": "Gleiche Fritteuse, eigenes Öl; 3 Anfragen pro Woche",
+      "x": 3,
+      "y": 6.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-4",
+      "no": 4,
+      "title": "Zweiter Truck",
+      "note": "Erst nach der Saison 2027 entscheiden",
+      "x": 9,
+      "y": 7,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-5",
+      "no": 5,
+      "title": "Stempelkarte",
+      "note": "",
+      "x": 2.5,
+      "y": 4,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-6",
+      "no": 6,
+      "title": "Saucen abfüllen und verkaufen",
+      "note": "Kennzeichnungspflicht",
+      "x": 7,
+      "y": 3.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-7",
+      "no": 7,
+      "title": "Instagram-Tagesstandort",
+      "note": "Mia postet täglich",
+      "x": 1.5,
+      "y": 7.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-8",
+      "no": 8,
+      "title": "Firmen-Catering",
+      "note": "2 Anfragen liegen vor",
+      "x": 6,
+      "y": 8.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-9",
+      "no": 9,
+      "title": "Neues Logo",
+      "note": "",
+      "x": 6,
+      "y": 1.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-10",
+      "no": 10,
+      "title": "Digitale Menütafel",
+      "note": "",
+      "x": 3.5,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-11",
+      "no": 11,
+      "title": "Lieferplattform",
+      "note": "Gebühren 30 %",
+      "x": 7.5,
+      "y": 4.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "ideen-saison-12",
+      "no": 12,
+      "title": "Kombi-Angebot Mittag",
+      "note": "Nur Kasse umstellen",
+      "x": 1,
+      "y": 5.5,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

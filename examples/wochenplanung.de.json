@@ -1,0 +1,271 @@
+{
+  "version": 1,
+  "id": "example-wochenplanung",
+  "name": "Wochenplanung KW 42",
+  "context": "Food-Truck · Team Lea, Ben, Mia",
+  "method": "eisenhower",
+  "config": {
+    "x": {
+      "label": "Dringlichkeit",
+      "low": "nicht dringend",
+      "high": "dringend",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": true
+    },
+    "y": {
+      "label": "Wichtigkeit",
+      "low": "nicht wichtig",
+      "high": "wichtig",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "board",
+    "split": {
+      "x": 1.5,
+      "y": 1.5
+    },
+    "regions": [
+      {
+        "id": "do",
+        "label": "Sofort erledigen",
+        "hint": "wichtig & dringend – selbst, jetzt",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "plan",
+        "label": "Einplanen",
+        "hint": "wichtig, nicht dringend – Zeit blocken",
+        "color": "green",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "delegate",
+        "label": "Delegieren",
+        "hint": "dringend, nicht wichtig – abgeben",
+        "color": "orange",
+        "qx": "high",
+        "qy": "low"
+      },
+      {
+        "id": "drop",
+        "label": "Weglassen",
+        "hint": "weder noch – streichen oder später",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "owner",
+        "label": "Wer",
+        "type": "person"
+      },
+      {
+        "key": "due",
+        "label": "Termin",
+        "type": "date"
+      },
+      {
+        "key": "done",
+        "label": "Erledigt",
+        "type": "check"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "Aufgabe",
+      "many": "Aufgaben"
+    },
+    "noteLabel": "Notiz"
+  },
+  "items": [
+    {
+      "id": "wochenplanung-1",
+      "no": 1,
+      "title": "Fettfilter wechseln (Kontrolle Do)",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "due": "2026-10-14"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-2",
+      "no": 2,
+      "title": "Gasflaschen nachbestellen",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "due": "2026-10-15"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-3",
+      "no": 3,
+      "title": "Aushilfe für Samstag finden",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "due": "2026-10-17"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-4",
+      "no": 4,
+      "title": "Kühlung Getränke reparieren",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "done": true
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-5",
+      "no": 5,
+      "title": "Reinigungsplan überarbeiten",
+      "note": "Filterreinigung aufnehmen (siehe 5-Warum-Analyse)",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "due": "2026-10-21"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-6",
+      "no": 6,
+      "title": "Kalkulation Wintersaison",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "due": "2026-10-23"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-7",
+      "no": 7,
+      "title": "Fritteuse warten lassen",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-8",
+      "no": 8,
+      "title": "Bewerbung Stadtfest 2027",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-9",
+      "no": 9,
+      "title": "Rechnungen ablegen",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "owner": "Ben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-10",
+      "no": 10,
+      "title": "Instagram-Story Standort",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-11",
+      "no": 11,
+      "title": "Getränkelieferant zurückrufen",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-12",
+      "no": 12,
+      "title": "Newsletter-Design umbauen",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-13",
+      "no": 13,
+      "title": "Alte Flyer sortieren",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-14",
+      "no": 14,
+      "title": "Steuerberater anrufen",
+      "note": "",
+      "x": null,
+      "y": null,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-15",
+      "no": 15,
+      "title": "Foto für Lokalzeitung",
+      "note": "",
+      "x": null,
+      "y": null,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-16",
+      "no": 16,
+      "title": "Neue Servietten testen",
+      "note": "",
+      "x": null,
+      "y": null,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

@@ -1,0 +1,261 @@
+{
+  "version": 1,
+  "id": "example-standort-domplatz",
+  "name": "Cathedral Square pitch",
+  "context": "Food truck · permit for a fixed pitch in 2027",
+  "method": "stakeholder",
+  "config": {
+    "x": {
+      "label": "Interest / impact",
+      "low": "low",
+      "high": "high",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "y": {
+      "label": "Power / influence",
+      "low": "low",
+      "high": "high",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "plot",
+    "split": {
+      "x": 3,
+      "y": 3
+    },
+    "regions": [
+      {
+        "id": "satisfy",
+        "label": "Keep satisfied",
+        "hint": "involve when needed, do not overload",
+        "color": "orange",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "manage",
+        "label": "Manage closely",
+        "hint": "key players – involve actively",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "monitor",
+        "label": "Monitor",
+        "hint": "minimal effort",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "inform",
+        "label": "Keep informed",
+        "hint": "keep up to date regularly",
+        "color": "blue",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "stance",
+        "label": "Attitude",
+        "type": "choice",
+        "options": [
+          {
+            "id": "pro",
+            "label": "supportive",
+            "color": "green"
+          },
+          {
+            "id": "neutral",
+            "label": "neutral",
+            "color": "gray"
+          },
+          {
+            "id": "contra",
+            "label": "critical",
+            "color": "red"
+          }
+        ]
+      },
+      {
+        "key": "stanceTarget",
+        "label": "Target attitude",
+        "type": "choice",
+        "options": [
+          {
+            "id": "pro",
+            "label": "supportive",
+            "color": "green"
+          },
+          {
+            "id": "neutral",
+            "label": "neutral",
+            "color": "gray"
+          },
+          {
+            "id": "contra",
+            "label": "critical",
+            "color": "red"
+          }
+        ]
+      },
+      {
+        "key": "target",
+        "label": "Target position",
+        "type": "point"
+      },
+      {
+        "key": "strategy",
+        "label": "Strategy",
+        "type": "textarea"
+      },
+      {
+        "key": "comms",
+        "label": "Communication (channel, frequency)",
+        "type": "text"
+      },
+      {
+        "key": "owner",
+        "label": "Contact person",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "stakeholder",
+      "many": "stakeholders"
+    },
+    "noteLabel": "Concern / fear"
+  },
+  "items": [
+    {
+      "id": "standort-domplatz-1",
+      "no": 1,
+      "title": "City council (economy)",
+      "note": "Hardly knows the project",
+      "x": 1.5,
+      "y": 4.5,
+      "values": {
+        "stance": "neutral",
+        "stanceTarget": "pro",
+        "target": {
+          "x": 3.5,
+          "y": 4.5
+        },
+        "strategy": "Present at the citizens’ hour, show the benefit for the town centre",
+        "comms": "Office hour, once",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-2",
+      "no": 2,
+      "title": "Public order office",
+      "note": "Checks noise, distances, fire safety",
+      "x": 2.5,
+      "y": 4,
+      "values": {
+        "stance": "neutral",
+        "strategy": "Submit a complete application early",
+        "comms": "Email, when needed"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-3",
+      "no": 3,
+      "title": "Market management",
+      "note": "",
+      "x": 4,
+      "y": 4,
+      "values": {
+        "stance": "pro",
+        "strategy": "Agree pitch and times together",
+        "comms": "Meeting, monthly",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-4",
+      "no": 4,
+      "title": "Residents’ group",
+      "note": "Smell and noise in the evening, litter around the pitch",
+      "x": 4.5,
+      "y": 3.5,
+      "values": {
+        "stance": "contra",
+        "stanceTarget": "neutral",
+        "strategy": "Meet in person before applying; close at 8 pm, promise a litter round",
+        "comms": "Meeting, monthly",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-5",
+      "no": 5,
+      "title": "Local newspaper",
+      "note": "",
+      "x": 2,
+      "y": 3.5,
+      "values": {
+        "stance": "neutral",
+        "comms": "Press release at launch"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-6",
+      "no": 6,
+      "title": "Café next door",
+      "note": "Fears competition at lunchtime",
+      "x": 4.5,
+      "y": 1.5,
+      "values": {
+        "stance": "contra",
+        "strategy": "No coffee offer; joint campaign at the city festival"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-7",
+      "no": 7,
+      "title": "Regular customers",
+      "note": "",
+      "x": 3.5,
+      "y": 2,
+      "values": {
+        "stance": "pro",
+        "comms": "Instagram, weekly",
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "standort-domplatz-8",
+      "no": 8,
+      "title": "Berger potato farm",
+      "note": "",
+      "x": 2,
+      "y": 1.5,
+      "values": {
+        "stance": "pro"
+      },
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

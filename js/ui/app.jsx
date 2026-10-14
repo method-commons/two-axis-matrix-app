@@ -1,0 +1,150 @@
+/*
+ * Rahmen der App: Kopfzeile mit Ansichten und Menü, Inhalt je Route, Dialoge, Meldungen.
+ */
+import { useEffect, useState } from 'preact/hooks';
+import { IO } from '../io.js';
+import { Store } from '../storage.js';
+import { Languages, Texts } from '../texts.js';
+import { Util } from '../util.js';
+import { download } from './components.jsx';
+import { canRedo, canUndo, commitEdit, dialog, redo, route, TABS, toasts, undo, useMatrix, useRevision } from './core.js';
+import { openHelp } from './help.jsx';
+import { importFiles, Home, openExamples, openNewMatrix } from './home.jsx';
+import { ListView } from './list.jsx';
+import { deleteMatrix, duplicateMatrix } from './manage.js';
+import { MatrixView } from './matrix.jsx';
+import { ReportView } from './report.jsx';
+import { openSettings } from './settings.jsx';
+import { openCopyItems } from './transfer.jsx';
+
+/** @param {string} lang */
+function switchLanguage(lang) {
+  commitEdit();
+  Languages.choose(lang);
+  location.reload();
+}
+
+function Menu() {
+  const [open, setOpen] = useState(false);
+  const r = route.value;
+  const m = useMatrix();
+  useEffect(() => {
+    if (!open) return undefined;
+    /** @param {MouseEvent} e */
+    const close = e => { if (!(/** @type {HTMLElement} */ (e.target)).closest('.menu')) setOpen(false); };
+    /** @param {KeyboardEvent} e */
+    const esc = e => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('click', close);
+    document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('click', close); document.removeEventListener('keydown', esc); };
+  }, [open]);
+  /** @param {() => void} fn */
+  const run = fn => () => { setOpen(false); fn(); };
+  const lang = Languages.detect();
+  const M = Texts.menu;
+  return (
+    <div class="menu">
+      <button type="button" class="btn ghost" id="menuBtn" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen(!open)}>
+        {Texts.ui.menu} ▾
+      </button>
+      {open && (
+        <div class="menu-list" id="menuList" role="menu">
+          {r.view === 'matrix' && m && <>
+            <button type="button" role="menuitem" data-action="settings" onClick={run(() => openSettings())}>{M.settings}</button>
+            <button type="button" role="menuitem" data-action="copyItems" onClick={run(() => openCopyItems())}>{M.copyItems}</button>
+            <button type="button" role="menuitem" data-action="export" onClick={run(() => download(IO.matrixJson(m), Util.fileName(m.name, 'json'), 'application/json'))}>{M.exportJson}</button>
+            <button type="button" role="menuitem" data-action="duplicate" onClick={run(() => duplicateMatrix(m))}>{M.duplicate}</button>
+            <button type="button" role="menuitem" data-action="delete" onClick={run(() => deleteMatrix(m))}>{M.delete}</button>
+            <hr />
+          </>}
+          {r.view === 'home' && <>
+            <button type="button" role="menuitem" data-action="new" onClick={run(() => openNewMatrix())}>{M.new}</button>
+            <button type="button" role="menuitem" data-action="import" onClick={run(() => importFiles())}>{M.import}</button>
+            <button type="button" role="menuitem" data-action="backup" onClick={run(() => download(IO.backupJson(Store.all()), `2-achsen-${Util.today()}.json`, 'application/json'))}>{M.backup}</button>
+            <button type="button" role="menuitem" data-action="example" onClick={run(() => openExamples())}>{M.example}</button>
+            <hr />
+          </>}
+          <button type="button" role="menuitem" data-action="help" onClick={run(() => openHelp(m ? m.method : undefined))}>{M.help}</button>
+          <hr />
+          <div class="menu-label">{M.language}</div>
+          {Object.keys(Languages.packs).map(l => (
+            <button type="button" role="menuitemradio" aria-checked={l === lang} key={l} data-lang={l} onClick={run(() => switchLanguage(l))}>
+              {l === lang ? '✓ ' : ''}{Languages.packs[l].languageName}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Header() {
+  const r = route.value;
+  const m = useMatrix();
+  const inMatrix = r.view === 'matrix' && m;
+  return (
+    <header class="app-header">
+      <a class="brand" href="#/" title={Texts.ui.allMatrices} id="homeLink">
+        <span class="logo" aria-hidden="true">2×2</span>
+        <span class="brand-name">{Texts.appName}</span>
+      </a>
+      {inMatrix && (
+        <a class="project-name" href={`#/m/${m.id}/matrix`} id="matrixTitle" title={m.name}>{m.name || Texts.ui.untitledMatrix}</a>
+      )}
+      {inMatrix && (
+        <nav class="nav seg" aria-label={Texts.ui.views}>
+          {TABS.map(tab => {
+            const on = r.tab === tab;
+            return (
+              <a key={tab} href={`#/m/${m.id}/${tab}`} class={on ? 'on' : ''} aria-current={on ? 'page' : undefined} data-nav={tab}>
+                <span class="nav-icon" aria-hidden="true">{Texts.nav.icons[tab]}</span>{Texts.nav[tab]}
+              </a>
+            );
+          })}
+        </nav>
+      )}
+      <span class="spacer" />
+      {inMatrix && <>
+        <button type="button" class="icon-btn" id="undoBtn" title={Texts.ui.undo} aria-label={Texts.ui.undo} disabled={!canUndo()} onClick={undo}>↶</button>
+        <button type="button" class="icon-btn" id="redoBtn" title={Texts.ui.redo} aria-label={Texts.ui.redo} disabled={!canRedo()} onClick={redo}>↷</button>
+      </>}
+      <button type="button" class="btn ghost" id="helpBtn" onClick={() => openHelp(inMatrix ? m.method : undefined)}>? <span class="hide-narrow">{Texts.ui.method}</span></button>
+      <Menu />
+    </header>
+  );
+}
+
+function Toasts() {
+  return (
+    <div class="toasts" aria-live="polite">
+      {toasts.value.map(t => (
+        <div class="toast" key={t.id}>
+          {t.text}
+          {t.action && <button type="button" class="link" onClick={t.action.run}>{t.action.label}</button>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function App() {
+  useRevision();
+  const r = route.value;
+  const m = useMatrix();
+  const docTitle = r.view === 'home' || !m ? Texts.appName : `${m.name || Texts.ui.untitledMatrix} – ${Texts.appName}`;
+  useEffect(() => { document.title = docTitle; }, [docTitle]);
+  const Dlg = dialog.value;
+  return (
+    <>
+      <Header />
+      <main id="main">
+        {r.view === 'home' && <Home />}
+        {r.view === 'matrix' && m && r.tab === 'matrix' && <MatrixView />}
+        {r.view === 'matrix' && m && r.tab === 'list' && <ListView />}
+        {r.view === 'matrix' && m && r.tab === 'report' && <ReportView />}
+      </main>
+      {Dlg && <Dlg />}
+      <Toasts />
+    </>
+  );
+}
