@@ -1,0 +1,256 @@
+{
+  "version": 1,
+  "id": "example-stadtfest-risiken",
+  "name": "Stadtfest 2026 – Risiken",
+  "context": "Food-Truck · 3 Tage mit Getränkestand",
+  "method": "risk",
+  "config": {
+    "x": {
+      "label": "Auswirkung",
+      "low": "unbedeutend",
+      "high": "existenziell",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Wahrscheinlichkeit",
+      "low": "sehr selten",
+      "high": "sehr wahrscheinlich",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "grid",
+    "view": "heatmap",
+    "split": {
+      "x": 3,
+      "y": 3
+    },
+    "regions": [
+      {
+        "id": "low",
+        "label": "Niedrig",
+        "hint": "beobachten",
+        "color": "green",
+        "min": 0
+      },
+      {
+        "id": "medium",
+        "label": "Mittel",
+        "hint": "Maßnahmen prüfen",
+        "color": "yellow",
+        "min": 5
+      },
+      {
+        "id": "high",
+        "label": "Hoch",
+        "hint": "Maßnahmen festlegen",
+        "color": "orange",
+        "min": 10
+      },
+      {
+        "id": "critical",
+        "label": "Sehr hoch",
+        "hint": "sofort handeln",
+        "color": "red",
+        "min": 15
+      }
+    ],
+    "fields": [
+      {
+        "key": "response",
+        "label": "Strategie",
+        "type": "choice",
+        "options": [
+          {
+            "id": "avoid",
+            "label": "vermeiden"
+          },
+          {
+            "id": "reduce",
+            "label": "vermindern"
+          },
+          {
+            "id": "transfer",
+            "label": "übertragen"
+          },
+          {
+            "id": "accept",
+            "label": "akzeptieren"
+          }
+        ]
+      },
+      {
+        "key": "measure",
+        "label": "Maßnahme",
+        "type": "textarea"
+      },
+      {
+        "key": "owner",
+        "label": "Verantwortlich",
+        "type": "person"
+      },
+      {
+        "key": "residual",
+        "label": "Nach Maßnahme",
+        "type": "point"
+      }
+    ],
+    "questions": [],
+    "rank": "product",
+    "itemName": {
+      "one": "Risiko",
+      "many": "Risiken"
+    },
+    "noteLabel": "Ursache / Folge"
+  },
+  "items": [
+    {
+      "id": "stadtfest-risiken-1",
+      "no": 1,
+      "title": "Generator fällt aus",
+      "note": "",
+      "x": 4,
+      "y": 3,
+      "values": {
+        "response": "reduce",
+        "measure": "Festnetz-Strom beim Veranstalter buchen",
+        "owner": "Lea",
+        "residual": {
+          "x": 4,
+          "y": 1
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-2",
+      "no": 2,
+      "title": "Unwetter, Fest wird unterbrochen",
+      "note": "",
+      "x": 5,
+      "y": 3,
+      "values": {
+        "response": "transfer",
+        "measure": "Ausfallversicherung, Pavillon sturmfest",
+        "residual": {
+          "x": 3,
+          "y": 3
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-3",
+      "no": 3,
+      "title": "Personalausfall (Krankheit)",
+      "note": "",
+      "x": 3,
+      "y": 4,
+      "values": {
+        "response": "reduce",
+        "measure": "2 Aushilfen auf Abruf",
+        "owner": "Ben",
+        "residual": {
+          "x": 3,
+          "y": 2
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-4",
+      "no": 4,
+      "title": "Mängel bei der Lebensmittelkontrolle",
+      "note": "Kontrolle am ersten Tag üblich",
+      "x": 5,
+      "y": 2,
+      "values": {
+        "response": "avoid"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-5",
+      "no": 5,
+      "title": "Kartenzahlung offline",
+      "note": "",
+      "x": 2,
+      "y": 4,
+      "values": {
+        "response": "reduce",
+        "measure": "Wechselgeld, Offline-Modus testen",
+        "residual": {
+          "x": 2,
+          "y": 2
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-6",
+      "no": 6,
+      "title": "Ware geht am Samstag aus",
+      "note": "Letztes Jahr ab 19 Uhr keine Pommes mehr",
+      "x": 4,
+      "y": 4,
+      "values": {
+        "response": "reduce",
+        "measure": "Zweite Lieferung Sa 14 Uhr fest vereinbaren",
+        "owner": "Ben",
+        "residual": {
+          "x": 4,
+          "y": 2
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-7",
+      "no": 7,
+      "title": "Fritteuse fällt aus (Überhitzung)",
+      "note": "Siehe 5-Warum-Analyse „Lange Wartezeit am Samstag“",
+      "x": 4,
+      "y": 2,
+      "values": {
+        "response": "reduce",
+        "measure": "Fettfilter vorher tauschen",
+        "residual": {
+          "x": 4,
+          "y": 1
+        }
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-8",
+      "no": 8,
+      "title": "Diebstahl aus der Kasse",
+      "note": "",
+      "x": 3,
+      "y": 1,
+      "values": {
+        "response": "accept"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stadtfest-risiken-9",
+      "no": 9,
+      "title": "Fettbrand am Stand",
+      "note": "",
+      "x": 5,
+      "y": 1,
+      "values": {
+        "response": "accept",
+        "measure": "Löschdecke und Feuerlöscher vorhanden"
+      },
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

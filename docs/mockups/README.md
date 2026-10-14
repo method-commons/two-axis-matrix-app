@@ -1,6 +1,6 @@
 # Mockups – 2-Achsen-Matrix
 
-Statische Entwürfe (keine Funktion) für eine App, in der man die gängigsten **2-Achsen-Methoden** anwendet: Eisenhower, Wert/Aufwand, Macht/Interesse (Stakeholder), Risikomatrix und Stacey-Matrix. Gestaltet im Stil der Schwester-Apps [Morphologische Matrix](https://github.com/method-commons/morphological-matrix-app), [User Stories](https://github.com/method-commons/user-story-app) und [5 Warum](https://github.com/method-commons/5-why-app): gleiche Design-Tokens, Kopfzeile mit Tabs je geöffneter Matrix, Kennzahl-Kacheln, Hinweis-Seitenleiste, Bericht zum Drucken, mobile Ansicht mit Navigation unten. Quelle: [`mockups.html`](mockups.html) – im Browser öffnen.
+Statische Entwürfe (keine Funktion) – inzwischen umgesetzt, siehe [README](../../README.md) – für eine App, in der man die gängigsten **2-Achsen-Methoden** anwendet: Eisenhower, Wert/Aufwand, Macht/Interesse (Stakeholder), Risikomatrix und Stacey-Matrix. Gestaltet im Stil der Schwester-Apps [Morphologische Matrix](https://github.com/method-commons/morphological-matrix-app), [User Stories](https://github.com/method-commons/user-story-app) und [5 Warum](https://github.com/method-commons/5-why-app): gleiche Design-Tokens, Kopfzeile mit Tabs je geöffneter Matrix, Kennzahl-Kacheln, Hinweis-Seitenleiste, Bericht zum Drucken, mobile Ansicht mit Navigation unten. Quelle: [`mockups.html`](mockups.html) – im Browser öffnen.
 
 | # | Ansicht | Datei |
 |---|---------|-------|
@@ -33,7 +33,7 @@ Alle fünf Methoden sind **Vorlagen desselben Modells**: eine Matrix hat zwei Ac
 
 Die Achsenrichtung folgt der jeweils üblichen Darstellung (bei Eisenhower steht „dringend“ links).
 
-## Offene Entscheidungen (mit Empfehlung)
+## Entscheidungen (umgesetzt wie empfohlen; von den Erweiterungen in Punkt 5 bisher nur die zweite Position)
 
 1. **Eine App mit fünf Vorlagen statt fünf Apps** – empfohlen; gemeinsames Datenmodell, Bericht und Export, eigene Matrizen ohne Mehraufwand.
 2. **Eisenhower als Karten-Board (diskret), die anderen als Streudiagramm (stufenlos)** – empfohlen; bei Eisenhower zählt nur das Feld, bei Wert/Aufwand die genaue Lage.
@@ -45,3 +45,9 @@ Die Achsenrichtung folgt der jeweils üblichen Darstellung (bei Eisenhower steht
 ## Abgrenzung
 
 Die App unterstützt das **Einordnen und Priorisieren** mit der jeweiligen Methode und ist kein Aufgaben-, Projekt- oder Risikomanagement-Werkzeug: Person und Termin sind optional, es gibt keine Erinnerungen oder Benachrichtigungen.
+
+## Abweichungen in der Umsetzung
+
+- Der Dialog heißt „Achsen & Bereiche“; zusätzlich zu den vier Feldern gibt es die Aufteilungen „Raster mit Stufen“ und „Zonen“ für alle Matrizen.
+- „Wert aus Kriterien“, „Punktgröße als dritte Kennzahl“ und „Mehrere Bewertende“ sind noch nicht umgesetzt (siehe [docs/METHODEN.md](../METHODEN.md)); „Zweite Position“ (Ziel-Position, Bewertung nach Maßnahme) ist eine Feldart, die jede Matrix nutzen kann.
+- Mobil stehen die Felder der Karten-Darstellung untereinander statt als Kacheln.

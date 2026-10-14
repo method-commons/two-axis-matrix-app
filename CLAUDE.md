@@ -1,0 +1,53 @@
+# CLAUDE.md – Hinweise für Claude Code
+
+2-Achsen-Matrix (Eisenhower, Wert/Aufwand, Macht/Interesse, Risikomatrix, Stacey, eigene) als Web-App ohne
+Server: Vite 8, Preact 10 + @preact/signals, Daten nur im Browser (localStorage), veröffentlicht über GitHub
+Pages. Technische Vorlage sind die Schwester-Apps
+[5 Warum](https://github.com/method-commons/5-why-app), [User Stories](https://github.com/method-commons/user-story-app)
+und [Morphologische Matrix](https://github.com/method-commons/morphological-matrix-app). Funktionen und Module
+stehen in der [README](README.md), das Datenformat in [docs/DATENFORMAT.md](docs/DATENFORMAT.md), das Ergänzen
+von Methoden und Beispielen in [docs/METHODEN.md](docs/METHODEN.md).
+
+## Zusammenarbeit
+
+- **Sprache:** Antworten, Code-Kommentare, Commit-Nachrichten und PR-Texte auf **Deutsch**.
+- **Erst zeigen, dann bauen:** neue Funktionen zuerst als Mockup (`docs/mockups/`), umsetzen nach „Ja“.
+- **Erweiterbarkeit:** Methoden und Beispiele sind Daten (je eine Datei, automatisch eingelesen). Methoden-spezifisches
+  Verhalten gehört in die Methoden-Datei (Hinweise) oder wird als allgemeine Fähigkeit gebaut (Feldart, Aufteilung,
+  Darstellung, Fragen), die jede Methode nutzen kann – keine `if (method === '…')` in Oberfläche oder Logik.
+- **Pull Requests nur auf Nachfrage.** Keine Modellbezeichnungen in Commits, PRs oder Code.
+- **Fertig heißt:** `npm test` grün, README/DATENFORMAT/METHODEN aktualisiert, Commit und Push.
+
+## Befehle
+
+```sh
+npm test                       # Lint, Typprüfung, Unit, Build, E2E
+npx eslint .                   # Lint
+npx tsc --noEmit -p jsconfig.json && node scripts/typecheck-logic.js
+npx vitest run [datei]         # Unit-Tests (tests/unit/)
+npx vite build && npx playwright test [datei]   # E2E gegen den Build (Port 4173)
+```
+
+E2E-Tests laufen gegen `dist/` – nach Codeänderungen vorher bauen. Chromium ist vorinstalliert; kein `playwright install`.
+
+## Architektur
+
+- **Logik ohne DOM** in `js/*.js` (`Model`, `Layout`, `Methods`, `Ops`, `Store`, `IO`, `Examples`) und `js/methods/*.js`, Oberfläche in `js/ui/*.jsx`.
+- **Eine Matrix trägt ihre Einstellungen selbst** (`config`); die Methode liefert nur Voreinstellungen, Texte, Hinweise, Leitfragen und Hilfe.
+- **Zustand:** `matrix` in `js/ui/core.js` ist ein normales Objekt; neu gezeichnet wird über das Signal `revision`, Komponenten lesen es mit `useMatrix()`. Neuzeichnen ist synchron (`options.debounceRendering = cb => cb()`).
+- **Änderungen:** strukturell mit `mutate(fn)` (Verlaufseintrag, Speichern, Neuzeichnen); Eingabefelder mit `{...fieldProps(get, set)}` (Verlaufseintrag beim Verlassen).
+- **Ziehen:** `js/ui/drag.js` mit Zeiger-Ereignissen; Ablageziele tragen `data-drop` (`plot`, `cell`, `region`, `inbox`).
+- **Texte** der Oberfläche nur in `js/i18n/de.js` (maßgeblich) und `en.js` (gleiche Struktur, wird geprüft); Texte der Methoden in deren Datei (`texts.de`/`texts.en`, ebenfalls geprüft).
+- **CSS** in `css/*.css`, eingebunden in `styles.css` mit Kaskaden-Ebenen. Farben der Bereiche über Klassen `c-<Farbe>` (Variablen `--c`, `--c-bg`, `--c-line`, `--c-strong`, hell/dunkel).
+
+## Datenformat
+
+- Aktuell **Version 1** (`Model.SCHEMA_VERSION`). Bei inkompatiblen Erweiterungen Version erhöhen, in `MIGRATIONS[n]` umwandeln, `docs/DATENFORMAT.md` und alle `examples/*.json` anpassen.
+- Beispiele müssen exakt der Ausgabe von `normalize` entsprechen (Test `examples.test.js`).
+
+## Bekannte Fallstricke
+
+- **Auswahlfelder und `mutate`:** Den Wert eines `<select>` **vor** `mutate` lesen (`const v = e.currentTarget.value; mutate(() => … v …)`), sonst setzt das synchrone Neuzeichnen ihn zurück.
+- **Globale SVG-Größen:** SVGs brauchen `width`/`height` zusätzlich als Inline-Style.
+- **Zahlenfelder** (`type=number`) zeigen Punkt statt Komma; Werte werden bei Enter bzw. Verlassen übernommen.
+- **Stufen:** Positionen werden immer auf die Skala gerundet (`Util.snap`); stufenlose Achsen auf eine Nachkommastelle. Tests mit Positionen daher mit gerundeten Werten.

@@ -1,0 +1,271 @@
+{
+  "version": 1,
+  "id": "example-wochenplanung",
+  "name": "Week 42 planning",
+  "context": "Food truck · team Lea, Ben, Mia",
+  "method": "eisenhower",
+  "config": {
+    "x": {
+      "label": "Urgency",
+      "low": "not urgent",
+      "high": "urgent",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": true
+    },
+    "y": {
+      "label": "Importance",
+      "low": "not important",
+      "high": "important",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "board",
+    "split": {
+      "x": 1.5,
+      "y": 1.5
+    },
+    "regions": [
+      {
+        "id": "do",
+        "label": "Do now",
+        "hint": "important & urgent – yourself, now",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "plan",
+        "label": "Schedule",
+        "hint": "important, not urgent – block time",
+        "color": "green",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "delegate",
+        "label": "Delegate",
+        "hint": "urgent, not important – hand over",
+        "color": "orange",
+        "qx": "high",
+        "qy": "low"
+      },
+      {
+        "id": "drop",
+        "label": "Drop",
+        "hint": "neither – delete or later",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "owner",
+        "label": "Who",
+        "type": "person"
+      },
+      {
+        "key": "due",
+        "label": "Due",
+        "type": "date"
+      },
+      {
+        "key": "done",
+        "label": "Done",
+        "type": "check"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "task",
+      "many": "tasks"
+    },
+    "noteLabel": "Note"
+  },
+  "items": [
+    {
+      "id": "wochenplanung-1",
+      "no": 1,
+      "title": "Replace grease filter (inspection Thu)",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "due": "2026-10-14"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-2",
+      "no": 2,
+      "title": "Reorder gas bottles",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "due": "2026-10-15"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-3",
+      "no": 3,
+      "title": "Find a helper for Saturday",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "due": "2026-10-17"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-4",
+      "no": 4,
+      "title": "Repair drinks cooler",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "done": true
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-5",
+      "no": 5,
+      "title": "Revise cleaning schedule",
+      "note": "Add filter cleaning (see 5 Why analysis)",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "due": "2026-10-21"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-6",
+      "no": 6,
+      "title": "Winter season costing",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "due": "2026-10-23"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-7",
+      "no": 7,
+      "title": "Have the fryer serviced",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-8",
+      "no": 8,
+      "title": "Apply for city festival 2027",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-9",
+      "no": 9,
+      "title": "File invoices",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "owner": "Ben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-10",
+      "no": 10,
+      "title": "Instagram story: today’s spot",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-11",
+      "no": 11,
+      "title": "Call back drinks supplier",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-12",
+      "no": 12,
+      "title": "Redesign newsletter",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-13",
+      "no": 13,
+      "title": "Sort old flyers",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-14",
+      "no": 14,
+      "title": "Call the tax adviser",
+      "note": "",
+      "x": null,
+      "y": null,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-15",
+      "no": 15,
+      "title": "Photo for local paper",
+      "note": "",
+      "x": null,
+      "y": null,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wochenplanung-16",
+      "no": 16,
+      "title": "Test new napkins",
+      "note": "",
+      "x": null,
+      "y": null,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

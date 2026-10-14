@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "id": "example-vorhaben-2027",
+  "name": "Vorhaben 2027",
+  "context": "Food-Truck · Welches Vorgehen passt wozu?",
+  "method": "stacey",
+  "config": {
+    "x": {
+      "label": "Wie: Technologie / Lösungsweg",
+      "low": "bekannt",
+      "high": "unbekannt",
+      "min": 0,
+      "max": 10,
+      "step": 0,
+      "reverse": false
+    },
+    "y": {
+      "label": "Was: Anforderungen",
+      "low": "Einigkeit",
+      "high": "keine Einigkeit",
+      "min": 0,
+      "max": 10,
+      "step": 0,
+      "reverse": false
+    },
+    "layout": "zones",
+    "view": "plot",
+    "split": {
+      "x": 5,
+      "y": 5
+    },
+    "regions": [
+      {
+        "id": "simple",
+        "label": "Einfach",
+        "hint": "Bewährtes Vorgehen, Checkliste – einfach erledigen",
+        "color": "green",
+        "r": 0.3
+      },
+      {
+        "id": "complicated",
+        "label": "Kompliziert",
+        "hint": "Plangetrieben: analysieren, Fachleute fragen, Wasserfall",
+        "color": "blue",
+        "r": 0.6
+      },
+      {
+        "id": "complex",
+        "label": "Komplex",
+        "hint": "Iterativ: kleine Schritte, Feedback, Scrum/Kanban, Prototypen",
+        "color": "violet",
+        "r": 0.9
+      },
+      {
+        "id": "chaotic",
+        "label": "Chaotisch",
+        "hint": "Erst handeln und stabilisieren, dann Ziele klären",
+        "color": "red",
+        "r": 1.5
+      }
+    ],
+    "fields": [],
+    "questions": [
+      {
+        "id": "goals",
+        "axis": "y",
+        "text": "Ziele und Anforderungen sind klar"
+      },
+      {
+        "id": "agree",
+        "axis": "y",
+        "text": "Alle Beteiligten wollen dasselbe"
+      },
+      {
+        "id": "done",
+        "axis": "x",
+        "text": "Wir haben so etwas schon gemacht"
+      },
+      {
+        "id": "tech",
+        "axis": "x",
+        "text": "Weg und Technik sind bekannt"
+      }
+    ],
+    "rank": "none",
+    "itemName": {
+      "one": "Vorhaben",
+      "many": "Vorhaben"
+    },
+    "noteLabel": "Beschreibung"
+  },
+  "items": [
+    {
+      "id": "vorhaben-2027-1",
+      "no": 1,
+      "title": "Saisonkarte aktualisieren",
+      "note": "",
+      "x": 1.3,
+      "y": 1.3,
+      "values": {},
+      "answers": {
+        "goals": 1,
+        "agree": 2,
+        "done": 1,
+        "tech": 2
+      }
+    },
+    {
+      "id": "vorhaben-2027-2",
+      "no": 2,
+      "title": "Kassensystem wechseln",
+      "note": "",
+      "x": 5,
+      "y": 2.5,
+      "values": {},
+      "answers": {
+        "goals": 2,
+        "agree": 2,
+        "done": 3,
+        "tech": 3
+      }
+    },
+    {
+      "id": "vorhaben-2027-3",
+      "no": 3,
+      "title": "Vorbestell-App",
+      "note": "",
+      "x": 6.3,
+      "y": 5,
+      "values": {},
+      "answers": {
+        "goals": 3,
+        "agree": 3,
+        "done": 4,
+        "tech": 3
+      }
+    },
+    {
+      "id": "vorhaben-2027-4",
+      "no": 4,
+      "title": "Zweiter Truck",
+      "note": "Standort, Personal und Finanzierung offen",
+      "x": 6.3,
+      "y": 6.3,
+      "values": {},
+      "answers": {
+        "goals": 3,
+        "agree": 4,
+        "done": 3,
+        "tech": 4
+      }
+    },
+    {
+      "id": "vorhaben-2027-5",
+      "no": 5,
+      "title": "Firmen-Catering aufbauen",
+      "note": "",
+      "x": 4.4,
+      "y": 5.4,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "vorhaben-2027-6",
+      "no": 6,
+      "title": "Abluft nach Vorschrift umbauen",
+      "note": "",
+      "x": 5,
+      "y": 1.3,
+      "values": {},
+      "answers": {
+        "goals": 1,
+        "agree": 2,
+        "done": 3,
+        "tech": 3
+      }
+    },
+    {
+      "id": "vorhaben-2027-7",
+      "no": 7,
+      "title": "Fester Stellplatz Domplatz",
+      "note": "",
+      "x": 1.8,
+      "y": 4.6,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "vorhaben-2027-8",
+      "no": 8,
+      "title": "Umbau auf E-Truck",
+      "note": "",
+      "x": 8.8,
+      "y": 8.8,
+      "values": {},
+      "answers": {
+        "goals": 4,
+        "agree": 5,
+        "done": 5,
+        "tech": 4
+      }
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}
