@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2-Achsen-Matrix – Mockups</title>
+<style>
+  /* Tokens übernommen aus morphological-matrix-app (css/tokens.css), wie in der User-Story- und der 5-Warum-App */
+  :root {
+    --bg: #f6f7f9; --surface: #fff; --surface-2: #f2f4f7; --surface-3: #eaedf2;
+    --text: #101828; --text-2: #344054; --muted: #667085;
+    --border: #e4e7ec; --border-strong: #d0d5dd;
+    --accent: #4f46e5; --accent-hover: #4338ca; --accent-soft: #eef2ff; --accent-contrast: #fff;
+    --bad: #c92a2a; --bad-bg: #fff0f0; --warn: #a35200; --warn-bg: #fff4e0; --good: #2b8a3e; --good-bg: #e6f7ea;
+    --info: #1864ab; --info-bg: #dbeafe;
+    --root: #b42318; --root-bg: #fef3f2;
+    --lens-occ: #4f46e5; --lens-det: #0e7490; --lens-sys: #7c3aed;
+    --radius: 12px; --radius-sm: 7px;
+    --shadow-xs: 0 1px 2px rgba(16,24,40,.05);
+    --shadow: 0 1px 3px rgba(16,24,40,.08), 0 1px 2px rgba(16,24,40,.04);
+    --shadow-lg: 0 12px 32px -8px rgba(16,24,40,.18), 0 4px 8px -4px rgba(16,24,40,.06);
+    --gutter: 20px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #d9dde4; color: var(--text); font: 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  button, input, textarea, select { font: inherit; color: inherit; }
+
+  .screen { width: 1280px; margin: 32px auto; background: var(--bg); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-lg); position: relative; }
+  .screen.mobile { width: 390px; }
+  .caption { width: 1280px; margin: 40px auto -20px; font-weight: 700; color: #344054; }
+
+  /* Kopfzeile */
+  .app-header { position: relative; display: flex; align-items: center; gap: 16px; min-height: 56px; padding: 8px var(--gutter); background: var(--surface); border-bottom: 1px solid var(--border); }
+  .app-header::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--accent), #06b6d4 55%, #22c55e); }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+  .logo { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: -.02em; box-shadow: 0 2px 6px color-mix(in srgb, var(--accent) 40%, transparent); }
+  .tabs { display: flex; gap: 4px; flex: 1; }
+  .tab { height: 36px; padding: 0 12px; display: flex; align-items: center; gap: 6px; border-radius: 9px; color: var(--muted); font-weight: 550; border: 1px solid transparent; white-space: nowrap; }
+  .tab.active { background: var(--surface); border-color: var(--border); box-shadow: var(--shadow-xs); color: var(--text); font-weight: 650; position: relative; }
+  .tab.active::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: -1px; height: 2px; border-radius: 2px; background: var(--accent); }
+  .tab .x { color: var(--muted); font-size: 12px; margin-left: 4px; }
+  .hdr-actions { display: flex; gap: 8px; align-items: center; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--surface); font-weight: 600; color: var(--text-2); box-shadow: var(--shadow-xs); white-space: nowrap; }
+  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn.ghost { border-color: transparent; background: transparent; box-shadow: none; }
+  .btn.sm { height: 28px; padding: 0 9px; font-size: 12.5px; }
+  .btn.dashed { border-style: dashed; box-shadow: none; color: var(--accent); background: transparent; border-color: #a5b4fc; }
+  .seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--border); border-radius: 9px; padding: 2px; }
+  .seg span { padding: 5px 12px; border-radius: 7px; color: var(--muted); font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .seg span.on { background: var(--surface); color: var(--text); box-shadow: var(--shadow-xs); }
+  .seg .num { width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 11px; background: var(--surface-3); color: var(--text-2); }
+  .seg .on .num { background: var(--accent); color: #fff; }
+  .seg .done .num { background: var(--good-bg); color: var(--good); }
+
+  main { padding: 20px var(--gutter) 28px; }
+  h1 { font-size: 22px; letter-spacing: -.02em; margin: 0; }
+  h2 { font-size: 15px; margin: 0 0 10px; }
+  h3 { font-size: 13px; margin: 0 0 8px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .sub { color: var(--muted); }
+  .row { display: flex; gap: 12px; align-items: center; }
+  .spacer { flex: 1; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .pad { padding: 16px; }
+
+  /* Kennzahlen */
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+  .kpi { padding: 12px 14px; }
+  .kpi small { color: var(--muted); font-weight: 600; font-size: 12px; }
+  .kpi b { display: block; font-size: 24px; letter-spacing: -.02em; margin: 2px 0; }
+  .kpi span { color: var(--muted); font-size: 12px; }
+
+  /* Chips */
+  .chip { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); white-space: nowrap; }
+  .chip.good { background: var(--good-bg); color: var(--good); border-color: transparent; }
+  .chip.warn { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+  .chip.bad { background: var(--bad-bg); color: var(--bad); border-color: transparent; }
+  .chip.acc { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+  .chip.info { background: var(--info-bg); color: var(--info); border-color: transparent; }
+  .chip.root { background: var(--root); color: #fff; border-color: transparent; }
+  .chip.sm { height: 19px; font-size: 11px; padding: 0 7px; }
+  .id { font: 600 12px ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+
+  .progress { height: 6px; background: var(--surface-3); border-radius: 99px; overflow: hidden; display: flex; }
+  .progress > span { display: block; height: 100%; }
+
+  .hint { display: flex; gap: 8px; padding: 9px 10px; border-radius: 8px; background: var(--warn-bg); color: var(--warn); font-size: 12.5px; margin-top: 8px; }
+  .hint.good { background: var(--good-bg); color: var(--good); }
+  .hint.info { background: var(--accent-soft); color: var(--accent); }
+  .hint a { color: inherit; font-weight: 650; text-decoration: underline; margin-left: auto; white-space: nowrap; }
+  .stat-row { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; border-bottom: 1px dashed var(--border); font-size: 13px; }
+  .stat-row:last-child { border: 0; }
+  .side .card { margin-bottom: 12px; }
+  .input { border: 1px solid var(--border-strong); border-radius: 8px; padding: 8px 10px; background: var(--surface); min-height: 38px; }
+  .input.focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .input.warn { border-color: #f0b35b; }
+  .check { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border-strong); display: inline-grid; place-items: center; background: var(--surface); flex: none; font-size: 11px; font-weight: 800; }
+  .check.on { background: var(--good); border-color: var(--good); color: #fff; }
+  .kw { color: var(--muted); font-weight: 500; }
+  .crumbs { color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+
+  /* Prüfpunkte (analog INVEST-Check der User-Story-App) */
+  .chk { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: start; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .chk:last-child { border: 0; }
+  .chk .ic { width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; font-weight: 800; font-size: 13px; }
+  .chk p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+  .ic.y { background: var(--good-bg); color: var(--good); }
+  .ic.q { background: var(--warn-bg); color: var(--warn); }
+  .ic.n { background: var(--bad-bg); color: var(--bad); }
+  .ic.o { background: var(--surface-3); color: #98a2b3; }
+  .score { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .ring { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; }
+  .ring b { width: 42px; height: 42px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-size: 14px; }
+
+  /* ================= 2-Achsen-Matrix: eigene Bausteine ================= */
+  :root {
+    --q1: #c92a2a; --q1-bg: #fff0f0;   /* rot   – sofort / kritisch */
+    --q2: #2b8a3e; --q2-bg: #ebf8ee;   /* grün  – Quick Win / einplanen */
+    --q3: #a35200; --q3-bg: #fff4e0;   /* orange – delegieren / zufriedenstellen */
+    --q4: #667085; --q4-bg: #f2f4f7;   /* grau  – weglassen / beobachten */
+    --qb: #1864ab; --qb-bg: #e7f1fc;   /* blau  – Großprojekt / informieren */
+    --qv: #7c3aed; --qv-bg: #f3ecff;   /* violett */
+  }
+  .logo.mx { font-size: 11px; }
+  .hint { display: block; line-height: 1.45; }
+  .avatar { width: 22px; height: 22px; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-size: 10px; font-weight: 700; flex: none; }
+  .who { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--text-2); }
+  .who .avatar { width: 20px; height: 20px; font-size: 9.5px; }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); flex-wrap: wrap; align-items: center; }
+  .sw { display: inline-block; width: 18px; height: 12px; border-radius: 3px; border: 1px solid var(--border-strong); vertical-align: -1px; margin-right: 4px; background: var(--surface); }
+  .check { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border-strong); display: inline-grid; place-items: center; background: var(--surface); flex: none; font-size: 11px; font-weight: 800; }
+  .check.on { background: var(--good); border-color: var(--good); color: #fff; }
+  .view-seg { margin-right: 4px; }
+  .crumb-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .crumb-row h1 { font-size: 20px; }
+  .method-chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 9px; border-radius: 7px; font-size: 12px; font-weight: 700; background: var(--accent-soft); color: var(--accent); }
+  .method-chip svg { width: 13px !important; height: 13px !important; }
+
+  /* Übersicht */
+  .boards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+  .board { padding: 14px; display: grid; grid-template-columns: 132px 1fr; gap: 14px; }
+  .board h2 { margin: 0 0 2px; font-size: 14.5px; }
+  .board .sub { font-size: 12px; }
+  .board .stats { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .thumb { width: 132px; height: 112px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); overflow: hidden; }
+  .board .foot { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; border-top: 1px dashed var(--border); padding-top: 10px; font-size: 12px; color: var(--muted); }
+  .board.new { border: 2px dashed var(--border-strong); background: transparent; box-shadow: none; display: flex; align-items: center; justify-content: center; color: var(--muted); font-weight: 650; min-height: 188px; flex-direction: column; gap: 4px; }
+  .methods-strip { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 18px; overflow: hidden; }
+  .methods-strip > div { padding: 14px 16px; border-right: 1px solid var(--border); }
+  .methods-strip > div:last-child { border: 0; }
+  .methods-strip b { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 13.5px; }
+  .methods-strip p { margin: 0; font-size: 12px; color: var(--muted); }
+  .methods-strip .axes { margin-top: 8px; font-size: 11.5px; color: var(--text-2); display: grid; gap: 2px; }
+  .methods-strip .axes span { display: flex; gap: 6px; }
+  .methods-strip .axes i { font-style: normal; font-weight: 800; color: var(--accent); width: 12px; }
+  .mi { width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; flex: none; }
+
+  /* Methodenwahl */
+  .overlay { position: absolute; inset: 56px 0 0 0; background: rgba(16,24,40,.42); display: grid; place-items: start center; padding-top: 26px; }
+  .dialog { width: 1080px; background: var(--surface); border-radius: 14px; box-shadow: var(--shadow-lg); overflow: hidden; }
+  .dlg-head { display: flex; align-items: center; gap: 10px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .dlg-head h2 { margin: 0; font-size: 17px; }
+  .dlg-foot { display: flex; gap: 8px; align-items: center; padding: 12px 20px; background: var(--surface-2); border-top: 1px solid var(--border); }
+  .pick { display: grid; grid-template-columns: 1fr 380px; }
+  .pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 16px 20px; align-content: start; }
+  .mcard { border: 1px solid var(--border); border-radius: 11px; padding: 12px; display: flex; flex-direction: column; gap: 8px; background: var(--surface); }
+  .mcard.on { border: 2px solid var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); padding: 11px; }
+  .mcard .mini { height: 86px; border-radius: 7px; background: var(--surface-2); overflow: hidden; }
+  .mcard b { font-size: 13.5px; }
+  .mcard p { margin: 0; font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+  .mcard.custom { border-style: dashed; background: transparent; }
+  .pick-side { border-left: 1px solid var(--border); padding: 16px 20px; background: var(--surface-2); }
+  .def { display: grid; grid-template-columns: 96px 1fr; gap: 6px 10px; font-size: 12.5px; margin: 10px 0 14px; }
+  .def dt { color: var(--muted); font-weight: 600; }
+  .def dd { margin: 0; color: var(--text-2); }
+  .qlist { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .qlist div { border-radius: 8px; padding: 7px 9px; font-size: 12px; }
+  .qlist div b { display: block; font-size: 12.5px; }
+
+  /* Arbeitsfläche */
+  .work { display: grid; grid-template-columns: 250px 1fr 300px; gap: 16px; align-items: start; }
+  .work.two { grid-template-columns: 1fr 340px; }
+  .panel { padding: 14px; }
+  .panel h3 { display: flex; align-items: center; gap: 6px; }
+  .panel h3 .cnt { margin-left: auto; text-transform: none; letter-spacing: 0; }
+  .inbox-item { display: flex; gap: 8px; align-items: center; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow-xs); font-size: 12.5px; font-weight: 600; margin-bottom: 6px; cursor: grab; }
+  .inbox-item .grip { color: #b8c0cc; font-size: 11px; letter-spacing: -2px; }
+  .inbox-item.drag { transform: rotate(-2deg); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+  .quick-add { display: flex; gap: 6px; margin-top: 4px; }
+  .quick-add .input { flex: 1; min-height: 34px; padding: 6px 10px; color: var(--muted); font-size: 12.5px; }
+
+  /* 2×2-Board (diskret, Karten in Quadranten) */
+  .board2 { display: grid; grid-template-columns: 30px 1fr 1fr; grid-template-rows: 30px 1fr 1fr; gap: 8px; }
+  .axis-x { display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 750; color: var(--text-2); text-transform: uppercase; letter-spacing: .05em; }
+  .axis-y { writing-mode: vertical-rl; transform: rotate(180deg); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 750; color: var(--text-2); text-transform: uppercase; letter-spacing: .05em; }
+  .quad { border-radius: 12px; padding: 12px; min-height: 238px; border: 1px solid transparent; display: flex; flex-direction: column; gap: 6px; }
+  .quad .qh { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .quad .qh b { font-size: 14px; }
+  .quad .qh .qn { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; color: #fff; font-size: 11.5px; font-weight: 800; }
+  .quad .qh small { margin-left: auto; font-size: 11.5px; font-weight: 600; }
+  .quad .qd { font-size: 11.5px; margin: -4px 0 4px 30px; opacity: .85; }
+  .task { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 9px; font-size: 12.5px; font-weight: 600; box-shadow: var(--shadow-xs); }
+  .task .meta { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+  .task.done { color: #98a2b3; }
+  .task.done span.t { text-decoration: line-through; }
+  .task .cb { width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid var(--border-strong); flex: none; display: grid; place-items: center; font-size: 10px; }
+  .task.done .cb { background: var(--good); border-color: var(--good); color: #fff; }
+  .drop { border: 1.5px dashed var(--accent); background: var(--accent-soft); color: var(--accent); border-radius: 8px; padding: 7px 9px; font-size: 12px; font-weight: 650; text-align: center; }
+  .q-red { background: var(--q1-bg); border-color: #fbd3cf; } .q-red .qn { background: var(--q1); } .q-red .qh small, .q-red .qd { color: var(--q1); }
+  .q-green { background: var(--q2-bg); border-color: #c6ebcf; } .q-green .qn { background: var(--q2); } .q-green .qh small, .q-green .qd { color: var(--q2); }
+  .q-orange { background: var(--q3-bg); border-color: #fbdcae; } .q-orange .qn { background: var(--q3); } .q-orange .qh small, .q-orange .qd { color: var(--q3); }
+  .q-gray { background: var(--q4-bg); border-color: var(--border); } .q-gray .qn { background: var(--q4); } .q-gray .qh small, .q-gray .qd { color: var(--q4); }
+
+  /* Verteilung */
+  .dist { display: flex; height: 10px; border-radius: 99px; overflow: hidden; margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; font-size: 12px; color: var(--text-2); }
+  .dist-leg span { display: flex; align-items: center; gap: 6px; }
+  .dist-leg i { width: 9px; height: 9px; border-radius: 3px; }
+  .dist-leg b { margin-left: auto; }
+  .lead-q { font-size: 12.5px; color: var(--text-2); margin: 0; padding-left: 18px; }
+  .lead-q li { margin: 4px 0; }
+
+  /* Streudiagramm (stufenlos) */
+  .plot-wrap { display: grid; grid-template-columns: 34px 1fr; grid-template-rows: 1fr 34px; gap: 0; }
+  .plot { position: relative; height: 560px; border-left: 2px solid var(--text-2); border-bottom: 2px solid var(--text-2); }
+  .plot .qa { position: absolute; display: flex; padding: 10px 12px; }
+  .plot .qa b { font-size: 13px; }
+  .plot .qa small { display: block; font-size: 11px; font-weight: 600; opacity: .85; }
+  .plot .grid { position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(16,24,40,.05) 1px, transparent 1px), linear-gradient(to top, rgba(16,24,40,.05) 1px, transparent 1px); background-size: 10% 10%; }
+  .plot .mid-x { position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1.5px dashed #b8c0cc; }
+  .plot .mid-y { position: absolute; bottom: 50%; left: 0; right: 0; border-top: 1.5px dashed #b8c0cc; }
+  .dot { position: absolute; transform: translate(-50%, 50%); white-space: nowrap; z-index: 2; }
+  .dot i { font-style: normal; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px; box-shadow: 0 2px 6px rgba(16,24,40,.25); border: 2px solid #fff; flex: none; }
+  .dot span { position: absolute; left: 100%; top: 50%; transform: translateY(-50%); margin-left: 6px; font-size: 12px; font-weight: 650; color: var(--text-2); background: rgba(255,255,255,.85); padding: 1px 6px; border-radius: 5px; }
+  .dot.lbl-l span { left: auto; right: 100%; margin: 0 6px 0 0; }
+  .dot.sel i { box-shadow: 0 0 0 4px rgba(79,70,229,.35), 0 2px 6px rgba(16,24,40,.25); }
+  .dot.ghost i { background: transparent !important; border: 2px dashed #98a2b3; color: #98a2b3; box-shadow: none; }
+  .ticks-y { position: relative; }
+  .ticks-y span { position: absolute; right: 6px; transform: translateY(50%); font-size: 11px; color: var(--muted); }
+  .ticks-x { position: relative; }
+  .ticks-x span { position: absolute; top: 4px; transform: translateX(-50%); font-size: 11px; color: var(--muted); }
+  .ax-title-x { text-align: center; font-size: 12px; font-weight: 750; color: var(--text-2); text-transform: uppercase; letter-spacing: .05em; margin-top: 2px; }
+  .ax-title-y { position: absolute; left: -32px; top: 50%; transform: translate(-50%, -50%) rotate(-90deg); font-size: 12px; font-weight: 750; color: var(--text-2); text-transform: uppercase; letter-spacing: .05em; white-space: nowrap; }
+  .pole { font-size: 11px; color: var(--muted); font-weight: 600; }
+  .pop { position: absolute; z-index: 5; width: 270px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-lg); padding: 12px; font-size: 12.5px; }
+  .pop h4 { margin: 0 0 8px; font-size: 13.5px; display: flex; align-items: center; gap: 8px; }
+  .slider { display: grid; grid-template-columns: 62px 1fr 26px; gap: 8px; align-items: center; margin: 6px 0; }
+  .slider label { font-weight: 650; color: var(--text-2); font-size: 12px; }
+  .slider .track { height: 6px; border-radius: 99px; background: var(--surface-3); position: relative; }
+  .slider .track span { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 99px; background: var(--accent); }
+  .slider .track em { position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--accent); transform: translate(-50%, -50%); }
+  .slider b { text-align: right; font-size: 12.5px; }
+
+  /* Tabellen */
+  .tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .tbl th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: 7px 8px; background: var(--surface-2); border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .tbl td { padding: 7px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .tbl tr:last-child td { border-bottom: 0; }
+  .tbl tr.sel td { background: var(--accent-soft); }
+  .num { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: #fff; font-weight: 800; font-size: 11px; }
+  .val { display: inline-flex; gap: 2px; }
+  .val i { width: 7px; height: 12px; border-radius: 2px; background: var(--surface-3); }
+  .val i.on { background: var(--accent); }
+
+  /* Stakeholder */
+  .sh { position: absolute; transform: translate(-50%, 50%); z-index: 2; }
+  .sh .av { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 12px; color: #fff; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(16,24,40,.25); }
+  .sh > span + span { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 3px; font-size: 11.5px; font-weight: 650; color: var(--text-2); background: rgba(255,255,255,.88); padding: 0 5px; border-radius: 4px; white-space: nowrap; }
+  .sh.sel .av { box-shadow: 0 0 0 4px rgba(79,70,229,.35), 0 2px 6px rgba(16,24,40,.25); }
+  .sh.target .av { background: transparent !important; border: 2px dashed #7c3aed; color: #7c3aed; box-shadow: none; }
+  .att-pro { background: #2b8a3e; } .att-neu { background: #667085; } .att-con { background: #c92a2a; }
+  .arrows { position: absolute; inset: 0; width: 100% !important; height: 100% !important; pointer-events: none; z-index: 1; }
+  .field-lbl { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; margin: 10px 0 4px; }
+  .seg-sm { display: inline-flex; border: 1px solid var(--border-strong); border-radius: 8px; overflow: hidden; font-size: 12px; font-weight: 600; }
+  .seg-sm span { padding: 5px 9px; color: var(--muted); border-right: 1px solid var(--border); }
+  .seg-sm span:last-child { border: 0; }
+  .seg-sm span.on { background: var(--accent-soft); color: var(--accent); }
+  .seg-sm span.on.bad { background: var(--bad-bg); color: var(--bad); }
+  .scale5 { display: flex; gap: 4px; }
+  .scale5 span { width: 30px; height: 28px; border-radius: 7px; border: 1px solid var(--border-strong); display: grid; place-items: center; font-weight: 700; font-size: 12px; color: var(--muted); }
+  .scale5 span.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .scale5 span.tg { border: 2px dashed #7c3aed; color: #7c3aed; }
+
+  /* Risikomatrix */
+  .heat { display: grid; grid-template-columns: 74px repeat(5, 1fr); grid-template-rows: repeat(5, 92px) 26px; gap: 4px; }
+  .heat .yl { display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; font-size: 11px; color: var(--muted); font-weight: 650; text-align: right; line-height: 1.15; }
+  .heat .xl { text-align: center; font-size: 11px; color: var(--muted); font-weight: 650; padding-top: 6px; }
+  .cell { border-radius: 8px; padding: 6px; display: flex; flex-wrap: wrap; gap: 4px; align-content: flex-start; position: relative; }
+  .cell .sc { position: absolute; right: 6px; bottom: 4px; font-size: 10.5px; font-weight: 700; opacity: .55; }
+  .lv1 { background: #d3f2da; color: #1d6b31; } .lv2 { background: #fdf0b8; color: #7a5a00; } .lv3 { background: #ffd8a8; color: #8a4200; } .lv4 { background: #ffc0c0; color: #9b1c1c; }
+  .rk { display: inline-flex; align-items: center; height: 22px; padding: 0 7px; border-radius: 6px; font-size: 11.5px; font-weight: 800; background: #fff; color: var(--text); border: 1px solid rgba(16,24,40,.18); box-shadow: var(--shadow-xs); }
+  .rk.net { background: transparent; border: 1.5px dashed rgba(16,24,40,.45); box-shadow: none; color: var(--text-2); }
+  .rk.sel { outline: 3px solid rgba(79,70,229,.45); }
+  .lvl-chip { display: inline-flex; align-items: center; height: 21px; padding: 0 8px; border-radius: 6px; font-size: 11.5px; font-weight: 700; }
+  .strat { font-size: 11.5px; font-weight: 650; padding: 2px 7px; border-radius: 5px; background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); white-space: nowrap; }
+
+  /* Stacey */
+  .zone-lbl { position: absolute; font-weight: 800; font-size: 13px; z-index: 1; }
+  .zone-lbl small { display: block; font-weight: 600; font-size: 11px; opacity: .8; }
+  .zone-row { display: grid; grid-template-columns: 12px 1fr auto; gap: 10px; align-items: start; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+  .zone-row:last-child { border: 0; }
+  .zone-row i { width: 12px; height: 12px; border-radius: 3px; margin-top: 3px; }
+  .zone-row b { display: block; font-size: 13px; }
+  .zone-row p { margin: 1px 0 0; color: var(--muted); font-size: 12px; }
+  .qs { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; align-items: center; font-size: 12px; color: var(--text-2); margin-top: 4px; }
+
+  /* Bericht */
+  .paper { width: 940px; margin: 0 auto; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-lg); border-radius: 4px; padding: 28px 32px; }
+  .paper h1 { font-size: 20px; }
+  .rep { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .rep .box { border: 1.5px solid; border-radius: 8px; padding: 10px 12px; font-size: 12.5px; }
+  .rep .box h4 { margin: 0 0 6px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; display: flex; gap: 6px; align-items: center; }
+  .rep .box ol { margin: 0; padding-left: 18px; }
+  .rep .box li { margin: 2px 0; }
+  .export-bar { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; }
+
+  /* Anpassen-Dialog */
+  .cfg { display: grid; grid-template-columns: 1fr 1fr; }
+  .cfg > div { padding: 16px 20px; }
+  .cfg > div + div { border-left: 1px solid var(--border); background: var(--surface-2); }
+  .frm { display: grid; grid-template-columns: 110px 1fr; gap: 8px 12px; align-items: center; font-size: 12.5px; margin-bottom: 12px; }
+  .frm label { font-weight: 650; color: var(--text-2); }
+  .frm .input { min-height: 32px; padding: 5px 9px; }
+  .frm .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .qcfg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .qcfg > div { border-radius: 9px; padding: 8px 10px; border: 1px solid; font-size: 12px; }
+  .qcfg > div b { display: block; font-size: 13px; }
+  .qcfg .swatches { display: flex; gap: 3px; margin-top: 6px; }
+  .qcfg .swatches span { width: 14px; height: 14px; border-radius: 4px; }
+  .qcfg .swatches span.on { outline: 2px solid var(--text); outline-offset: 1px; }
+
+  .opt { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 7px 0; }
+  .opt b { display: block; font-size: 13px; }
+  .opt p { margin: 1px 0 0; font-size: 11.5px; color: var(--muted); }
+  .switch { width: 36px; height: 20px; border-radius: 99px; background: var(--border-strong); position: relative; flex: none; }
+  .switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: var(--shadow-xs); }
+  .switch.on { background: var(--accent); }
+  .switch.on::after { left: 18px; }
+
+  /* Mobil */
+  .m-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--surface); border-bottom: 1px solid var(--border); position: relative; }
+  .m-header::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--accent), #06b6d4 55%, #22c55e); }
+  .m-body { padding: 12px 14px 4px; }
+  .m-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .m-q { border-radius: 10px; padding: 9px 10px; border: 1px solid; min-height: 92px; }
+  .m-q b { font-size: 12.5px; display: flex; align-items: center; gap: 6px; }
+  .m-q b em { font-style: normal; margin-left: auto; font-size: 17px; }
+  .m-q p { margin: 4px 0 0; font-size: 11.5px; color: var(--text-2); line-height: 1.35; }
+  .m-q.on { box-shadow: 0 0 0 2px var(--accent); }
+  .m-list .task { margin-bottom: 6px; }
+  .m-nav { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); border-top: 1px solid var(--border); padding: 8px 0 14px; text-align: center; font-size: 11px; color: var(--muted); font-weight: 600; }
+  .m-nav .on { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- ============ 1 Übersicht ============ -->
+<div class="caption">1 · Übersicht aller Matrizen und die fünf Methoden</div>
+<section class="screen" id="s1-uebersicht">
+  <header class="app-header">
+    <div class="brand"><span class="logo mx">2×2</span> 2-Achsen-Matrix</div>
+    <div class="tabs"><span class="tab active">Alle Matrizen</span><span class="tab">Wochenplanung KW 42 <span class="x">✕</span></span><span class="tab">Ideen Saison 2027 <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="hdr-actions"><button class="btn ghost">? Methodik</button><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main>
+    <div class="row">
+      <div><h1>Meine Matrizen</h1><div class="sub">5 Matrizen · 51 Einträge · 3 unsortiert · zuletzt bearbeitet heute, 09:12</div></div>
+      <span class="spacer"></span>
+      <div class="seg"><span class="on">Alle</span><span>Eisenhower</span><span>Wert/Aufwand</span><span>Stakeholder</span><span>Risiko</span><span>Stacey</span></div>
+      <button class="btn">Beispiel öffnen …</button>
+      <button class="btn">Importieren (JSON)</button>
+      <button class="btn primary">+ Neue Matrix</button>
+    </div>
+
+    <div class="boards">
+      <!-- Eisenhower -->
+      <div class="card board">
+        <svg class="thumb" viewBox="0 0 132 112" style="width:132px;height:112px">
+          <rect x="4" y="4" width="60" height="50" rx="5" fill="#fff0f0"/><rect x="68" y="4" width="60" height="50" rx="5" fill="#ebf8ee"/>
+          <rect x="4" y="58" width="60" height="50" rx="5" fill="#fff4e0"/><rect x="68" y="58" width="60" height="50" rx="5" fill="#f2f4f7"/>
+          <g fill="#fff" stroke="#e4e7ec"><rect x="9" y="12" width="50" height="9" rx="2"/><rect x="9" y="24" width="50" height="9" rx="2"/><rect x="9" y="36" width="50" height="9" rx="2"/>
+          <rect x="73" y="12" width="50" height="9" rx="2"/><rect x="73" y="24" width="50" height="9" rx="2"/><rect x="73" y="36" width="50" height="9" rx="2"/>
+          <rect x="9" y="66" width="50" height="9" rx="2"/><rect x="9" y="78" width="50" height="9" rx="2"/><rect x="73" y="66" width="50" height="9" rx="2"/></g>
+        </svg>
+        <div>
+          <span class="method-chip">Eisenhower</span>
+          <h2 style="margin-top:6px">Wochenplanung KW 42</h2>
+          <div class="sub">Food-Truck · Team Lea, Ben, Mia</div>
+          <div class="stats"><span class="chip">14 Aufgaben</span><span class="chip bad">3 sofort</span><span class="chip warn">3 unsortiert</span></div>
+        </div>
+        <div class="foot"><span style="color:var(--warn);font-weight:650">⚠ 1 delegierte Aufgabe ohne Person</span><span class="spacer"></span>heute, 09:12</div>
+      </div>
+
+      <!-- Wert/Aufwand -->
+      <div class="card board">
+        <svg class="thumb" viewBox="0 0 132 112" style="width:132px;height:112px">
+          <rect x="0" y="0" width="66" height="56" fill="#ebf8ee"/><rect x="66" y="0" width="66" height="56" fill="#e7f1fc"/>
+          <rect x="0" y="56" width="66" height="56" fill="#f2f4f7"/><rect x="66" y="56" width="66" height="56" fill="#fff0f0"/>
+          <g fill="#4f46e5" stroke="#fff" stroke-width="1.5"><circle cx="20" cy="22" r="5"/><circle cx="30" cy="34" r="5"/><circle cx="14" cy="48" r="5"/><circle cx="40" cy="44" r="5"/><circle cx="92" cy="26" r="5"/><circle cx="112" cy="36" r="5"/><circle cx="80" cy="16" r="5"/><circle cx="30" cy="76" r="5"/><circle cx="52" cy="84" r="5"/><circle cx="86" cy="80" r="5"/><circle cx="100" cy="66" r="5"/><circle cx="74" cy="94" r="5"/></g>
+        </svg>
+        <div>
+          <span class="method-chip">Wert / Aufwand</span>
+          <h2 style="margin-top:6px">Ideen Saison 2027</h2>
+          <div class="sub">Food-Truck · Ideensammlung</div>
+          <div class="stats"><span class="chip">12 Ideen</span><span class="chip good">4 Quick Wins</span><span class="chip">3 Großprojekte</span></div>
+        </div>
+        <div class="foot"><span>Reihenfolge: <b style="color:var(--text-2)">Kombi-Angebot → Instagram-Standort → Kartenzahlung</b></span><span class="spacer"></span>gestern</div>
+      </div>
+
+      <!-- Stakeholder -->
+      <div class="card board">
+        <svg class="thumb" viewBox="0 0 132 112" style="width:132px;height:112px">
+          <rect x="0" y="0" width="66" height="56" fill="#fff4e0"/><rect x="66" y="0" width="66" height="56" fill="#fff0f0"/>
+          <rect x="0" y="56" width="66" height="56" fill="#f2f4f7"/><rect x="66" y="56" width="66" height="56" fill="#e7f1fc"/>
+          <path d="M22 12 L70 12" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
+          <g stroke="#fff" stroke-width="2"><circle cx="18" cy="12" r="7" fill="#667085"/><circle cx="44" cy="22" r="7" fill="#667085"/><circle cx="100" cy="30" r="7" fill="#2b8a3e"/><circle cx="108" cy="48" r="7" fill="#c92a2a"/><circle cx="30" cy="42" r="7" fill="#667085"/><circle cx="102" cy="84" r="7" fill="#c92a2a"/><circle cx="82" cy="88" r="7" fill="#2b8a3e"/><circle cx="40" cy="92" r="7" fill="#2b8a3e"/></g>
+          <circle cx="76" cy="12" r="6" fill="none" stroke="#7c3aed" stroke-dasharray="2 2" stroke-width="1.5"/>
+        </svg>
+        <div>
+          <span class="method-chip">Macht / Interesse</span>
+          <h2 style="margin-top:6px">Standort Domplatz</h2>
+          <div class="sub">Genehmigung fester Stellplatz 2027</div>
+          <div class="stats"><span class="chip">8 Stakeholder</span><span class="chip bad">2 kritisch</span><span class="chip acc">1 Ziel-Position</span></div>
+        </div>
+        <div class="foot"><span style="color:var(--bad);font-weight:650">⚠ Anwohnerinitiative: kritisch & „Eng einbinden“</span><span class="spacer"></span>Mo</div>
+      </div>
+
+      <!-- Risiko -->
+      <div class="card board">
+        <svg class="thumb" viewBox="0 0 132 112" style="width:132px;height:112px">
+          <g>
+          <rect x="2" y="2" width="24" height="20" rx="3" fill="#fdf0b8"/><rect x="28" y="2" width="24" height="20" rx="3" fill="#ffd8a8"/><rect x="54" y="2" width="24" height="20" rx="3" fill="#ffc0c0"/><rect x="80" y="2" width="24" height="20" rx="3" fill="#ffc0c0"/><rect x="106" y="2" width="24" height="20" rx="3" fill="#ffc0c0"/>
+          <rect x="2" y="24" width="24" height="20" rx="3" fill="#d3f2da"/><rect x="28" y="24" width="24" height="20" rx="3" fill="#fdf0b8"/><rect x="54" y="24" width="24" height="20" rx="3" fill="#ffd8a8"/><rect x="80" y="24" width="24" height="20" rx="3" fill="#ffc0c0"/><rect x="106" y="24" width="24" height="20" rx="3" fill="#ffc0c0"/>
+          <rect x="2" y="46" width="24" height="20" rx="3" fill="#d3f2da"/><rect x="28" y="46" width="24" height="20" rx="3" fill="#fdf0b8"/><rect x="54" y="46" width="24" height="20" rx="3" fill="#fdf0b8"/><rect x="80" y="46" width="24" height="20" rx="3" fill="#ffd8a8"/><rect x="106" y="46" width="24" height="20" rx="3" fill="#ffc0c0"/>
+          <rect x="2" y="68" width="24" height="20" rx="3" fill="#d3f2da"/><rect x="28" y="68" width="24" height="20" rx="3" fill="#d3f2da"/><rect x="54" y="68" width="24" height="20" rx="3" fill="#fdf0b8"/><rect x="80" y="68" width="24" height="20" rx="3" fill="#fdf0b8"/><rect x="106" y="68" width="24" height="20" rx="3" fill="#ffd8a8"/>
+          <rect x="2" y="90" width="24" height="20" rx="3" fill="#d3f2da"/><rect x="28" y="90" width="24" height="20" rx="3" fill="#d3f2da"/><rect x="54" y="90" width="24" height="20" rx="3" fill="#d3f2da"/><rect x="80" y="90" width="24" height="20" rx="3" fill="#d3f2da"/><rect x="106" y="90" width="24" height="20" rx="3" fill="#fdf0b8"/>
+          </g>
+          <g fill="#fff" stroke="#101828" stroke-opacity=".3"><rect x="84" y="28" width="16" height="11" rx="2"/><rect x="110" y="50" width="16" height="11" rx="2"/><rect x="84" y="50" width="16" height="11" rx="2"/><rect x="58" y="28" width="16" height="11" rx="2"/><rect x="110" y="72" width="16" height="11" rx="2"/></g>
+        </svg>
+        <div>
+          <span class="method-chip">Risikomatrix 5×5</span>
+          <h2 style="margin-top:6px">Stadtfest 2026 – Risiken</h2>
+          <div class="sub">3 Tage · Food-Truck + Getränkestand</div>
+          <div class="stats"><span class="chip">9 Risiken</span><span class="chip bad">2 sehr hoch</span><span class="chip good">netto: 0 sehr hoch</span></div>
+        </div>
+        <div class="foot"><span>Maßnahmen für 4 von 5 hohen Risiken</span><span class="spacer"></span>12.10.</div>
+      </div>
+
+      <!-- Stacey -->
+      <div class="card board">
+        <svg class="thumb" viewBox="0 0 132 112" style="width:132px;height:112px">
+          <rect width="132" height="112" fill="#ffe3e3"/>
+          <path d="M0 112 L0 14 A116 98 0 0 1 116 112 Z" fill="#f3ecff"/>
+          <path d="M0 112 L0 50 A76 62 0 0 1 76 112 Z" fill="#e7f1fc"/>
+          <path d="M0 112 L0 78 A40 34 0 0 1 40 112 Z" fill="#d3f2da"/>
+          <g fill="#101828" stroke="#fff" stroke-width="1.5"><circle cx="14" cy="98" r="4.5"/><circle cx="52" cy="88" r="4.5"/><circle cx="68" cy="92" r="4.5"/><circle cx="30" cy="62" r="4.5"/><circle cx="62" cy="48" r="4.5"/><circle cx="86" cy="56" r="4.5"/><circle cx="76" cy="40" r="4.5"/><circle cx="114" cy="26" r="4.5"/></g>
+        </svg>
+        <div>
+          <span class="method-chip">Stacey-Matrix</span>
+          <h2 style="margin-top:6px">Vorhaben 2027</h2>
+          <div class="sub">Welches Vorgehen passt wozu?</div>
+          <div class="stats"><span class="chip">8 Vorhaben</span><span class="chip" style="background:var(--qv-bg);color:var(--qv);border-color:transparent">3 komplex</span><span class="chip bad">1 chaotisch</span></div>
+        </div>
+        <div class="foot"><span>3 × iterativ (Scrum/Kanban) · 3 × plangetrieben</span><span class="spacer"></span>08.10.</div>
+      </div>
+
+      <div class="card board new"><span style="font-size:24px;color:var(--accent)">+</span>Neue Matrix<span style="font-weight:500;font-size:12px">Methode wählen oder eigene Achsen</span></div>
+    </div>
+
+    <div class="card methods-strip">
+      <div><b><span class="mi" style="background:var(--q1-bg);color:var(--q1)">⏱</span>Eisenhower</b><p>Aufgaben nach Dringlichkeit und Wichtigkeit sortieren: tun, planen, delegieren, weglassen.</p><div class="axes"><span><i>X</i>Dringlichkeit</span><span><i>Y</i>Wichtigkeit</span></div></div>
+      <div><b><span class="mi" style="background:var(--q2-bg);color:var(--q2)">◆</span>Wert / Aufwand</b><p>Ideen und Maßnahmen priorisieren: Quick Wins zuerst, Zeitfresser streichen.</p><div class="axes"><span><i>X</i>Aufwand</span><span><i>Y</i>Wert / Nutzen</span></div></div>
+      <div><b><span class="mi" style="background:var(--q3-bg);color:var(--q3)">◎</span>Macht / Interesse</b><p>Stakeholder einordnen und je Gruppe die passende Kommunikation festlegen.</p><div class="axes"><span><i>X</i>Interesse</span><span><i>Y</i>Macht / Einfluss</span></div></div>
+      <div><b><span class="mi" style="background:#ffd8a8;color:#8a4200">▦</span>Risikomatrix</b><p>Risiken nach Wahrscheinlichkeit und Auswirkung bewerten, Maßnahmen und Restrisiko.</p><div class="axes"><span><i>X</i>Auswirkung</span><span><i>Y</i>Wahrscheinlichkeit</span></div></div>
+      <div><b><span class="mi" style="background:var(--qv-bg);color:var(--qv)">◠</span>Stacey-Matrix</b><p>Vorhaben nach Unsicherheit einordnen und das passende Vorgehen wählen.</p><div class="axes"><span><i>X</i>Gewissheit über das Wie</span><span><i>Y</i>Einigkeit über das Was</span></div></div>
+    </div>
+  </main>
+</section>
+
+<!-- ============ 2 Neue Matrix ============ -->
+<div class="caption">2 · Neue Matrix: Methode wählen (Vorlagen mit Achsen, Skalen, Quadranten und Leitfragen) – oder eigene Achsen</div>
+<section class="screen" id="s2-neu" style="height:800px">
+  <header class="app-header">
+    <div class="brand"><span class="logo mx">2×2</span> 2-Achsen-Matrix</div>
+    <div class="tabs"><span class="tab active">Alle Matrizen</span><span class="tab">Wochenplanung KW 42 <span class="x">✕</span></span><span class="tab">Ideen Saison 2027 <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="hdr-actions"><button class="btn ghost">? Methodik</button><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main style="filter:blur(1px);opacity:.6"><div class="row"><div><h1>Meine Matrizen</h1><div class="sub">5 Matrizen</div></div></div><div class="boards"><div class="card board" style="height:190px"></div><div class="card board" style="height:190px"></div><div class="card board" style="height:190px"></div></div></main>
+  <div class="overlay">
+    <div class="dialog">
+      <div class="dlg-head"><h2>Neue Matrix</h2><span class="sub">Methode wählen – Achsen, Quadranten und Texte lassen sich danach anpassen</span><span class="spacer"></span><span class="sub">✕</span></div>
+      <div class="pick">
+        <div class="pick-grid">
+          <div class="mcard">
+            <svg class="mini" viewBox="0 0 200 86" preserveAspectRatio="none" style="width:100%;height:86px"><rect x="0" y="0" width="100" height="43" fill="#fff0f0"/><rect x="100" y="0" width="100" height="43" fill="#ebf8ee"/><rect x="0" y="43" width="100" height="43" fill="#fff4e0"/><rect x="100" y="43" width="100" height="43" fill="#f2f4f7"/><g font-size="10" font-weight="700" font-family="system-ui"><text x="8" y="16" fill="#c92a2a">Sofort</text><text x="108" y="16" fill="#2b8a3e">Einplanen</text><text x="8" y="59" fill="#a35200">Delegieren</text><text x="108" y="59" fill="#667085">Weglassen</text></g></svg>
+            <b>Eisenhower-Matrix</b><p>Aufgaben: dringend × wichtig. Zwei Stufen je Achse, Karten in vier Feldern, Eingang für Unsortiertes.</p>
+          </div>
+          <div class="mcard on">
+            <svg class="mini" viewBox="0 0 200 86" preserveAspectRatio="none" style="width:100%;height:86px"><rect x="0" y="0" width="100" height="43" fill="#ebf8ee"/><rect x="100" y="0" width="100" height="43" fill="#e7f1fc"/><rect x="0" y="43" width="100" height="43" fill="#f2f4f7"/><rect x="100" y="43" width="100" height="43" fill="#fff0f0"/><g fill="#4f46e5" stroke="#fff" stroke-width="1.5"><circle cx="30" cy="20" r="5"/><circle cx="60" cy="30" r="5"/><circle cx="140" cy="18" r="5"/><circle cx="40" cy="62" r="5"/><circle cx="150" cy="66" r="5"/><circle cx="120" cy="56" r="5"/></g></svg>
+            <b>Wert / Aufwand</b><p>Ideen oder Maßnahmen auf Skala 1–10 bewerten; Quick Wins, Großprojekte, Lückenfüller, Zeitfresser.</p>
+          </div>
+          <div class="mcard">
+            <svg class="mini" viewBox="0 0 200 86" preserveAspectRatio="none" style="width:100%;height:86px"><rect x="0" y="0" width="100" height="43" fill="#fff4e0"/><rect x="100" y="0" width="100" height="43" fill="#fff0f0"/><rect x="0" y="43" width="100" height="43" fill="#f2f4f7"/><rect x="100" y="43" width="100" height="43" fill="#e7f1fc"/><g stroke="#fff" stroke-width="2"><circle cx="40" cy="18" r="7" fill="#667085"/><circle cx="150" cy="24" r="7" fill="#2b8a3e"/><circle cx="170" cy="36" r="7" fill="#c92a2a"/><circle cx="140" cy="64" r="7" fill="#2b8a3e"/><circle cx="50" cy="66" r="7" fill="#667085"/></g></svg>
+            <b>Macht / Interesse</b><p>Stakeholder-Analyse mit Haltung (unterstützend / neutral / kritisch), Ziel-Position und Kommunikation.</p>
+          </div>
+          <div class="mcard">
+            <svg class="mini" viewBox="0 0 200 86" preserveAspectRatio="none" style="width:100%;height:86px"><g><rect x="0" y="0" width="39" height="16" fill="#fdf0b8"/><rect x="40" y="0" width="39" height="16" fill="#ffd8a8"/><rect x="80" y="0" width="39" height="16" fill="#ffc0c0"/><rect x="120" y="0" width="39" height="16" fill="#ffc0c0"/><rect x="160" y="0" width="40" height="16" fill="#ffc0c0"/><rect x="0" y="17" width="39" height="16" fill="#d3f2da"/><rect x="40" y="17" width="39" height="16" fill="#fdf0b8"/><rect x="80" y="17" width="39" height="16" fill="#ffd8a8"/><rect x="120" y="17" width="39" height="16" fill="#ffc0c0"/><rect x="160" y="17" width="40" height="16" fill="#ffc0c0"/><rect x="0" y="34" width="39" height="16" fill="#d3f2da"/><rect x="40" y="34" width="39" height="16" fill="#fdf0b8"/><rect x="80" y="34" width="39" height="16" fill="#fdf0b8"/><rect x="120" y="34" width="39" height="16" fill="#ffd8a8"/><rect x="160" y="34" width="40" height="16" fill="#ffc0c0"/><rect x="0" y="51" width="39" height="17" fill="#d3f2da"/><rect x="40" y="51" width="39" height="17" fill="#d3f2da"/><rect x="80" y="51" width="39" height="17" fill="#fdf0b8"/><rect x="120" y="51" width="39" height="17" fill="#fdf0b8"/><rect x="160" y="51" width="40" height="17" fill="#ffd8a8"/><rect x="0" y="69" width="39" height="17" fill="#d3f2da"/><rect x="40" y="69" width="39" height="17" fill="#d3f2da"/><rect x="80" y="69" width="39" height="17" fill="#d3f2da"/><rect x="120" y="69" width="39" height="17" fill="#d3f2da"/><rect x="160" y="69" width="40" height="17" fill="#fdf0b8"/></g></svg>
+            <b>Risikomatrix</b><p>Wahrscheinlichkeit × Auswirkung (5×5 oder 3×3), Risikostufen, Strategie, Maßnahmen und Restrisiko.</p>
+          </div>
+          <div class="mcard">
+            <svg class="mini" viewBox="0 0 200 86" preserveAspectRatio="none" style="width:100%;height:86px"><rect width="200" height="86" fill="#ffe3e3"/><path d="M0 86 L0 8 A176 78 0 0 1 176 86 Z" fill="#f3ecff"/><path d="M0 86 L0 38 A116 48 0 0 1 116 86 Z" fill="#e7f1fc"/><path d="M0 86 L0 60 A60 26 0 0 1 60 86 Z" fill="#d3f2da"/><g font-size="9.5" font-weight="700" font-family="system-ui"><text x="6" y="80" fill="#1d6b31">einfach</text><text x="66" y="78" fill="#1864ab">kompliziert</text><text x="120" y="62" fill="#7c3aed">komplex</text><text x="150" y="16" fill="#c92a2a">chaotisch</text></g></svg>
+            <b>Stacey-Matrix</b><p>Vorhaben nach Einigkeit (Was) und Gewissheit (Wie) – Zonen einfach bis chaotisch, mit Vorgehensempfehlung.</p>
+          </div>
+          <div class="mcard custom">
+            <div class="mini" style="display:grid;place-items:center;border:1.5px dashed var(--border-strong);background:transparent;color:var(--accent);font-weight:700;font-size:13px">X ⟷ Y frei</div>
+            <b>Eigene Matrix</b><p>Achsen, Skalen, Raster (2×2, 3×3, 5×5) und Quadranten selbst festlegen, z. B. Kano, BCG, SWOT-Strategien.</p>
+          </div>
+        </div>
+        <div class="pick-side">
+          <span class="method-chip">Vorlage</span>
+          <h2 style="margin:8px 0 2px;font-size:17px">Wert / Aufwand</h2>
+          <div class="sub" style="font-size:12.5px">auch: Nutzen-Aufwand-Matrix, Impact/Effort, Prioritäten-Matrix</div>
+          <dl class="def">
+            <dt>Einträge</dt><dd>Ideen, Maßnahmen, Features</dd>
+            <dt>X-Achse</dt><dd><b>Aufwand</b> · gering → hoch</dd>
+            <dt>Y-Achse</dt><dd><b>Wert / Nutzen</b> · gering → hoch</dd>
+            <dt>Skala</dt><dd>1–10 (stufenlos ziehen oder Zahl eingeben)</dd>
+            <dt>Leitfrage</dt><dd>„Was bringt am meisten für den geringsten Einsatz?“</dd>
+          </dl>
+          <div class="qlist">
+            <div style="background:var(--q2-bg);color:var(--q2)"><b>Quick Wins</b>hoher Wert, wenig Aufwand – zuerst</div>
+            <div style="background:var(--qb-bg);color:var(--qb)"><b>Großprojekte</b>hoher Wert, viel Aufwand – planen</div>
+            <div style="background:var(--q4-bg);color:var(--q4)"><b>Lückenfüller</b>wenig Wert, wenig Aufwand – nebenbei</div>
+            <div style="background:var(--q1-bg);color:var(--q1)"><b>Zeitfresser</b>wenig Wert, viel Aufwand – streichen</div>
+          </div>
+          <div class="field-lbl" style="margin-top:14px">Name der Matrix</div>
+          <div class="input focus">Ideen Saison 2027</div>
+        </div>
+      </div>
+      <div class="dlg-foot"><span class="sub" style="font-size:12.5px">Tipp: Einträge einer anderen Matrix übernehmen (z. B. Maßnahmen aus der Risikomatrix) unter „Datei → Einträge kopieren“.</span><span class="spacer"></span><button class="btn">Abbrechen</button><button class="btn primary">Matrix anlegen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 Eisenhower ============ -->
+<div class="caption">3 · Eisenhower-Matrix: Eingang leeren, Aufgaben per Ziehen einordnen, Hinweise zur Verteilung</div>
+<section class="screen" id="s3-eisenhower">
+  <header class="app-header">
+    <div class="brand"><span class="logo mx">2×2</span></div>
+    <div class="tabs"><span class="tab">Alle Matrizen</span><span class="tab active">Wochenplanung KW 42 <span class="x">✕</span></span><span class="tab">Ideen Saison 2027 <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="seg view-seg"><span class="on">▦ Matrix</span><span>☰ Liste</span><span>▤ Bericht</span></div>
+    <div class="hdr-actions"><button class="btn ghost">? Methodik</button><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main>
+    <div class="crumb-row"><span class="method-chip">Eisenhower</span><h1>Wochenplanung KW 42</h1><span class="sub">Food-Truck · 14 Aufgaben</span><span class="spacer"></span><button class="btn sm ghost">↶</button><button class="btn sm ghost">↷</button><div class="seg"><span>Alle</span><span class="on">offen</span><span>erledigt</span></div><button class="btn sm">⚙ Achsen &amp; Felder</button></div>
+    <div class="work">
+      <div class="card panel">
+        <h3>Eingang <span class="chip warn sm cnt">3 unsortiert</span></h3>
+        <div class="quick-add"><div class="input">Neue Aufgabe … ⏎</div></div>
+        <div style="height:10px"></div>
+        <div class="inbox-item"><span class="grip">⋮⋮</span>Steuerberater anrufen</div>
+        <div class="inbox-item drag"><span class="grip">⋮⋮</span>Foto für Lokalzeitung<span class="spacer"></span><span class="chip sm">Fr</span></div>
+        <div class="inbox-item"><span class="grip">⋮⋮</span>Neue Servietten testen</div>
+        <div class="hint info" style="margin-top:12px">Zwei Fragen je Aufgabe: <b>Ist es wichtig</b> (zahlt auf ein Ziel ein)? <b>Ist es dringend</b> (Termin, Folgen beim Warten)?</div>
+        <h3 style="margin-top:16px">Schnell einordnen</h3>
+        <div style="font-size:12.5px;color:var(--text-2);display:grid;gap:6px">
+          <div class="row" style="gap:6px"><span class="chip">1</span>Sofort <span class="chip">2</span>Einplanen</div>
+          <div class="row" style="gap:6px"><span class="chip">3</span>Delegieren <span class="chip">4</span>Weglassen</div>
+          <span class="sub" style="font-size:11.5px">Tasten 1–4 auf markierter Aufgabe</span>
+        </div>
+      </div>
+
+      <div class="board2">
+        <span></span>
+        <div class="axis-x">dringend</div><div class="axis-x" style="color:var(--muted)">nicht dringend</div>
+        <div class="axis-y">wichtig</div>
+        <div class="quad q-red">
+          <div class="qh"><span class="qn">1</span><b>Sofort erledigen</b><small>3 offen</small></div>
+          <div class="qd">wichtig &amp; dringend – selbst, jetzt</div>
+          <div class="task"><span class="cb"></span><span class="t">Fettfilter wechseln (Kontrolle Do)</span><span class="meta"><span class="chip bad sm">heute</span></span></div>
+          <div class="task"><span class="cb"></span><span class="t">Gasflaschen nachbestellen</span><span class="meta"><span class="chip warn sm">Mi</span></span></div>
+          <div class="task"><span class="cb"></span><span class="t">Aushilfe für Samstag finden</span><span class="meta"><span class="chip warn sm">Fr</span></span></div>
+          <div class="task done"><span class="cb">✓</span><span class="t">Kühlung Getränke reparieren</span></div>
+        </div>
+        <div class="quad q-green">
+          <div class="qh"><span class="qn">2</span><b>Einplanen</b><small>4 offen · 2 mit Termin</small></div>
+          <div class="qd">wichtig, nicht dringend – Zeit blocken</div>
+          <div class="task"><span class="cb"></span><span class="t">Reinigungsplan überarbeiten</span><span class="meta"><span class="chip good sm">📅 Di 21.10.</span></span></div>
+          <div class="task"><span class="cb"></span><span class="t">Kalkulation Wintersaison</span><span class="meta"><span class="chip good sm">📅 Do 23.10.</span></span></div>
+          <div class="task"><span class="cb"></span><span class="t">Fritteuse warten lassen</span><span class="meta"><span class="empty-opt" style="font-size:11.5px;border:1px dashed var(--border-strong);border-radius:5px;padding:0 6px;color:#98a2b3">+ Termin</span></span></div>
+          <div class="task"><span class="cb"></span><span class="t">Bewerbung Stadtfest 2027</span><span class="meta"><span class="empty-opt" style="font-size:11.5px;border:1px dashed var(--border-strong);border-radius:5px;padding:0 6px;color:#98a2b3">+ Termin</span></span></div>
+          <div class="drop">Hier ablegen: „Foto für Lokalzeitung“</div>
+        </div>
+        <div class="axis-y" style="color:var(--muted)">nicht wichtig</div>
+        <div class="quad q-orange">
+          <div class="qh"><span class="qn">3</span><b>Delegieren</b><small>3 offen</small></div>
+          <div class="qd">dringend, nicht wichtig – abgeben</div>
+          <div class="task"><span class="cb"></span><span class="t">Rechnungen ablegen</span><span class="meta"><span class="who"><span class="avatar" style="background:#0e7490">BE</span>Ben</span></span></div>
+          <div class="task"><span class="cb"></span><span class="t">Instagram-Story Standort</span><span class="meta"><span class="who"><span class="avatar" style="background:#7c3aed">MI</span>Mia</span></span></div>
+          <div class="task" style="border-color:#f0b35b;border-style:dashed"><span class="cb"></span><span class="t">Getränkelieferant zurückrufen</span><span class="meta"><span class="chip warn sm">⚠ an wen?</span></span></div>
+        </div>
+        <div class="quad q-gray">
+          <div class="qh"><span class="qn">4</span><b>Weglassen</b><small>2</small></div>
+          <div class="qd">weder noch – streichen oder später</div>
+          <div class="task"><span class="cb"></span><span class="t">Newsletter-Design umbauen</span></div>
+          <div class="task"><span class="cb"></span><span class="t">Alte Flyer sortieren</span></div>
+          <div style="margin-top:auto;font-size:11.5px;color:var(--q4)">🗑 Erledigt-Liste: „Gestrichen“ statt Löschen</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card panel" style="margin-bottom:12px">
+          <h3>Verteilung</h3>
+          <div class="dist"><span style="width:25%;background:var(--q1)"></span><span style="width:33%;background:var(--q2)"></span><span style="width:25%;background:var(--q3)"></span><span style="width:17%;background:var(--q4)"></span></div>
+          <div class="dist-leg"><span><i style="background:var(--q1)"></i>Sofort<b>3</b></span><span><i style="background:var(--q2)"></i>Einplanen<b>4</b></span><span><i style="background:var(--q3)"></i>Delegieren<b>3</b></span><span><i style="background:var(--q4)"></i>Weglassen<b>2</b></span></div>
+        </div>
+        <div class="card panel" style="margin-bottom:12px">
+          <h3>Hinweise</h3>
+          <div class="chk"><span class="ic y">✓</span><div><b>Quadrant 2 gepflegt</b><p>4 wichtige Aufgaben ohne Zeitdruck – mehr als in „Sofort“.</p></div><span></span></div>
+          <div class="chk"><span class="ic q">!</span><div><b>Delegieren ohne Person</b><p>„Getränkelieferant zurückrufen“ – an wen?</p></div><span></span></div>
+          <div class="chk"><span class="ic q">!</span><div><b>2 × Einplanen ohne Termin</b><p>Ohne Zeitblock rutscht Wichtiges in „Sofort“.</p></div><span></span></div>
+          <div class="chk"><span class="ic o">–</span><div><b>Eingang leer?</b><p>3 Aufgaben noch nicht eingeordnet.</p></div><span></span></div>
+        </div>
+        <div class="card panel">
+          <h3>Leitfragen</h3>
+          <ul class="lead-q"><li>Was passiert, wenn ich es diese Woche <b>nicht</b> tue?</li><li>Zahlt es auf ein Ziel ein – oder nur auf jemandes Dringlichkeit?</li><li>Wer kann es genauso gut (oder besser)?</li></ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- ============ 4 Wert / Aufwand ============ -->
+<div class="caption">4 · Wert / Aufwand: Ideen stufenlos platzieren (Ziehen oder Regler), Liste mit Werten und Quadrant</div>
+<section class="screen" id="s4-wert-aufwand">
+  <header class="app-header">
+    <div class="brand"><span class="logo mx">2×2</span></div>
+    <div class="tabs"><span class="tab">Alle Matrizen</span><span class="tab">Wochenplanung KW 42 <span class="x">✕</span></span><span class="tab active">Ideen Saison 2027 <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="seg view-seg"><span class="on">▦ Matrix</span><span>☰ Liste</span><span>▤ Bericht</span></div>
+    <div class="hdr-actions"><button class="btn ghost">? Methodik</button><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main>
+    <div class="crumb-row"><span class="method-chip">Wert / Aufwand</span><h1>Ideen Saison 2027</h1><span class="sub">12 Ideen · Skala 1–10</span><span class="spacer"></span><button class="btn sm ghost">↶</button><button class="btn sm ghost">↷</button><div class="seg"><span class="on">Namen</span><span>Nummern</span></div><button class="btn sm">⚙ Achsen &amp; Quadranten</button><button class="btn sm primary">+ Idee</button></div>
+    <div class="work two">
+      <div class="card" style="padding:18px 22px 10px 44px">
+        <div class="plot-wrap">
+          <div class="ticks-y"><span style="bottom:0">0</span><span style="bottom:50%">5</span><span style="bottom:100%">10</span></div>
+          <div class="plot">
+            <div class="qa" style="left:0;top:0;width:50%;height:50%;background:var(--q2-bg);color:var(--q2)"><div><b>Quick Wins</b><small>zuerst umsetzen</small></div></div>
+            <div class="qa" style="left:50%;top:0;width:50%;height:50%;background:var(--qb-bg);color:var(--qb);justify-content:flex-end;text-align:right"><div><b>Großprojekte</b><small>sorgfältig planen</small></div></div>
+            <div class="qa" style="left:0;top:50%;width:50%;height:50%;background:var(--q4-bg);color:var(--q4);align-items:flex-end"><div><b>Lückenfüller</b><small>nebenbei, wenn Zeit ist</small></div></div>
+            <div class="qa" style="left:50%;top:50%;width:50%;height:50%;background:var(--q1-bg);color:var(--q1);justify-content:flex-end;align-items:flex-end;text-align:right"><div><b>Zeitfresser</b><small>streichen</small></div></div>
+            <div class="grid"></div><div class="mid-x"></div><div class="mid-y"></div>
+            <span class="ax-title-y">Wert / Nutzen →</span>
+
+            <div class="dot" style="left:70%;bottom:80%"><i style="background:var(--qb)">1</i><span>Vorbestellung per App</span></div>
+            <div class="dot" style="left:20%;bottom:80%"><i style="background:var(--q2)">2</i><span>Kartenzahlung überall</span></div>
+            <div class="dot sel" style="left:30%;bottom:65%"><i style="background:var(--q2)">3</i><span>Vegane Pommes</span></div>
+            <div class="dot lbl-l" style="left:90%;bottom:70%"><i style="background:var(--qb)">4</i><span>Zweiter Truck</span></div>
+            <div class="dot lbl-l" style="left:25%;bottom:40%"><i style="background:var(--q4)">5</i><span>Stempelkarte</span></div>
+            <div class="dot" style="left:70%;bottom:35%"><i style="background:var(--q1)">6</i><span>Saucen abfüllen</span></div>
+            <div class="dot" style="left:15%;bottom:73%"><i style="background:var(--q2)">7</i><span>Instagram-Standort</span></div>
+            <div class="dot" style="left:60%;bottom:88%"><i style="background:var(--qb)">8</i><span>Firmen-Catering</span></div>
+            <div class="dot" style="left:60%;bottom:15%"><i style="background:var(--q1)">9</i><span>Neues Logo</span></div>
+            <div class="dot" style="left:35%;bottom:20%"><i style="background:var(--q4)">10</i><span>Digitale Menütafel</span></div>
+            <div class="dot" style="left:76%;bottom:45%"><i style="background:var(--q1)">11</i><span>Lieferplattform</span></div>
+            <div class="dot" style="left:9%;bottom:55%"><i style="background:var(--q2)">12</i><span>Kombi-Angebot</span></div>
+
+            <div class="pop" style="left:28%;top:38%">
+              <h4><span class="num" style="background:var(--q2)">3</span>Vegane Pommes-Variante<span class="spacer"></span><span class="sub">✕</span></h4>
+              <div class="slider"><label>Wert</label><div class="track"><span style="width:65%"></span><em style="left:65%"></em></div><b>6,5</b></div>
+              <div class="slider"><label>Aufwand</label><div class="track"><span style="width:30%"></span><em style="left:30%"></em></div><b>3</b></div>
+              <div class="field-lbl">Begründung</div>
+              <div class="input" style="min-height:30px;padding:5px 8px;font-size:12px">Gleiche Fritteuse, nur eigenes Öl; 3 Anfragen / Woche</div>
+              <div class="row" style="margin-top:8px;gap:6px"><span class="chip good sm">Quick Win</span><span class="sub" style="font-size:11.5px">Ziehen oder Pfeiltasten</span></div>
+            </div>
+          </div>
+          <span></span>
+          <div>
+            <div class="ticks-x" style="height:18px"><span style="left:0">0</span><span style="left:50%">5</span><span style="left:100%">10</span></div>
+            <div class="ax-title-x">Aufwand →</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card" style="overflow:hidden;margin-bottom:12px">
+          <table class="tbl">
+            <tr><th>#</th><th>Idee</th><th>Wert</th><th>Aufw.</th><th>Feld</th></tr>
+            <tr><td><span class="num" style="background:var(--q2)">12</span></td><td>Kombi-Angebot Mittag</td><td>5,5</td><td>1</td><td><span class="chip good sm">Quick Win</span></td></tr>
+            <tr><td><span class="num" style="background:var(--q2)">7</span></td><td>Instagram-Standort</td><td>7,5</td><td>1,5</td><td><span class="chip good sm">Quick Win</span></td></tr>
+            <tr><td><span class="num" style="background:var(--q2)">2</span></td><td>Kartenzahlung überall</td><td>8</td><td>2</td><td><span class="chip good sm">Quick Win</span></td></tr>
+            <tr class="sel"><td><span class="num" style="background:var(--q2)">3</span></td><td><b>Vegane Pommes</b></td><td><b>6,5</b></td><td><b>3</b></td><td><span class="chip good sm">Quick Win</span></td></tr>
+            <tr><td><span class="num" style="background:var(--qb)">8</span></td><td>Firmen-Catering</td><td>8,5</td><td>6</td><td><span class="chip info sm">Groß</span></td></tr>
+            <tr><td><span class="num" style="background:var(--qb)">1</span></td><td>Vorbestellung per App</td><td>8</td><td>7</td><td><span class="chip info sm">Groß</span></td></tr>
+            <tr><td><span class="num" style="background:var(--qb)">4</span></td><td>Zweiter Truck</td><td>7</td><td>9</td><td><span class="chip info sm">Groß</span></td></tr>
+            <tr><td><span class="num" style="background:var(--q4)">5</span></td><td>Stempelkarte</td><td>4</td><td>2,5</td><td><span class="chip sm">Lücke</span></td></tr>
+            <tr><td><span class="num" style="background:var(--q4)">10</span></td><td>Digitale Menütafel</td><td>2</td><td>3,5</td><td><span class="chip sm">Lücke</span></td></tr>
+            <tr><td><span class="num" style="background:var(--q1)">11</span></td><td>Lieferplattform</td><td>4,5</td><td>7,5</td><td><span class="chip bad sm">Zeitfr.</span></td></tr>
+            <tr><td><span class="num" style="background:var(--q1)">6</span></td><td>Saucen abfüllen</td><td>3,5</td><td>7</td><td><span class="chip bad sm">Zeitfr.</span></td></tr>
+            <tr><td><span class="num" style="background:var(--q1)">9</span></td><td>Neues Logo</td><td>1,5</td><td>6</td><td><span class="chip bad sm">Zeitfr.</span></td></tr>
+          </table>
+        </div>
+        <div class="card panel">
+          <h3>Sortiert nach Wert ÷ Aufwand</h3>
+          <div class="hint info" style="margin:0 0 8px">Optional: <b>Wert aus Kriterien</b> berechnen (z. B. Umsatz 50 %, Gästezufriedenheit 30 %, Image 20 %) – unter „Achsen &amp; Quadranten“.</div>
+          <div class="hint" style="margin:0">⚠ „Lieferplattform“ liegt nah an der Grenze (Wert 4,5) – Annahme prüfen</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- ============ 5 Macht / Interesse ============ -->
+<div class="caption">5 · Macht / Interesse (Stakeholder): Haltung als Farbe, Ziel-Position als Pfeil, Strategie und Kommunikation je Stakeholder</div>
+<section class="screen" id="s5-stakeholder">
+  <header class="app-header">
+    <div class="brand"><span class="logo mx">2×2</span></div>
+    <div class="tabs"><span class="tab">Alle Matrizen</span><span class="tab active">Standort Domplatz <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="seg view-seg"><span class="on">▦ Matrix</span><span>☰ Liste</span><span>▤ Bericht</span></div>
+    <div class="hdr-actions"><button class="btn ghost">? Methodik</button><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main>
+    <div class="crumb-row"><span class="method-chip">Macht / Interesse</span><h1>Standort Domplatz</h1><span class="sub">8 Stakeholder · Genehmigung fester Stellplatz 2027</span><span class="spacer"></span><div class="seg"><span>Ist</span><span>Ziel</span><span class="on">Ist → Ziel</span></div><button class="btn sm">⚙ Achsen &amp; Quadranten</button><button class="btn sm primary">+ Stakeholder</button></div>
+    <div class="work two">
+      <div class="card" style="padding:18px 22px 10px 44px">
+        <div class="plot-wrap">
+          <div class="ticks-y"><span style="bottom:2%" class="pole">gering</span><span style="bottom:96%" class="pole">hoch</span></div>
+          <div class="plot" style="height:540px">
+            <div class="qa" style="left:0;top:0;width:50%;height:50%;background:var(--q3-bg);color:var(--q3)"><div><b>Zufriedenstellen</b><small>einbeziehen bei Bedarf, nicht überfrachten</small></div></div>
+            <div class="qa" style="left:50%;top:0;width:50%;height:50%;background:var(--q1-bg);color:var(--q1);justify-content:flex-end;text-align:right"><div><b>Eng einbinden</b><small>Schlüsselpersonen – aktiv beteiligen</small></div></div>
+            <div class="qa" style="left:0;top:50%;width:50%;height:50%;background:var(--q4-bg);color:var(--q4);align-items:flex-end"><div><b>Beobachten</b><small>minimaler Aufwand</small></div></div>
+            <div class="qa" style="left:50%;top:50%;width:50%;height:50%;background:var(--qb-bg);color:var(--qb);justify-content:flex-end;align-items:flex-end;text-align:right"><div><b>Informieren</b><small>regelmäßig auf dem Laufenden halten</small></div></div>
+            <div class="mid-x"></div><div class="mid-y"></div>
+            <span class="ax-title-y">Macht / Einfluss →</span>
+            <svg class="arrows" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#7c3aed"/></marker></defs>
+              <line x1="17.5" y1="16" x2="55" y2="16" stroke="#7c3aed" stroke-width="0.4" stroke-dasharray="1.2 1" marker-end="url(#ah)" vector-effect="non-scaling-stroke" style="stroke-width:2px"/>
+            </svg>
+
+            <div class="sh" style="left:14%;bottom:84%"><span class="av att-neu">SR</span><span>Stadtrat Wirtschaft</span></div>
+            <div class="sh target" style="left:58%;bottom:84%"><span class="av">SR</span><span style="color:#7c3aed">Ziel</span></div>
+            <div class="sh" style="left:34%;bottom:72%"><span class="av att-neu">OA</span><span>Ordnungsamt</span></div>
+            <div class="sh" style="left:74%;bottom:76%"><span class="av att-pro">MV</span><span>Marktverwaltung</span></div>
+            <div class="sh sel" style="left:88%;bottom:68%"><span class="av att-con">AI</span><span>Anwohnerinitiative</span></div>
+            <div class="sh" style="left:22%;bottom:58%"><span class="av att-neu">LZ</span><span>Lokalzeitung</span></div>
+            <div class="sh" style="left:80%;bottom:20%"><span class="av att-con">CD</span><span>Café am Dom</span></div>
+            <div class="sh" style="left:64%;bottom:28%"><span class="av att-pro">SG</span><span>Stammgäste</span></div>
+            <div class="sh" style="left:28%;bottom:16%"><span class="av att-pro">KH</span><span>Kartoffelhof</span></div>
+          </div>
+          <span></span>
+          <div>
+            <div class="ticks-x" style="height:18px"><span style="left:3%" class="pole">gering</span><span style="left:97%" class="pole">hoch</span></div>
+            <div class="ax-title-x">Interesse / Betroffenheit →</div>
+          </div>
+        </div>
+        <div class="legend" style="margin:6px 0 4px 0;justify-content:center"><span><span class="avatar att-pro" style="display:inline-grid;width:12px;height:12px;vertical-align:-1px"></span> unterstützend</span><span><span class="avatar att-neu" style="display:inline-grid;width:12px;height:12px;vertical-align:-1px"></span> neutral</span><span><span class="avatar att-con" style="display:inline-grid;width:12px;height:12px;vertical-align:-1px"></span> kritisch</span><span style="color:#7c3aed">⇢ Ziel-Position / -Haltung</span></div>
+      </div>
+
+      <div class="card panel">
+        <div class="row" style="gap:10px"><span class="avatar att-con" style="width:36px;height:36px;font-size:12px">AI</span><div><b style="font-size:15px">Anwohnerinitiative Domviertel</b><div class="sub" style="font-size:12px">Sprecherin: Frau Krause · 40 Mitglieder</div></div></div>
+        <div class="row" style="margin-top:10px;gap:6px"><span class="chip bad sm">Eng einbinden</span><span class="chip sm">Macht 4 · Interesse 5</span></div>
+        <div class="field-lbl">Macht / Einfluss</div>
+        <div class="scale5"><span>1</span><span>2</span><span>3</span><span class="on">4</span><span>5</span></div>
+        <div class="field-lbl">Interesse / Betroffenheit</div>
+        <div class="scale5"><span>1</span><span>2</span><span>3</span><span>4</span><span class="on">5</span></div>
+        <div class="field-lbl">Haltung · Ist → Ziel</div>
+        <div style="display:grid;grid-template-columns:34px auto;gap:6px 8px;align-items:center;font-size:12px;color:var(--muted);font-weight:650"><span>Ist</span><div class="seg-sm" style="justify-self:start"><span>unterstützend</span><span>neutral</span><span class="on bad">kritisch</span></div><span style="color:#7c3aed">Ziel</span><div class="seg-sm" style="justify-self:start"><span>unterstützend</span><span class="on" style="background:var(--qv-bg);color:var(--qv)">neutral</span><span>kritisch</span></div></div>
+        <div class="field-lbl">Anliegen / Befürchtung</div>
+        <div class="input" style="font-size:12.5px;min-height:34px;padding:6px 9px">Geruch und Lärm am Abend, Müll rund um den Stellplatz</div>
+        <div class="field-lbl">Strategie</div>
+        <div class="input" style="font-size:12.5px;min-height:34px;padding:6px 9px">Vor dem Antrag persönlich treffen; Betriebszeiten bis 20 Uhr, Müllrunde zusagen</div>
+        <div class="field-lbl">Kommunikation</div>
+        <div class="row" style="gap:6px;flex-wrap:wrap"><span class="chip">👥 Treffen</span><span class="chip">monatlich</span><span class="who"><span class="avatar" style="background:#f59f00">LE</span>Lea</span></div>
+        <div class="hint" style="margin-top:12px">⚠ Kritisch und mit hohem Einfluss – in der Bewertung „Eng einbinden“ zuerst ansprechen</div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- ============ 6 Risikomatrix ============ -->
+<div class="caption">6 · Risikomatrix 5×5: Brutto- und Netto-Bewertung, Risikostufen, Strategie und Maßnahmen im Risikoregister</div>
+<section class="screen" id="s6-risiko">
+  <header class="app-header">
+    <div class="brand"><span class="logo mx">2×2</span></div>
+    <div class="tabs"><span class="tab">Alle Matrizen</span><span class="tab active">Stadtfest 2026 – Risiken <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="seg view-seg"><span class="on">▦ Matrix</span><span>☰ Liste</span><span>▤ Bericht</span></div>
+    <div class="hdr-actions"><button class="btn ghost">? Methodik</button><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main>
+    <div class="crumb-row"><span class="method-chip">Risikomatrix 5×5</span><h1>Stadtfest 2026 – Risiken</h1><span class="sub">9 Risiken</span><span class="spacer"></span><div class="seg"><span>Brutto</span><span>Netto</span><span class="on">Brutto + Netto</span></div><button class="btn sm">⚙ Skalen &amp; Stufen</button><button class="btn sm primary">+ Risiko</button></div>
+    <div class="kpis" style="margin-top:0">
+      <div class="card kpi"><small>Risiken</small><b>9</b><span>7 mit Maßnahme</span></div>
+      <div class="card kpi"><small>Sehr hoch (≥ 15)</small><b style="color:var(--bad)">2 → 0</b><span>brutto → netto</span></div>
+      <div class="card kpi"><small>Hoch (10–14)</small><b style="color:#8a4200">3 → 1</b><span>R4 Lebensmittelkontrolle offen</span></div>
+      <div class="card kpi"><small>Summe Risikowert</small><b>89 → 53</b><span>−40 % durch Maßnahmen</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:560px 1fr;gap:16px;align-items:start">
+      <div class="card" style="padding:16px 16px 10px 36px;position:relative">
+        <span class="ax-title-y" style="left:22px">Wahrscheinlichkeit →</span>
+        <div class="heat">
+          <div class="yl">5 sehr<br>wahrsch.</div>
+          <div class="cell lv2"><span class="sc">5</span></div><div class="cell lv3"><span class="sc">10</span></div><div class="cell lv4"><span class="sc">15</span></div><div class="cell lv4"><span class="sc">20</span></div><div class="cell lv4"><span class="sc">25</span></div>
+          <div class="yl">4 wahr-<br>scheinlich</div>
+          <div class="cell lv1"><span class="sc">4</span></div><div class="cell lv2"><span class="rk">R5</span><span class="sc">8</span></div><div class="cell lv3"><span class="rk">R3</span><span class="sc">12</span></div><div class="cell lv4"><span class="rk sel">R6</span><span class="sc">16</span></div><div class="cell lv4"><span class="sc">20</span></div>
+          <div class="yl">3 möglich</div>
+          <div class="cell lv1"><span class="sc">3</span></div><div class="cell lv2"><span class="sc">6</span></div><div class="cell lv2"><span class="rk net">R2</span><span class="sc">9</span></div><div class="cell lv3"><span class="rk">R1</span><span class="sc">12</span></div><div class="cell lv4"><span class="rk">R2</span><span class="sc">15</span></div>
+          <div class="yl">2 selten</div>
+          <div class="cell lv1"><span class="sc">2</span></div><div class="cell lv1"><span class="rk net">R5</span><span class="sc">4</span></div><div class="cell lv2"><span class="rk net">R3</span><span class="sc">6</span></div><div class="cell lv2"><span class="rk">R7</span><span class="rk net sel">R6</span><span class="sc">8</span></div><div class="cell lv3"><span class="rk">R4</span><span class="sc">10</span></div>
+          <div class="yl">1 sehr<br>selten</div>
+          <div class="cell lv1"><span class="sc">1</span></div><div class="cell lv1"><span class="sc">2</span></div><div class="cell lv1"><span class="rk">R8</span><span class="sc">3</span></div><div class="cell lv1"><span class="rk net">R1</span><span class="rk net">R7</span><span class="sc">4</span></div><div class="cell lv2"><span class="rk">R9</span><span class="sc">5</span></div>
+          <span></span><div class="xl">1 unbedeut.</div><div class="xl">2 gering</div><div class="xl">3 spürbar</div><div class="xl">4 schwer</div><div class="xl">5 existenziell</div>
+        </div>
+        <div class="ax-title-x" style="margin-top:4px">Auswirkung →</div>
+        <div class="legend" style="justify-content:center;margin-top:8px"><span><span class="sw lv1"></span>niedrig 1–4</span><span><span class="sw lv2"></span>mittel 5–9</span><span><span class="sw lv3"></span>hoch 10–14</span><span><span class="sw lv4"></span>sehr hoch 15–25</span><span><span class="rk" style="height:16px;font-size:10px">R</span> brutto</span><span><span class="rk net" style="height:16px;font-size:10px">R</span> netto</span></div>
+      </div>
+
+      <div class="card" style="overflow:hidden">
+        <table class="tbl">
+          <tr><th>ID</th><th>Risiko</th><th>W×A</th><th>Brutto</th><th>Strategie</th><th>Maßnahme</th><th>Netto</th></tr>
+          <tr class="sel"><td><b>R6</b></td><td><b>Ware geht am Samstag aus</b></td><td>4×4</td><td><span class="lvl-chip lv4">16</span></td><td><span class="strat">vermindern</span></td><td>Zweite Lieferung Sa 14 Uhr fest vereinbaren</td><td><span class="lvl-chip lv2">8</span></td></tr>
+          <tr><td><b>R2</b></td><td>Unwetter, Fest wird unterbrochen</td><td>3×5</td><td><span class="lvl-chip lv4">15</span></td><td><span class="strat">übertragen</span></td><td>Ausfallversicherung, Pavillon sturmfest</td><td><span class="lvl-chip lv2">9</span></td></tr>
+          <tr><td><b>R1</b></td><td>Generator fällt aus</td><td>3×4</td><td><span class="lvl-chip lv3">12</span></td><td><span class="strat">vermindern</span></td><td>Festnetz-Strom beim Veranstalter buchen</td><td><span class="lvl-chip lv1">4</span></td></tr>
+          <tr><td><b>R3</b></td><td>Personalausfall (Krankheit)</td><td>4×3</td><td><span class="lvl-chip lv3">12</span></td><td><span class="strat">vermindern</span></td><td>2 Aushilfen auf Abruf</td><td><span class="lvl-chip lv2">6</span></td></tr>
+          <tr><td><b>R4</b></td><td>Mängel bei Lebensmittelkontrolle</td><td>2×5</td><td><span class="lvl-chip lv3">10</span></td><td><span class="strat">vermeiden</span></td><td><span style="color:var(--warn);font-weight:650">⚠ keine Maßnahme</span></td><td><span class="lvl-chip lv3">10</span></td></tr>
+          <tr><td><b>R5</b></td><td>Kartenzahlung offline</td><td>4×2</td><td><span class="lvl-chip lv2">8</span></td><td><span class="strat">vermindern</span></td><td>Wechselgeld, Offline-Modus testen</td><td><span class="lvl-chip lv1">4</span></td></tr>
+          <tr><td><b>R7</b></td><td>Fritteuse fällt aus (Überhitzung)</td><td>2×4</td><td><span class="lvl-chip lv2">8</span></td><td><span class="strat">vermindern</span></td><td>Filter vorher tauschen (→ 5 Warum)</td><td><span class="lvl-chip lv1">4</span></td></tr>
+          <tr><td><b>R9</b></td><td>Fettbrand am Stand</td><td>1×5</td><td><span class="lvl-chip lv2">5</span></td><td><span class="strat">akzeptieren</span></td><td>Löschdecke vorhanden</td><td><span class="lvl-chip lv2">5</span></td></tr>
+          <tr><td><b>R8</b></td><td>Diebstahl aus der Kasse</td><td>1×3</td><td><span class="lvl-chip lv1">3</span></td><td><span class="strat">akzeptieren</span></td><td>–</td><td><span class="lvl-chip lv1">3</span></td></tr>
+        </table>
+        <div style="padding:10px 12px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;font-size:12.5px"><span class="hint" style="margin:0;flex:1">⚠ R4 ist hoch und hat keine Maßnahme – Strategie „vermeiden“ braucht einen konkreten Schritt</span></div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- ============ 7 Stacey ============ -->
+<div class="caption">7 · Stacey-Matrix: Vorhaben per Fragen oder Ziehen einordnen, Zone bestimmt das empfohlene Vorgehen</div>
+<section class="screen" id="s7-stacey">
+  <header class="app-header">
+    <div class="brand"><span class="logo mx">2×2</span></div>
+    <div class="tabs"><span class="tab">Alle Matrizen</span><span class="tab active">Vorhaben 2027 <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="seg view-seg"><span class="on">▦ Matrix</span><span>☰ Liste</span><span>▤ Bericht</span></div>
+    <div class="hdr-actions"><button class="btn ghost">? Methodik</button><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main>
+    <div class="crumb-row"><span class="method-chip">Stacey-Matrix</span><h1>Vorhaben 2027</h1><span class="sub">8 Vorhaben</span><span class="spacer"></span><button class="btn sm">⚙ Achsen &amp; Zonen</button><button class="btn sm primary">+ Vorhaben</button></div>
+    <div class="work two" style="grid-template-columns:1fr 360px">
+      <div class="card" style="padding:18px 22px 10px 44px">
+        <div class="plot-wrap">
+          <div class="ticks-y"><span style="bottom:2%" class="pole">nah</span><span style="bottom:96%" class="pole">fern</span></div>
+          <div class="plot" style="height:560px;overflow:hidden">
+            <svg class="arrows" viewBox="0 0 100 100" preserveAspectRatio="none" style="z-index:0">
+              <rect width="100" height="100" fill="#ffe3e3"/>
+              <path d="M0 100 L0 12 A88 88 0 0 1 88 100 Z" fill="#f3ecff"/>
+              <path d="M0 100 L0 42 A58 58 0 0 1 58 100 Z" fill="#e7f1fc"/>
+              <path d="M0 100 L0 70 A30 30 0 0 1 30 100 Z" fill="#d3f2da"/>
+              <g fill="none" stroke="#fff" style="stroke-width:2px" vector-effect="non-scaling-stroke"><path d="M0 12 A88 88 0 0 1 88 100" vector-effect="non-scaling-stroke"/><path d="M0 42 A58 58 0 0 1 58 100" vector-effect="non-scaling-stroke"/><path d="M0 70 A30 30 0 0 1 30 100" vector-effect="non-scaling-stroke"/></g>
+            </svg>
+            <span class="ax-title-y">Anforderungen: Einigkeit über das Was →</span>
+            <div class="zone-lbl" style="left:2%;bottom:3%;color:#1d6b31">Einfach<small>bewährtes Vorgehen</small></div>
+            <div class="zone-lbl" style="left:33%;bottom:3%;color:var(--qb)">Kompliziert<small>Expertise, Analyse</small></div>
+            <div class="zone-lbl" style="left:64%;bottom:3%;color:var(--qv)">Komplex<small>ausprobieren, lernen</small></div>
+            <div class="zone-lbl" style="right:2%;top:2%;color:var(--q1);text-align:right">Chaotisch<small>erst handeln, dann ordnen</small></div>
+
+            <div class="dot" style="left:12%;bottom:14%"><i style="background:#2b8a3e">1</i><span>Saisonkarte aktualisieren</span></div>
+            <div class="dot" style="left:40%;bottom:24%"><i style="background:var(--qb)">2</i><span>Kassensystem wechseln</span></div>
+            <div class="dot" style="left:66%;bottom:52%"><i style="background:var(--qv)">3</i><span>Vorbestell-App</span></div>
+            <div class="dot sel" style="left:52%;bottom:66%"><i style="background:var(--qv)">4</i><span>Zweiter Truck</span></div>
+            <div class="dot" style="left:44%;bottom:54%"><i style="background:var(--qv)">5</i><span>Firmen-Catering</span></div>
+            <div class="dot" style="left:46%;bottom:12%"><i style="background:var(--qb)">6</i><span>Abluft nach Vorschrift</span></div>
+            <div class="dot" style="left:18%;bottom:44%"><i style="background:var(--qb)">7</i><span>Fester Stellplatz Domplatz</span></div>
+            <div class="dot lbl-l" style="left:86%;bottom:76%"><i style="background:var(--q1)">8</i><span>Umbau auf E-Truck</span></div>
+          </div>
+          <span></span>
+          <div>
+            <div class="ticks-x" style="height:18px"><span style="left:3%" class="pole">nah</span><span style="left:97%" class="pole">fern</span></div>
+            <div class="ax-title-x">Technologie / Lösungsweg: Gewissheit über das Wie →</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card panel" style="margin-bottom:12px">
+          <div class="row" style="gap:8px"><span class="num" style="background:var(--qv);width:26px;height:26px">4</span><b style="font-size:15px">Zweiter Truck</b><span class="spacer"></span><span class="chip sm" style="background:var(--qv-bg);color:var(--qv);border-color:transparent">komplex</span></div>
+          <div class="field-lbl">Einordnen per Fragen (1 = trifft zu … 5 = trifft nicht zu)</div>
+          <div class="qs">
+            <span>Ziele und Anforderungen sind klar und abgestimmt</span><div class="scale5"><span>1</span><span>2</span><span class="on">3</span><span>4</span><span>5</span></div>
+            <span>Alle Beteiligten wollen dasselbe</span><div class="scale5"><span>1</span><span>2</span><span>3</span><span class="on">4</span><span>5</span></div>
+            <span>Wir haben so etwas schon gemacht</span><div class="scale5"><span>1</span><span>2</span><span class="on">3</span><span>4</span><span>5</span></div>
+            <span>Weg und Technik sind bekannt</span><div class="scale5"><span>1</span><span>2</span><span>3</span><span class="on">4</span><span>5</span></div>
+          </div>
+          <div class="hint info" style="margin-top:10px">Position aus den Antworten berechnet – Ziehen überschreibt sie (dann „manuell“).</div>
+        </div>
+        <div class="card panel">
+          <h3>Zonen &amp; Vorgehen</h3>
+          <div class="zone-row"><i style="background:#2b8a3e"></i><div><b>Einfach</b><p>Checkliste, Standardprozess, einfach erledigen</p></div><span class="chip sm">1</span></div>
+          <div class="zone-row"><i style="background:var(--qb)"></i><div><b>Kompliziert</b><p>Plangetrieben: analysieren, Fachleute fragen, Wasserfall/V-Modell</p></div><span class="chip sm">3</span></div>
+          <div class="zone-row"><i style="background:var(--qv)"></i><div><b>Komplex</b><p>Iterativ: kleine Schritte, Feedback, Scrum/Kanban, Prototypen</p></div><span class="chip sm">3</span></div>
+          <div class="zone-row"><i style="background:var(--q1)"></i><div><b>Chaotisch</b><p>Erst stabilisieren, dann ordnen; Ziele klären, bevor geplant wird</p></div><span class="chip sm">1</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- ============ 8 Bericht ============ -->
+<div class="caption">8 · Bericht: Matrix als Bild, Einträge je Quadrant, Export als PDF, PNG, Markdown, CSV oder JSON</div>
+<section class="screen" id="s8-bericht">
+  <header class="app-header">
+    <div class="brand"><span class="logo mx">2×2</span></div>
+    <div class="tabs"><span class="tab">Alle Matrizen</span><span class="tab">Wochenplanung KW 42 <span class="x">✕</span></span><span class="tab active">Ideen Saison 2027 <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="seg view-seg"><span>▦ Matrix</span><span>☰ Liste</span><span class="on">▤ Bericht</span></div>
+    <div class="hdr-actions"><button class="btn ghost">? Methodik</button><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main>
+    <div class="export-bar"><span class="sub">Bericht</span><span class="spacer"></span><label class="sub" style="display:flex;gap:6px;align-items:center;font-size:12.5px"><span class="check on">✓</span>Begründungen</label><label class="sub" style="display:flex;gap:6px;align-items:center;font-size:12.5px;margin-right:8px"><span class="check on">✓</span>Werte</label><button class="btn sm">⎙ Drucken / PDF</button><button class="btn sm">🖼 Bild (PNG)</button><button class="btn sm">Markdown kopieren</button><button class="btn sm">CSV</button><button class="btn sm">JSON</button></div>
+    <div class="paper">
+      <div class="row"><div><h1>Ideen Saison 2027</h1><div class="sub" style="font-size:12.5px">Wert / Aufwand · Food-Truck · 12 Ideen · Stand 14.10.2026</div></div><span class="spacer"></span><span class="logo mx">2×2</span></div>
+      <div style="display:grid;grid-template-columns:330px 1fr;gap:18px;margin-top:14px;align-items:start">
+        <svg viewBox="0 0 330 290" style="width:330px;height:290px">
+          <rect x="30" y="0" width="150" height="130" fill="#ebf8ee"/><rect x="180" y="0" width="150" height="130" fill="#e7f1fc"/>
+          <rect x="30" y="130" width="150" height="130" fill="#f2f4f7"/><rect x="180" y="130" width="150" height="130" fill="#fff0f0"/>
+          <path d="M30 0 V260 H330" fill="none" stroke="#344054" stroke-width="1.5"/>
+          <g font-family="system-ui" font-size="10" font-weight="700"><text x="36" y="14" fill="#2b8a3e">Quick Wins</text><text x="324" y="14" fill="#1864ab" text-anchor="end">Großprojekte</text><text x="36" y="254" fill="#667085">Lückenfüller</text><text x="324" y="254" fill="#c92a2a" text-anchor="end">Zeitfresser</text>
+          <text x="180" y="280" text-anchor="middle" fill="#344054">AUFWAND →</text><text x="14" y="130" text-anchor="middle" fill="#344054" transform="rotate(-90 14 130)">WERT →</text></g>
+          <g font-family="system-ui" font-size="9" font-weight="800" fill="#fff" text-anchor="middle">
+            <g><circle cx="240" cy="52" r="9" fill="#1864ab"/><text x="240" y="55">1</text></g>
+            <g><circle cx="90" cy="52" r="9" fill="#2b8a3e"/><text x="90" y="55">2</text></g>
+            <g><circle cx="120" cy="91" r="9" fill="#2b8a3e"/><text x="120" y="94">3</text></g>
+            <g><circle cx="300" cy="78" r="9" fill="#1864ab"/><text x="300" y="81">4</text></g>
+            <g><circle cx="105" cy="156" r="9" fill="#667085"/><text x="105" y="159">5</text></g>
+            <g><circle cx="240" cy="169" r="9" fill="#c92a2a"/><text x="240" y="172">6</text></g>
+            <g><circle cx="75" cy="65" r="9" fill="#2b8a3e"/><text x="75" y="68">7</text></g>
+            <g><circle cx="210" cy="39" r="9" fill="#1864ab"/><text x="210" y="42">8</text></g>
+            <g><circle cx="210" cy="221" r="9" fill="#c92a2a"/><text x="210" y="224">9</text></g>
+            <g><circle cx="135" cy="208" r="9" fill="#667085"/><text x="135" y="211">10</text></g>
+            <g><circle cx="255" cy="143" r="9" fill="#c92a2a"/><text x="255" y="146">11</text></g>
+            <g><circle cx="60" cy="117" r="9" fill="#2b8a3e"/><text x="60" y="120">12</text></g>
+          </g>
+        </svg>
+        <div>
+          <h4 style="margin:0 0 6px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)">Empfehlung</h4>
+          <p style="margin:0 0 10px;font-size:13px;color:var(--text-2)">Die 4 Quick Wins kosten zusammen 7,5 Aufwandspunkte und bringen im Schnitt Wert 6,9. Von den 3 Großprojekten zuerst <b>Firmen-Catering</b> (Wert 8,5) vorbereiten. 3 Zeitfresser werden nicht weiterverfolgt.</p>
+          <table class="tbl" style="font-size:12px">
+            <tr><th>Rang</th><th>Idee</th><th>Wert</th><th>Aufwand</th><th>W ÷ A</th></tr>
+            <tr><td>1</td><td>Kombi-Angebot Mittag</td><td>5,5</td><td>1</td><td>5,5</td></tr>
+            <tr><td>2</td><td>Instagram-Standort</td><td>7,5</td><td>1,5</td><td>5,0</td></tr>
+            <tr><td>3</td><td>Kartenzahlung überall</td><td>8</td><td>2</td><td>4,0</td></tr>
+            <tr><td>4</td><td>Vegane Pommes-Variante</td><td>6,5</td><td>3</td><td>2,2</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="rep">
+        <div class="box" style="border-color:#c6ebcf"><h4 style="color:var(--q2)">● Quick Wins · 4</h4><ol><li><b>Kombi-Angebot Mittag</b> – nur Kasse umstellen</li><li><b>Instagram-Standort</b> – Mia postet täglich</li><li><b>Kartenzahlung überall</b> – 2. Lesegerät</li><li><b>Vegane Pommes</b> – eigenes Öl, 3 Anfragen/Woche</li></ol></div>
+        <div class="box" style="border-color:#b6d4f2"><h4 style="color:var(--qb)">● Großprojekte · 3</h4><ol><li><b>Firmen-Catering</b> – 2 Anfragen liegen vor</li><li><b>Vorbestellung per App</b> – Anbieter vergleichen</li><li><b>Zweiter Truck</b> – erst nach Saison 2027 entscheiden</li></ol></div>
+        <div class="box" style="border-color:var(--border-strong)"><h4 style="color:var(--q4)">● Lückenfüller · 2</h4><ol><li>Stempelkarte</li><li>Digitale Menütafel</li></ol></div>
+        <div class="box" style="border-color:#fbd3cf"><h4 style="color:var(--q1)">● Zeitfresser · 3</h4><ol><li>Lieferplattform – Gebühren 30 %</li><li>Saucen abfüllen – Kennzeichnungspflicht</li><li>Neues Logo</li></ol></div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- ============ 9 Achsen & Quadranten ============ -->
+<div class="caption">9 · Achsen &amp; Quadranten anpassen: alle fünf Methoden sind Vorlagen desselben Modells (Achsen, Skala, Raster, Felder)</div>
+<section class="screen" id="s9-anpassen" style="height:900px">
+  <header class="app-header">
+    <div class="brand"><span class="logo mx">2×2</span></div>
+    <div class="tabs"><span class="tab">Alle Matrizen</span><span class="tab">Wochenplanung KW 42 <span class="x">✕</span></span><span class="tab active">Ideen Saison 2027 <span class="x">✕</span></span><span class="tab" style="font-size:18px">+</span></div>
+    <div class="seg view-seg"><span class="on">▦ Matrix</span><span>☰ Liste</span><span>▤ Bericht</span></div>
+    <div class="hdr-actions"><button class="btn ghost">? Methodik</button><button class="btn ghost">Datei ▾</button></div>
+  </header>
+  <main style="filter:blur(1px);opacity:.6"><div class="crumb-row"><span class="method-chip">Wert / Aufwand</span><h1>Ideen Saison 2027</h1></div><div class="card" style="height:600px"></div></main>
+  <div class="overlay">
+    <div class="dialog" style="width:960px">
+      <div class="dlg-head"><h2>Achsen &amp; Quadranten</h2><span class="method-chip">Vorlage: Wert / Aufwand</span><span class="spacer"></span><span class="sub">✕</span></div>
+      <div class="cfg">
+        <div>
+          <h3>X-Achse</h3>
+          <div class="frm"><label>Name</label><div class="input">Aufwand</div><label>Pole</label><div class="pair"><div class="input">gering</div><div class="input">hoch</div></div><label>Skala</label><div class="seg-sm"><span>2 Stufen</span><span>1–3</span><span>1–5</span><span class="on">1–10</span><span>stufenlos</span></div></div>
+          <h3>Y-Achse</h3>
+          <div class="frm"><label>Name</label><div class="input">Wert / Nutzen</div><label>Pole</label><div class="pair"><div class="input">gering</div><div class="input">hoch</div></div><label>Skala</label><div class="seg-sm"><span>2 Stufen</span><span>1–3</span><span>1–5</span><span class="on">1–10</span><span>stufenlos</span></div></div>
+          <h3>Raster</h3>
+          <div class="frm"><label>Einteilung</label><div class="seg-sm"><span class="on">2 × 2</span><span>3 × 3</span><span>5 × 5 (Heatmap)</span><span>Zonen (Bögen)</span></div><label>Trennlinie</label><div class="pair"><div class="input">X bei 5</div><div class="input">Y bei 5</div></div></div>
+          <h3 style="margin-top:4px">Optional</h3>
+          <div class="opt"><div><b>Wert aus Kriterien berechnen</b><p>Gewichtete Teilbewertungen statt einer Zahl</p></div><span class="switch"></span></div>
+          <div class="opt"><div><b>Punktgröße als dritte Kennzahl</b><p>z. B. Kosten, Anzahl Betroffene</p></div><span class="switch"></span></div>
+          <div class="opt"><div><b>Ziel-Position (Ist → Soll)</b><p>Pfeil zur gewünschten Position, wie bei Stakeholdern</p></div><span class="switch"></span></div>
+          <div class="opt"><div><b>Mehrere Bewertende</b><p>Jede Person schätzt, Mittelwert und Streuung</p></div><span class="switch"></span></div>
+        </div>
+        <div>
+          <h3>Quadranten</h3>
+          <div class="qcfg">
+            <div style="background:var(--q2-bg);border-color:#c6ebcf;color:var(--q2)"><b>Quick Wins</b>zuerst umsetzen<div class="swatches"><span style="background:#2b8a3e" class="on"></span><span style="background:#1864ab"></span><span style="background:#a35200"></span><span style="background:#c92a2a"></span><span style="background:#667085"></span><span style="background:#7c3aed"></span></div></div>
+            <div style="background:var(--qb-bg);border-color:#b6d4f2;color:var(--qb)"><b>Großprojekte</b>sorgfältig planen<div class="swatches"><span style="background:#2b8a3e"></span><span style="background:#1864ab" class="on"></span><span style="background:#a35200"></span><span style="background:#c92a2a"></span><span style="background:#667085"></span><span style="background:#7c3aed"></span></div></div>
+            <div style="background:var(--q4-bg);border-color:var(--border-strong);color:var(--q4)"><b>Lückenfüller</b>nebenbei, wenn Zeit ist<div class="swatches"><span style="background:#2b8a3e"></span><span style="background:#1864ab"></span><span style="background:#a35200"></span><span style="background:#c92a2a"></span><span style="background:#667085" class="on"></span><span style="background:#7c3aed"></span></div></div>
+            <div style="background:var(--q1-bg);border-color:#fbd3cf;color:var(--q1)"><b>Zeitfresser</b>streichen<div class="swatches"><span style="background:#2b8a3e"></span><span style="background:#1864ab"></span><span style="background:#a35200"></span><span style="background:#c92a2a" class="on"></span><span style="background:#667085"></span><span style="background:#7c3aed"></span></div></div>
+          </div>
+          <h3 style="margin-top:16px">Felder je Eintrag</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="chip acc">✓ Titel</span><span class="chip acc">✓ Begründung</span><span class="chip">+ Person</span><span class="chip">+ Termin</span><span class="chip">+ Status</span><span class="chip">+ Schlagworte</span><span class="chip">+ eigenes Feld</span></div>
+          <h3 style="margin-top:16px">Was dieselbe Einstellung bei den anderen Vorlagen bedeutet</h3>
+          <table class="tbl" style="background:var(--surface);border-radius:8px;overflow:hidden;font-size:12px">
+            <tr><th>Vorlage</th><th>Skala</th><th>Raster</th><th>Extra</th></tr>
+            <tr><td>Eisenhower</td><td>2 Stufen</td><td>2 × 2</td><td>Eingang, Person, Termin</td></tr>
+            <tr><td>Macht / Interesse</td><td>1–5</td><td>2 × 2</td><td>Haltung, Ist → Ziel</td></tr>
+            <tr><td>Risikomatrix</td><td>1–5</td><td>5 × 5</td><td>Stufen, brutto/netto</td></tr>
+            <tr><td>Stacey</td><td>1–5 (Fragen)</td><td>Zonen</td><td>Vorgehen je Zone</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="dlg-foot"><span class="sub" style="font-size:12.5px">Änderungen an Skala oder Raster rechnen vorhandene Werte um; Einträge bleiben erhalten.</span><span class="spacer"></span><button class="btn">Als eigene Vorlage speichern</button><button class="btn primary">Übernehmen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 Mobil ============ -->
+<div class="caption">10 · Mobil (Eisenhower): Quadranten als Kacheln, Liste des gewählten Feldes, Wischen zum Verschieben</div>
+<section class="screen mobile" id="s10-mobil">
+  <div class="m-header"><span class="logo mx">2×2</span><b style="flex:1;font-size:14px">Wochenplanung KW 42</b><span class="sub">⋯</span></div>
+  <div class="m-body">
+    <div class="hint" style="margin:0 0 10px">📥 3 Aufgaben im Eingang – <b>jetzt einordnen</b></div>
+    <div style="display:flex;justify-content:space-around;font-size:10.5px;font-weight:750;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px"><span>dringend</span><span>nicht dringend</span></div>
+    <div class="m-grid">
+      <div class="m-q on" style="background:var(--q1-bg);border-color:#fbd3cf;color:var(--q1)"><b>1 · Sofort<em>3</em></b><p>Fettfilter wechseln, Gasflaschen …</p></div>
+      <div class="m-q" style="background:var(--q2-bg);border-color:#c6ebcf;color:var(--q2)"><b>2 · Einplanen<em>4</em></b><p>Reinigungsplan, Kalkulation …</p></div>
+      <div class="m-q" style="background:var(--q3-bg);border-color:#fbdcae;color:var(--q3)"><b>3 · Delegieren<em>3</em></b><p>Rechnungen (Ben), Story (Mia) …</p></div>
+      <div class="m-q" style="background:var(--q4-bg);border-color:var(--border);color:var(--q4)"><b>4 · Weglassen<em>2</em></b><p>Newsletter-Design, Flyer</p></div>
+    </div>
+    <h3 style="margin:14px 0 8px">Sofort erledigen</h3>
+    <div class="m-list">
+      <div class="task"><span class="cb"></span><span class="t">Fettfilter wechseln (Kontrolle Do)</span><span class="meta"><span class="chip bad sm">heute</span></span></div>
+      <div class="task" style="transform:translateX(-46px);position:relative"><span class="cb"></span><span class="t">Gasflaschen nachbestellen</span><span class="meta"><span class="chip warn sm">Mi</span></span><span style="position:absolute;right:-50px;top:-1px;bottom:-1px;width:44px;border-radius:0 8px 8px 0;background:var(--q2);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700">→ 2</span></div>
+      <div class="task"><span class="cb"></span><span class="t">Aushilfe für Samstag finden</span><span class="meta"><span class="chip warn sm">Fr</span></span></div>
+      <div class="task done"><span class="cb">✓</span><span class="t">Kühlung Getränke reparieren</span></div>
+    </div>
+  </div>
+  <div style="position:relative;height:62px"><button class="btn primary" style="position:absolute;right:14px;top:8px;border-radius:999px;height:44px">+ Aufgabe</button></div>
+  <div class="m-nav"><span class="on">▦<br>Matrix</span><span>☰<br>Liste</span><span>▤<br>Bericht</span></div>
+</section>
+
+</body>
+</html>
