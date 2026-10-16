@@ -69,7 +69,7 @@ export const method = {
 | `person` | Textfeld mit Vorschlägen | `key: 'owner'` zeigt die Person als Kreis auf den Karten |
 | `date` | Datum | `key: 'due'` zeigt das Datum auf den Karten, überschrittene rot |
 | `check` | Haken | `key: 'done'` streicht erledigte Einträge durch und zählt sie nicht als offen |
-| `choice` | Auswahl aus `options` | Optionen mit `color` färben die Punkte (das erste solche Feld zählt, z. B. Haltung bei Stakeholdern); `optionsText` teilt Texte zwischen Feldern |
+| `choice` | Auswahl aus `options` | Optionen mit `color` färben die Punkte (das erste solche Feld zählt, z. B. Haltung bei Stakeholdern); `optionsText` teilt Texte zwischen Feldern. Nutzer können die Optionen je Matrix umbenennen, ergänzen, entfernen und einfärben („Achsen & Bereiche“); Werte hängen an der Options-ID, entfernte Optionen werden bei den Einträgen geleert. |
 | `point` | zweite Position | wird gestrichelt mit Pfeil gezeichnet und lässt sich ziehen – z. B. Ziel-Position (Stakeholder) oder Bewertung nach Maßnahme (Risiko) |
 
 ### Fragen zum Einordnen
