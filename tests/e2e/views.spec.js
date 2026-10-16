@@ -109,6 +109,53 @@ test.describe('Einstellungen', () => {
   });
 });
 
+test.describe('Auswahlfelder', () => {
+  test('Optionen umbenennen, ergänzen, einfärben und entfernen', async ({ page }) => {
+    await openExample(page, 'stadtfest-risiken');
+    await page.click('#settingsBtn');
+    const opts = page.locator('#fieldsEdit [data-field="response"] [data-role="options"]');
+    await expect(opts.locator('.option-edit')).toHaveCount(4);
+    await opts.locator('[data-option="avoid"] [data-role="option-label"]').fill('ausschließen');
+    await opts.locator('[data-option="accept"] .icon-btn').click();
+    await opts.locator('[data-role="add-option"]').click();
+    await opts.locator('.option-edit').last().locator('[data-role="option-label"]').fill('beobachten');
+    await opts.locator('.option-edit').last().locator('.swatch.c-blue').click();
+    await page.click('#applySettings');
+    await page.locator('.pill', { hasText: 'Diebstahl' }).first().click();
+    const choice = page.locator('#itemEditor [data-field="response"] .choice button');
+    await expect(choice).toHaveText(['ausschließen', 'vermindern', 'übertragen', 'beobachten']);
+    // „akzeptieren“ entfernt: der Wert des Eintrags ist geleert
+    await expect(page.locator('#itemEditor [data-field="response"] button.on')).toHaveCount(0);
+    await choice.last().click();
+    await expect(choice.last()).toHaveAttribute('aria-pressed', 'true');
+    await expect(choice.last()).toHaveClass(/c-blue/);
+    // Umbenennen behält gesetzte Werte
+    await page.locator('.pill', { hasText: 'Mängel' }).first().click();
+    await expect(page.locator('#itemEditor [data-field="response"] button.on')).toHaveText('ausschließen');
+  });
+
+  test('eigenes Auswahlfeld anlegen; leere Namen werden ergänzt, letzte Option bleibt', async ({ page }) => {
+    await openExample(page, 'ideen-saison');
+    await page.click('#settingsBtn');
+    await page.click('[data-add-field="choice"]');
+    const field = page.locator('#fieldsEdit .field-edit').last();
+    await field.locator('input').first().fill('Status');
+    await field.locator('[data-role="option-label"]').first().fill('offen');
+    await field.locator('[data-role="option-label"]').nth(1).fill('');
+    await field.locator('.option-edit').nth(1).locator('.swatch.c-green').click();
+    await page.click('#applySettings');
+    await page.locator('#plot .tok').first().click();
+    const choice = page.locator('#itemEditor .choice button');
+    await expect(choice).toHaveText(['offen', 'Option 2']);
+    await choice.nth(1).click();
+    await expect(page.locator('#plot .tok.sel i')).toHaveClass(/c-green/);
+    await page.click('#settingsBtn');
+    const f2 = page.locator('#fieldsEdit .field-edit').last();
+    await f2.locator('.option-edit').first().locator('.icon-btn').click();
+    await expect(f2.locator('.option-edit .icon-btn')).toBeDisabled();
+  });
+});
+
 test.describe('Datei', () => {
   test('exportiert, importiert (gleiche überspringen, abweichende als Kopie) und sichert', async ({ page }) => {
     await openExample(page, 'vorhaben-2027');

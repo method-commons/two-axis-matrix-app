@@ -58,6 +58,7 @@ function Settings({ m }) {
   const S = Texts.settings;
   const c = d.config;
   const apply = () => {
+    for (const f of d.config.fields) (f.options || []).forEach((o, n) => { if (!o.label.trim()) o.label = `${S.option} ${n + 1}`; });
     mutate(x => {
       x.name = d.name;
       x.context = d.context;
@@ -202,15 +203,20 @@ function Settings({ m }) {
               <div class="field-edit" key={f.key} data-field={f.key}>
                 <span class="chip sm">{S.fieldTypes[f.type]}</span>
                 <input class="input sm" value={f.label} aria-label={S.fieldLabel} onInput={e => upd(x => { x.config.fields[i].label = textOf(e); })} />
-                {f.options && <span class="sub small">{f.options.map(o => o.label).join(' · ')}</span>}
                 <button type="button" class="icon-btn sm" aria-label={S.removeField} title={S.removeField} onClick={() => upd(x => { x.config.fields.splice(i, 1); })}>✕</button>
+                {f.type === 'choice' && <OptionsEdit options={f.options || []} upd={fn => upd(x => fn(/** @type {ChoiceOption[]} */ (x.config.fields[i].options ||= [])))} />}
               </div>
             ))}
           </div>
           <div class="actions">
             {FIELD_LIBRARY.filter(f => !f.key || !c.fields.some(x => x.key === f.key)).map(f => (
               <button type="button" class="btn sm dashed" key={f.type + (f.key || '')} data-add-field={f.key || f.type}
-                onClick={() => upd(x => { x.config.fields.push({ key: f.key || Util.uid('f'), type: f.type, label: f.key ? S.fieldNames[/** @type {keyof typeof S.fieldNames} */ (f.key)] : S.fieldTypes[f.type] }); })}>
+                onClick={() => upd(x => {
+                  /** @type {FieldDef} */
+                  const field = { key: f.key || Util.uid('f'), type: f.type, label: f.key ? S.fieldNames[/** @type {keyof typeof S.fieldNames} */ (f.key)] : S.fieldTypes[f.type] };
+                  if (f.type === 'choice') field.options = [1, 2].map(n => ({ id: Util.uid('o'), label: `${S.option} ${n}` }));
+                  x.config.fields.push(field);
+                })}>
                 + {f.key ? S.fieldNames[/** @type {keyof typeof S.fieldNames} */ (f.key)] : S.fieldTypes[f.type]}
               </button>
             ))}
@@ -237,5 +243,36 @@ const FIELD_LIBRARY = [
   { key: 'done', type: 'check' },
   { type: 'text' },
   { type: 'textarea' },
+  { type: 'choice' },
   { type: 'point' },
 ];
+
+/**
+ * Optionen eines Auswahlfelds bearbeiten: Name, Farbe (oder keine), ergänzen, entfernen.
+ * Die ID bleibt beim Umbenennen erhalten, gesetzte Werte der Einträge bleiben also gültig.
+ * @param {{ options: ChoiceOption[], upd: (fn: (opts: ChoiceOption[]) => void) => void }} props
+ */
+function OptionsEdit({ options, upd }) {
+  const S = Texts.settings;
+  return (
+    <div class="options-edit" data-role="options">
+      {options.map((o, j) => (
+        <div class="option-edit" key={o.id} data-option={o.id}>
+          <div class="swatches" role="radiogroup" aria-label={S.color}>
+            <button type="button" role="radio" aria-checked={!o.color} aria-label={S.noColor} title={S.noColor} class={`swatch none${o.color ? '' : ' on'}`}
+              onClick={() => upd(opts => { delete opts[j].color; })} />
+            {Model.COLORS.map(col => (
+              <button type="button" key={col} role="radio" aria-checked={o.color === col} aria-label={S.colors[col]} title={S.colors[col]} class={`swatch c-${col}${o.color === col ? ' on' : ''}`}
+                onClick={() => upd(opts => { opts[j].color = col; })} />
+            ))}
+          </div>
+          <input class="input sm" value={o.label} placeholder={`${S.option} ${j + 1}`} aria-label={S.optionLabel} data-role="option-label"
+            onInput={e => { const v = textOf(e); upd(opts => { opts[j].label = v; }); }} />
+          <button type="button" class="icon-btn sm" aria-label={S.removeOption} title={S.removeOption} disabled={options.length < 2}
+            onClick={() => upd(opts => { opts.splice(j, 1); })}>✕</button>
+        </div>
+      ))}
+      <button type="button" class="link sm" data-role="add-option" onClick={() => upd(opts => { opts.push({ id: Util.uid('o'), label: '' }); })}>{S.addOption}</button>
+    </div>
+  );
+}
