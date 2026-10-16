@@ -2,7 +2,7 @@
  * Kleine, wiederverwendbare Bausteine der Oberfläche: Dialog, Bestätigungsdialog, Hinweise,
  * Methoden- und Bereichs-Chips, Personen-Kreis, Herunterladen und Datei öffnen.
  */
-import { useEffect, useRef } from 'preact/hooks';
+import { useLayoutEffect, useRef } from 'preact/hooks';
 import { Methods } from '../methods.js';
 import { Model } from '../model.js';
 import { Texts } from '../texts.js';
@@ -19,7 +19,9 @@ export const fill = (text, params) => Util.fill(text, params);
  */
 export function Dialog({ title, children, wide, id, onClose = closeDialog }) {
   const ref = useRef(/** @type {HTMLDivElement | null} */ (null));
-  useEffect(() => {
+  // Layout-Effekte laufen direkt nach dem Zeichnen: Ein Escape gleich nach dem Öffnen
+  // (bevor der Browser neu malt) darf nicht verloren gehen.
+  useLayoutEffect(() => {
     const prev = /** @type {HTMLElement | null} */ (document.activeElement);
     const el = ref.current;
     const first = /** @type {HTMLElement | null} */ (el && el.querySelector('[autofocus], input:not([type=checkbox]):not([type=radio]), textarea, select, .dialog-body button, .dialog-foot button'));
@@ -28,7 +30,7 @@ export function Dialog({ title, children, wide, id, onClose = closeDialog }) {
     return () => { if (prev && document.contains(prev)) prev.focus(); };
   }, []);
   // Escape schließt auch, wenn der Fokus (noch) nicht im Dialog liegt
-  useEffect(() => {
+  useLayoutEffect(() => {
     /** @param {KeyboardEvent} e */
     const esc = e => { if (e.key === 'Escape' && !(ref.current && ref.current.contains(/** @type {Node} */ (e.target)))) onClose(); };
     document.addEventListener('keydown', esc);

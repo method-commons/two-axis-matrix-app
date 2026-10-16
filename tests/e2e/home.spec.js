@@ -78,10 +78,23 @@ test.describe('Startseite', () => {
     await page.click('#settingsBtn');
     await expect(page.locator('#ax-x-label')).toHaveValue('Erfüllung');
     await page.keyboard.press('Escape');
+    await expect(page.locator('#settingsDialog')).toHaveCount(0);
     await page.click('#homeLink');
     await page.click('#newBtn');
     await page.locator('[data-template] .tpl-del').click();
     await expect(page.locator('[data-template]')).toHaveCount(0);
+  });
+
+  test('Escape direkt nach dem Öffnen schließt den Dialog', async ({ page }) => {
+    await createMatrix(page, 'custom', 'Schnell');
+    // Öffnen und Escape im selben Takt – vor dem nächsten Neuzeichnen des Browsers
+    await page.evaluate(() => {
+      document.getElementById('settingsBtn').click();
+      document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    });
+    await expect(page.locator('#settingsDialog')).toHaveCount(0);
+    await page.click('#settingsBtn');
+    await expect(page.locator('#setName')).toBeFocused();
   });
 
   test('bleibt nach dem Neuladen erhalten', async ({ page }) => {
