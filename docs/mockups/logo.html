@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2-Achsen-Matrix – Logo-Vorschläge</title>
+<style>
+  :root { --accent: #4f46e5; --text: #101828; --muted: #667085; --border: #e4e7ec; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #d9dde4; font: 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: var(--text); }
+  .screen { width: 1280px; margin: 32px auto; background: #f6f7f9; border-radius: 10px; padding: 28px; box-shadow: 0 12px 32px -8px rgba(16,24,40,.18); }
+  h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -.02em; }
+  .sub { color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px; }
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .card.current { background: #f2f4f7; }
+  .card h2 { margin: 0; font-size: 15px; display: flex; gap: 8px; align-items: center; }
+  .card h2 b { width: 22px; height: 22px; border-radius: 50%; background: #eef2ff; color: var(--accent); display: grid; place-items: center; font-size: 12px; }
+  .card p { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .big { display: flex; gap: 14px; align-items: end; }
+  .big svg { display: block; }
+  .bar { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--border); background: #fff; font-weight: 700; position: relative; overflow: hidden; }
+  .bar::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, var(--accent), #06b6d4 55%, #22c55e); }
+  .bar.dark { background: #13161d; border-color: #252a35; color: #f2f4f7; }
+  .favs { display: flex; gap: 10px; align-items: center; font-size: 11.5px; color: var(--muted); }
+  .tab { display: flex; gap: 6px; align-items: center; padding: 4px 10px; border-radius: 8px 8px 0 0; background: #e9ecef; font-size: 12px; color: #344054; }
+  .pro { font-size: 12px; color: #2b8a3e; }
+  .con { font-size: 12px; color: #a35200; }
+  .rec { outline: 3px solid var(--accent); outline-offset: -1px; }
+  .rec h2::after { content: "Empfehlung"; margin-left: auto; font-size: 11px; font-weight: 700; color: var(--accent); background: #eef2ff; padding: 2px 8px; border-radius: 99px; }
+</style>
+</head>
+<body>
+<section class="screen" id="logo">
+  <h1>Logo-Vorschläge</h1>
+  <div class="sub">„2×2“ beschreibt nur vier Felder – Raster (5 × 5) und Zonen (Stacey) passen nicht dazu. Gemeinsam ist allen Methoden: <b>zwei Achsen und Einträge mit einer Position</b>. Gleiche Form wie die Schwester-Apps (indigo Quadrat, abgerundet; „5W“, „US“ bzw. Raster-Symbol der Morphologischen Matrix).</div>
+  <div class="grid" id="grid"></div>
+</section>
+<script>
+  // Symbole im 32er-Raster, weiß auf Indigo
+  const S = {
+    current: `<text x="16" y="20.5" font-family="Arial" font-weight="800" font-size="11" fill="#fff" text-anchor="middle">2×2</text>`,
+    a: `<path d="M8.5 6.5V23.5H25.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="14" cy="13.5" r="2.7" fill="#fff"/><circle cx="20.5" cy="18" r="2.7" fill="#fff"/><circle cx="21.5" cy="9.5" r="2.1" fill="#fff" opacity=".55"/>`,
+    b: `<path d="M8.5 6.5V23.5H25.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8.5 13.5H17.5V23.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-dasharray="1.8 2" opacity=".7"/>
+        <circle cx="17.5" cy="13.5" r="3.2" fill="#fff"/>`,
+    c: `<path d="M8.5 6.5V23.5H25.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8.5 13A10.5 10.5 0 0 1 19 23.5" fill="none" stroke="#fff" stroke-width="1.7" opacity=".55"/>
+        <circle cx="13" cy="19" r="2.4" fill="#fff"/><circle cx="21.5" cy="11.5" r="2.7" fill="#fff"/>`,
+    d: `<path d="M16 5.5V26.5M5.5 16H26.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>
+        <circle cx="21.5" cy="10.5" r="2.8" fill="#fff"/><circle cx="10.5" cy="21" r="2.3" fill="#fff" opacity=".6"/>`,
+    e: `<g fill="#fff"><rect x="9" y="17.5" width="5" height="5" rx="1" opacity=".3"/><rect x="15" y="17.5" width="5" height="5" rx="1" opacity=".5"/><rect x="21" y="17.5" width="5" height="5" rx="1" opacity=".75"/>
+        <rect x="9" y="11.5" width="5" height="5" rx="1" opacity=".5"/><rect x="15" y="11.5" width="5" height="5" rx="1" opacity=".75"/><rect x="21" y="11.5" width="5" height="5" rx="1"/>
+        <rect x="9" y="5.5" width="5" height="5" rx="1" opacity=".75"/><rect x="15" y="5.5" width="5" height="5" rx="1"/><rect x="21" y="5.5" width="5" height="5" rx="1"/></g>
+        <path d="M6.5 4.5V25H27" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+    f: `<text x="16" y="21" font-family="Arial" font-weight="800" font-size="13" fill="#fff" text-anchor="middle">XY</text>`,
+    g: `<path d="M8.5 23.5V7M8.5 23.5H25" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M5.8 9.6L8.5 6.5L11.2 9.6M22.4 20.8L25.5 23.5L22.4 26.2" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="17" cy="14.5" r="3" fill="#fff"/>`,
+  };
+  const svg = (k, size, bg = '#4f46e5') => `<svg width="${size}" height="${size}" viewBox="0 0 32 32" style="width:${size}px;height:${size}px"><rect width="32" height="32" rx="${size <= 16 ? 6 : 8}" fill="${bg}"/>${S[k]}</svg>`;
+  const items = [
+    ['current', 'Heute: „2×2“', 'Text wie „5W“ und „US“.', '', 'Passt nur zu vier Feldern; Risiko 5 × 5 und Stacey-Zonen sind ausgeschlossen.'],
+    ['a', 'Achsen mit Punkten', 'Zwei Achsen, Einträge als Punkte – das, was jede Matrix der App zeigt.', 'Methodenneutral, ruhig, auch mit 16 px klar; passt zum bisherigen Browser-Symbol.', 'Erinnert etwas an ein allgemeines Streudiagramm.'],
+    ['b', 'Ein Punkt, zwei Werte', 'Ein Eintrag mit gestrichelten Hilfslinien zu beiden Achsen: „Position = zwei Bewertungen“.', 'Erklärt die Grundidee (einordnen auf zwei Achsen), eigenständig.', 'Hilfslinien bei 16 px kaum sichtbar.'],
+    ['c', 'Achsen mit Zone', 'Achsen, ein Bogen um den Ursprung und Punkte innen/außen.', 'Deutet Bereiche an, ohne sie auf vier festzulegen.', 'Bogen wirkt eher wie Stacey; kleiner etwas unruhig.'],
+    ['d', 'Achsenkreuz', 'Achsen schneiden sich in der Mitte, Punkte in zwei Feldern.', 'Klassisches Bild einer Matrix, sehr klar.', 'Zeigt wieder vier Felder – ähnlich „2×2“.'],
+    ['e', 'Raster mit Achsen', 'Stufen von hell nach kräftig, wie die Heatmap, mit Achsen.', 'Verwandt mit dem Raster-Logo der Morphologischen Matrix.', 'Wirkt wie die Risikomatrix; bei 16 px ein Fleck.'],
+    ['f', '„XY“', 'Text wie „5W“ und „US“.', 'Einheitlich mit den Schwester-Apps, sofort lesbar.', 'Technisch/mathematisch; sagt nichts über Einordnen.'],
+    ['g', 'Achsen mit Pfeilen', 'Zwei Achsen mit Pfeilspitzen und ein Eintrag.', 'Betont „Richtung = mehr davon“ (hoch/niedrig).', 'Mehr Details, bei 16 px gedrängt.'],
+  ];
+  document.getElementById('grid').innerHTML = items.map(([k, title, text, pro, con], i) => `
+    <div class="card${k === 'current' ? ' current' : ''}${k === 'a' ? ' rec' : ''}">
+      <h2>${k === 'current' ? '' : `<b>${String.fromCharCode(64 + i)}</b>`}${title}</h2>
+      <div class="big">${svg(k, 96)}${svg(k, 48)}${svg(k, 28)}</div>
+      <div class="bar">${svg(k, 28)}2-Achsen-Matrix</div>
+      <div class="bar dark">${svg(k, 28, '#8b8cf8')}2-Achsen-Matrix</div>
+      <div class="favs"><span class="tab">${svg(k, 16)} 2-Achsen-Matrix</span>${svg(k, 32)}<span>Browser-Symbol 16/32 px</span></div>
+      <p>${text}</p>
+      ${pro ? `<div class="pro">+ ${pro}</div>` : ''}
+      <div class="con">− ${con}</div>
+    </div>`).join('');
+</script>
+</body>
+</html>

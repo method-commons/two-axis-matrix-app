@@ -51,3 +51,7 @@ Die App unterstützt das **Einordnen und Priorisieren** mit der jeweiligen Metho
 - Der Dialog heißt „Achsen & Bereiche“; zusätzlich zu den vier Feldern gibt es die Aufteilungen „Raster mit Stufen“ und „Zonen“ für alle Matrizen.
 - „Wert aus Kriterien“, „Punktgröße als dritte Kennzahl“ und „Mehrere Bewertende“ sind noch nicht umgesetzt (siehe [docs/METHODEN.md](../METHODEN.md)); „Zweite Position“ (Ziel-Position, Bewertung nach Maßnahme) ist eine Feldart, die jede Matrix nutzen kann.
 - Mobil stehen die Felder der Karten-Darstellung untereinander statt als Kacheln.
+
+## Logo-Vorschläge (offen)
+
+„2×2“ passt nur zu vier Feldern. Vorschläge A–G für ein methodenneutrales Symbol in der Form der Schwester-Apps: [`logo.html`](logo.html), Bild `logo.png`. Empfehlung: **A – Achsen mit Punkten**.
