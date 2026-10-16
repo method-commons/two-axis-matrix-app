@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "id": "example-einkauf",
+  "name": "Food truck purchasing",
+  "context": "Food truck · materials and suppliers",
+  "method": "kraljic",
+  "config": {
+    "x": {
+      "label": "Supply risk",
+      "low": "low",
+      "high": "high",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "y": {
+      "label": "Profit impact",
+      "low": "low",
+      "high": "high",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "plot",
+    "split": {
+      "x": 3,
+      "y": 3
+    },
+    "regions": [
+      {
+        "id": "leverage",
+        "label": "Leverage items",
+        "hint": "use buying power, compare offers",
+        "color": "blue",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "strategic",
+        "label": "Strategic items",
+        "hint": "partnership, secure long term",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "routine",
+        "label": "Non-critical items",
+        "hint": "reduce effort, bundle, automate",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "bottleneck",
+        "label": "Bottleneck items",
+        "hint": "secure supply: stock, alternatives",
+        "color": "orange",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "supplier",
+        "label": "Supplier",
+        "type": "text"
+      },
+      {
+        "key": "strategy",
+        "label": "Purchasing strategy",
+        "type": "textarea"
+      },
+      {
+        "key": "owner",
+        "label": "Owner",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "item",
+      "many": "items"
+    },
+    "noteLabel": "Rationale"
+  },
+  "items": [
+    {
+      "id": "einkauf-1",
+      "no": 1,
+      "title": "Potatoes",
+      "note": "",
+      "x": 2,
+      "y": 4.5,
+      "values": {
+        "supplier": "Kartoffelhof Berger",
+        "strategy": "Compare annual price with two farms"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-2",
+      "no": 2,
+      "title": "Frying oil",
+      "note": "Price varies a lot, few organic suppliers",
+      "x": 4,
+      "y": 4.5,
+      "values": {
+        "supplier": "Ölmühle Sander",
+        "strategy": "12-month framework contract",
+        "owner": "Ben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-3",
+      "no": 3,
+      "title": "Sausages",
+      "note": "",
+      "x": 3.5,
+      "y": 4,
+      "values": {
+        "supplier": "Metzgerei Kurz"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-4",
+      "no": 4,
+      "title": "Gas bottles",
+      "note": "",
+      "x": 3.5,
+      "y": 2.5,
+      "values": {
+        "supplier": "Gashandel Nord",
+        "strategy": "Always two full bottles in reserve"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-5",
+      "no": 5,
+      "title": "Fryer spare parts",
+      "note": "Only via the manufacturer, 2 weeks lead time",
+      "x": 4.5,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "einkauf-6",
+      "no": 6,
+      "title": "Chipotle for special sauce",
+      "note": "",
+      "x": 4.5,
+      "y": 1.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "einkauf-7",
+      "no": 7,
+      "title": "Packaging",
+      "note": "",
+      "x": 1.5,
+      "y": 2.5,
+      "values": {
+        "supplier": "Großhandel"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-8",
+      "no": 8,
+      "title": "Napkins",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

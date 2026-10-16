@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "id": "example-swot-standort",
+  "name": "SWOT Stellplatz Domplatz",
+  "context": "Food-Truck · vor der Bewerbung 2027",
+  "method": "swot",
+  "config": {
+    "x": {
+      "label": "Wirkung",
+      "low": "hilfreich",
+      "high": "schädlich",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Ursprung",
+      "low": "extern (Umfeld)",
+      "high": "intern (wir selbst)",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "board",
+    "split": {
+      "x": 1.5,
+      "y": 1.5
+    },
+    "regions": [
+      {
+        "id": "strengths",
+        "label": "Stärken",
+        "hint": "intern, hilfreich – ausbauen und nutzen",
+        "color": "green",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "weaknesses",
+        "label": "Schwächen",
+        "hint": "intern, schädlich – abbauen",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "opportunities",
+        "label": "Chancen",
+        "hint": "extern, hilfreich – ergreifen",
+        "color": "blue",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "threats",
+        "label": "Risiken",
+        "hint": "extern, schädlich – abwehren",
+        "color": "orange",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "strategy",
+        "label": "Strategie (z. B. Stärke nutzen, um Chance zu ergreifen)",
+        "type": "textarea"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "Faktor",
+      "many": "Faktoren"
+    },
+    "noteLabel": "Beleg / Beschreibung"
+  },
+  "items": [
+    {
+      "id": "swot-standort-1",
+      "no": 1,
+      "title": "Feste Stammkundschaft",
+      "note": "Rund 40 Stammgäste pro Woche",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "strategy": "Unterschriften für die Bewerbung sammeln"
+      },
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-2",
+      "no": 2,
+      "title": "Regionale Zutaten",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-3",
+      "no": 3,
+      "title": "Schnelle Ausgabe",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-4",
+      "no": 4,
+      "title": "Nur eine Fritteuse",
+      "note": "Ausfall am 4.10. (siehe 5-Warum-Analyse)",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "strategy": "Zweite Fritteuse vor dem Stadtfest"
+      },
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-5",
+      "no": 5,
+      "title": "Stark wetterabhängig",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-6",
+      "no": 6,
+      "title": "Fester Stellplatz wird frei",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {
+        "strategy": "Mit Stammkundschaft und Marktverwaltung bewerben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-7",
+      "no": 7,
+      "title": "Nachfrage nach veganen Gerichten",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-8",
+      "no": 8,
+      "title": "Anfragen für Firmen-Catering",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-9",
+      "no": 9,
+      "title": "Beschwerden der Anwohner",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "strategy": "Betrieb bis 20 Uhr, Müllrunde"
+      },
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-10",
+      "no": 10,
+      "title": "Steigende Ölpreise",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-11",
+      "no": 11,
+      "title": "Neue Burger-Kette am Bahnhof",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

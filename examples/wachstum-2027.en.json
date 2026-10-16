@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "id": "example-wachstum-2027",
+  "name": "Growth 2027",
+  "context": "Food truck · the team’s growth ideas",
+  "method": "ansoff",
+  "config": {
+    "x": {
+      "label": "Products",
+      "low": "existing",
+      "high": "new",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Markets",
+      "low": "existing",
+      "high": "new",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": true
+    },
+    "layout": "quadrants",
+    "view": "board",
+    "split": {
+      "x": 1.5,
+      "y": 1.5
+    },
+    "regions": [
+      {
+        "id": "penetration",
+        "label": "Market penetration",
+        "hint": "more of the existing to existing customers – lowest risk",
+        "color": "green",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "product",
+        "label": "Product development",
+        "hint": "new offers for existing customers",
+        "color": "blue",
+        "qx": "high",
+        "qy": "low"
+      },
+      {
+        "id": "market",
+        "label": "Market development",
+        "hint": "existing offers for new customers, places, channels",
+        "color": "orange",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "diversification",
+        "label": "Diversification",
+        "hint": "new for new – highest risk",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      }
+    ],
+    "fields": [
+      {
+        "key": "owner",
+        "label": "Owner",
+        "type": "person"
+      },
+      {
+        "key": "due",
+        "label": "Due",
+        "type": "date"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "growth idea",
+      "many": "growth ideas"
+    },
+    "noteLabel": "Description"
+  },
+  "items": [
+    {
+      "id": "wachstum-2027-1",
+      "no": 1,
+      "title": "Lunch combo",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {
+        "owner": "Ben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-2",
+      "no": 2,
+      "title": "Loyalty card",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-3",
+      "no": 3,
+      "title": "Vegan bowls",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "owner": "Mia",
+        "due": "2027-03-01"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-4",
+      "no": 4,
+      "title": "Seasonal fries",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-5",
+      "no": 5,
+      "title": "Market in the next town",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-6",
+      "no": 6,
+      "title": "Corporate catering",
+      "note": "Existing dishes, new customers",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-7",
+      "no": 7,
+      "title": "Own sauces in the supermarket",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-8",
+      "no": 8,
+      "title": "Cooking classes “Perfect fries”",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-9",
+      "no": 9,
+      "title": "Second truck",
+      "note": "",
+      "x": null,
+      "y": null,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}
