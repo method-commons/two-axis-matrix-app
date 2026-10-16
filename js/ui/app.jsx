@@ -6,7 +6,7 @@ import { IO } from '../io.js';
 import { Store } from '../storage.js';
 import { Languages, Texts } from '../texts.js';
 import { Util } from '../util.js';
-import { download } from './components.jsx';
+import { download, Logo } from './components.jsx';
 import { canRedo, canUndo, commitEdit, dialog, redo, route, TABS, toasts, undo, useMatrix, useRevision } from './core.js';
 import { openHelp } from './help.jsx';
 import { importFiles, Home, openExamples, openNewMatrix } from './home.jsx';
@@ -85,7 +85,7 @@ function Header() {
   return (
     <header class="app-header">
       <a class="brand" href="#/" title={Texts.ui.allMatrices} id="homeLink">
-        <span class="logo" aria-hidden="true">2×2</span>
+        <Logo />
         <span class="brand-name">{Texts.appName}</span>
       </a>
       {inMatrix && (
