@@ -1,6 +1,6 @@
 # 2-Achsen-Matrix
 
-Responsive Web-App, mit der man die gängigsten **2-Achsen-Methoden** anwendet: **Eisenhower-Matrix**, **Wert/Aufwand**, **Macht/Interesse** (Stakeholder), **Risikomatrix** und **Stacey-Matrix** – dazu eigene Matrizen mit frei wählbaren Achsen. Einträge erfassen, per Ziehen oder Tastatur einordnen, Hinweise zur Methode bekommen, als Bericht drucken oder exportieren.
+Responsive Web-App, mit der man die gängigsten **2-Achsen-Methoden** anwendet: **Eisenhower-Matrix**, **Wert/Aufwand**, **Macht/Interesse** (Stakeholder), **Risikomatrix**, **Stacey-Matrix**, **BCG-Matrix**, **GE-/McKinsey-Matrix**, **Kraljic-Matrix**, **Ansoff-Matrix** und **SWOT-Analyse** – dazu eigene Matrizen mit frei wählbaren Achsen. Einträge erfassen, per Ziehen oder Tastatur einordnen, Hinweise zur Methode bekommen, als Bericht drucken oder exportieren.
 
 Läuft im Browser ohne Server-Backend; die Oberfläche nutzt [Preact](https://preactjs.com) mit [Signals](https://preactjs.com/guide/v10/signals/), gebaut wird mit [Vite](https://vite.dev) – technisch und gestalterisch wie die Schwester-Apps [Morphologische Matrix](https://github.com/method-commons/morphological-matrix-app), [User Stories](https://github.com/method-commons/user-story-app) und [5 Warum](https://github.com/method-commons/5-why-app).
 
@@ -30,6 +30,11 @@ Auf `main` veröffentlicht die CI die App auf GitHub Pages, sobald alle Prüfung
   - **Macht/Interesse** – Stakeholder mit Haltung (unterstützend/neutral/kritisch, als Farbe), Ziel-Haltung, Ziel-Position (Pfeil, ziehbar), Strategie, Kommunikation und Ansprechperson; Hinweis auf kritische Stakeholder mit viel Einfluss.
   - **Risikomatrix** – Raster 5 × 5 mit Stufen nach Wahrscheinlichkeit × Auswirkung; Strategie (vermeiden/vermindern/übertragen/akzeptieren), Maßnahme, Verantwortlich, Bewertung nach Maßnahme (gestrichelt); Rangfolge nach Risikowert; Hinweise zu hohen Risiken ohne Maßnahme und Maßnahmen ohne Wirkung.
   - **Stacey** – Zonen *einfach · kompliziert · komplex · chaotisch* um den Ursprung mit empfohlenem Vorgehen; Einordnen per vier Fragen (Position aus den Antworten) oder Ziehen.
+  - **BCG-Matrix** – Produkte nach relativem Marktanteil (hoch links) und Marktwachstum: *Stars · Question Marks · Cash Cows · Poor Dogs*; Umsatzanteil, Normstrategie, Verantwortlich; Hinweise zur Finanzierung durch Cash Cows, unentschiedenen Question Marks und Poor Dogs.
+  - **GE-/McKinsey-Matrix** – Raster 3 × 3 nach Wettbewerbsstärke und Marktattraktivität mit den Normstrategien *Investieren · Selektiv vorgehen · Abschöpfen* auf den Diagonalen; Maßnahme je Geschäftsfeld; Rangfolge.
+  - **Kraljic-Matrix** – Einkauf nach Versorgungsrisiko und Ergebniseinfluss: *Strategische · Engpass- · Hebel- · Unkritische Produkte*; Lieferant, Einkaufsstrategie; Hinweise zu kritischen Produkten ohne Strategie.
+  - **Ansoff-Matrix** – Wachstumsideen als Karten nach Produkt und Markt (bestehend/neu): *Marktdurchdringung · Produktentwicklung · Marktentwicklung · Diversifikation*; Hinweise zum Risiko.
+  - **SWOT-Analyse** – Faktoren als Karten: *Stärken · Schwächen · Chancen · Risiken*; Strategie je Faktor (TOWS); Hinweis auf leere Felder.
   - **Eigene Matrix** – freie Achsen und vier Felder als Ausgangspunkt.
 - **Arbeiten in der Matrix**: Eingang für neue Einträge (Enter), Ziehen mit Maus, Stift oder Finger (auch zurück in den Eingang), Tastatur (Pfeiltasten verschieben, 1–9 legt in einen Bereich, 0 in den Eingang, Entf löscht, Esc hebt die Auswahl auf). Seitenleiste: gewählter Eintrag (Titel, Bereich, Werte, Fragen, Notiz, Felder) bzw. Verteilung, Hinweise (anklicken markiert die Einträge), Rangfolge und Leitfragen. Namen oder nur Nummern an den Punkten; zweite Positionen ein-/ausblendbar.
 - **Liste**: alle Einträge als Tabelle (Titel, Werte, Bereich, Notiz, Felder), sortierbar nach Nummer, Bereich oder Rangfolge.

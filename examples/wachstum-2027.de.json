@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "id": "example-wachstum-2027",
+  "name": "Wachstum 2027",
+  "context": "Food-Truck · Wachstumsideen des Teams",
+  "method": "ansoff",
+  "config": {
+    "x": {
+      "label": "Produkte",
+      "low": "bestehend",
+      "high": "neu",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Märkte",
+      "low": "bestehend",
+      "high": "neu",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": true
+    },
+    "layout": "quadrants",
+    "view": "board",
+    "split": {
+      "x": 1.5,
+      "y": 1.5
+    },
+    "regions": [
+      {
+        "id": "penetration",
+        "label": "Marktdurchdringung",
+        "hint": "mehr vom Bestehenden an Bestehende – geringstes Risiko",
+        "color": "green",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "product",
+        "label": "Produktentwicklung",
+        "hint": "Neues für bestehende Kunden",
+        "color": "blue",
+        "qx": "high",
+        "qy": "low"
+      },
+      {
+        "id": "market",
+        "label": "Marktentwicklung",
+        "hint": "Bestehendes für neue Kunden, Orte, Kanäle",
+        "color": "orange",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "diversification",
+        "label": "Diversifikation",
+        "hint": "Neues für Neue – höchstes Risiko",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      }
+    ],
+    "fields": [
+      {
+        "key": "owner",
+        "label": "Verantwortlich",
+        "type": "person"
+      },
+      {
+        "key": "due",
+        "label": "Termin",
+        "type": "date"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "Wachstumsidee",
+      "many": "Wachstumsideen"
+    },
+    "noteLabel": "Beschreibung"
+  },
+  "items": [
+    {
+      "id": "wachstum-2027-1",
+      "no": 1,
+      "title": "Kombi-Angebot Mittag",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {
+        "owner": "Ben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-2",
+      "no": 2,
+      "title": "Stempelkarte",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-3",
+      "no": 3,
+      "title": "Vegane Bowls",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "owner": "Mia",
+        "due": "2027-03-01"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-4",
+      "no": 4,
+      "title": "Saisonale Pommes-Sorten",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-5",
+      "no": 5,
+      "title": "Wochenmarkt Nachbarstadt",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-6",
+      "no": 6,
+      "title": "Firmen-Catering",
+      "note": "Bestehende Gerichte, neue Kunden",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-7",
+      "no": 7,
+      "title": "Eigene Saucen im Supermarkt",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-8",
+      "no": 8,
+      "title": "Kochkurse „Perfekte Pommes“",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "wachstum-2027-9",
+      "no": 9,
+      "title": "Zweiter Truck",
+      "note": "",
+      "x": null,
+      "y": null,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

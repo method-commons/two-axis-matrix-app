@@ -1,0 +1,204 @@
+{
+  "version": 1,
+  "id": "example-produktportfolio",
+  "name": "Product portfolio 2026",
+  "context": "Food truck · revenue and market per product",
+  "method": "bcg",
+  "config": {
+    "x": {
+      "label": "Relative market share",
+      "low": "low",
+      "high": "high",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "reverse": true
+    },
+    "y": {
+      "label": "Market growth (%)",
+      "low": "low",
+      "high": "high",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "plot",
+    "split": {
+      "x": 1,
+      "y": 10
+    },
+    "regions": [
+      {
+        "id": "star",
+        "label": "Stars",
+        "hint": "hold position, keep investing",
+        "color": "yellow",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "question",
+        "label": "Question marks",
+        "hint": "choose: build or divest",
+        "color": "blue",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "cow",
+        "label": "Cash cows",
+        "hint": "harvest profits, invest little",
+        "color": "green",
+        "qx": "high",
+        "qy": "low"
+      },
+      {
+        "id": "dog",
+        "label": "Dogs",
+        "hint": "divest or reposition",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "revenue",
+        "label": "Share of revenue",
+        "type": "text"
+      },
+      {
+        "key": "strategy",
+        "label": "Standard strategy",
+        "type": "choice",
+        "options": [
+          {
+            "id": "build",
+            "label": "build"
+          },
+          {
+            "id": "hold",
+            "label": "hold"
+          },
+          {
+            "id": "harvest",
+            "label": "harvest"
+          },
+          {
+            "id": "divest",
+            "label": "divest"
+          }
+        ]
+      },
+      {
+        "key": "owner",
+        "label": "Owner",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "product",
+      "many": "products"
+    },
+    "noteLabel": "Rationale"
+  },
+  "items": [
+    {
+      "id": "produktportfolio-1",
+      "no": 1,
+      "title": "Classic fries",
+      "note": "Market leader on the square, saturated market",
+      "x": 1.6,
+      "y": 3,
+      "values": {
+        "revenue": "38 %",
+        "strategy": "harvest"
+      },
+      "answers": {}
+    },
+    {
+      "id": "produktportfolio-2",
+      "no": 2,
+      "title": "Sweet potato fries",
+      "note": "",
+      "x": 1.3,
+      "y": 14,
+      "values": {
+        "revenue": "14 %",
+        "strategy": "build",
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "produktportfolio-3",
+      "no": 3,
+      "title": "Vegan bowls",
+      "note": "Growing demand, two competitors stronger",
+      "x": 0.4,
+      "y": 16,
+      "values": {
+        "revenue": "6 %"
+      },
+      "answers": {}
+    },
+    {
+      "id": "produktportfolio-4",
+      "no": 4,
+      "title": "Corporate catering",
+      "note": "",
+      "x": 0.3,
+      "y": 12,
+      "values": {
+        "revenue": "4 %",
+        "strategy": "build",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "produktportfolio-5",
+      "no": 5,
+      "title": "Drinks",
+      "note": "",
+      "x": 1.2,
+      "y": 4,
+      "values": {
+        "revenue": "22 %",
+        "strategy": "hold"
+      },
+      "answers": {}
+    },
+    {
+      "id": "produktportfolio-6",
+      "no": 6,
+      "title": "Currywurst",
+      "note": "The snack bar next door is bigger",
+      "x": 0.6,
+      "y": 2,
+      "values": {
+        "revenue": "11 %",
+        "strategy": "divest"
+      },
+      "answers": {}
+    },
+    {
+      "id": "produktportfolio-7",
+      "no": 7,
+      "title": "Burgers",
+      "note": "",
+      "x": 0.5,
+      "y": 6,
+      "values": {
+        "revenue": "5 %"
+      },
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

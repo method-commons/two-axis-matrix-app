@@ -8,7 +8,7 @@ const keys = m => Methods.hints(m).map(h => `${h.key}:${h.state}`);
 
 describe('Methods – Verzeichnis', () => {
   it('liest alle Methoden ein, sortiert, mit „Eigene Matrix“ am Ende', () => {
-    expect(Methods.list().map(d => d.id)).toEqual(['eisenhower', 'value-effort', 'stakeholder', 'risk', 'stacey', 'custom']);
+    expect(Methods.list().map(d => d.id)).toEqual(['eisenhower', 'value-effort', 'stakeholder', 'risk', 'stacey', 'bcg', 'ge-mckinsey', 'kraljic', 'ansoff', 'swot', 'custom']);
     expect(Methods.get('gibt-es-nicht').id).toBe('custom');
     expect(Methods.known('risk')).toBe(true);
     expect(Methods.known('kano')).toBe(false);
@@ -120,6 +120,72 @@ describe('Methods – Hinweise', () => {
     expect(Methods.hints(m).find(h => h.key === 'unanswered')?.items).toHaveLength(1);
     m.config.questions = [];
     expect(keys(m)).not.toContain('unanswered:open');
+  });
+
+  it('BCG', () => {
+    const m = matrixOf('bcg');
+    expect(keys(m)).toEqual(['empty:open']);
+    const q = Ops.addItem(m, { title: 'Bowls', x: 0.4, y: 16 });
+    Ops.addItem(m, { title: 'Wurst', x: 0.5, y: 2 });
+    expect(keys(m)).toEqual(['cow:warn', 'question:warn', 'dog:open']);
+    Ops.addItem(m, { title: 'Pommes', x: 1.6, y: 3 });
+    Ops.setValue(m, q.id, 'strategy', 'build');
+    expect(keys(m)).toEqual(['balance:ok', 'dog:open']);
+    expect(Methods.hints(m)[0].detail).toContain('1 Cash Cow');
+    m.config.fields = [];
+    Ops.setValue(m, q.id, 'strategy', null);
+    expect(keys(m)).toEqual(['balance:ok', 'dog:open']);
+  });
+
+  it('GE-McKinsey', () => {
+    const m = matrixOf('ge-mckinsey');
+    expect(keys(m)).toEqual(['empty:open']);
+    const a = Ops.addItem(m, { title: 'Markt', x: 3, y: 3 });
+    Ops.addItem(m, { title: 'Lieferdienst', x: 1, y: 1 });
+    Ops.addItem(m, { title: 'Catering', x: 2, y: 2 });
+    expect(keys(m)).toEqual(['measure:warn', 'harvest:open']);
+    Ops.setValue(m, a.id, 'measure', 'Stellplatz');
+    expect(keys(m)).toEqual(['invest:ok', 'harvest:open']);
+    m.config.fields = [];
+    Ops.setValue(m, a.id, 'measure', null);
+    expect(keys(m)).toEqual(['invest:ok', 'harvest:open']);
+  });
+
+  it('Kraljic', () => {
+    const m = matrixOf('kraljic');
+    const a = Ops.addItem(m, { title: 'Öl', x: 4, y: 4.5 });
+    const b = Ops.addItem(m, { title: 'Gas', x: 4, y: 2 });
+    Ops.addItem(m, { title: 'Servietten', x: 1, y: 1 });
+    expect(keys(m)).toEqual(['strategy:warn', 'bottleneck:open']);
+    Ops.setValue(m, a.id, 'strategy', 'Rahmenvertrag');
+    Ops.setValue(m, b.id, 'strategy', 'Reserve');
+    expect(keys(m)).toEqual(['strategy:ok', 'bottleneck:open']);
+    m.config.fields = [];
+    expect(keys(m)).toEqual(['bottleneck:open']);
+  });
+
+  it('Ansoff', () => {
+    const m = matrixOf('ansoff');
+    expect(keys(m)).toEqual(['empty:open']);
+    Ops.addItem(m, { title: 'Kochkurse', x: 2, y: 2 });
+    expect(keys(m)).toEqual(['penetration:open', 'risk:warn']);
+    Ops.addItem(m, { title: 'Kombi', x: 1, y: 1 });
+    Ops.addItem(m, { title: 'Bowls', x: 2, y: 1 });
+    expect(keys(m)).toEqual(['spread:ok']);
+  });
+
+  it('SWOT', () => {
+    const m = matrixOf('swot');
+    expect(keys(m)).toEqual(['empty:open']);
+    const a = Ops.addItem(m, { title: 'Stammkunden', x: 1, y: 2 });
+    expect(keys(m)).toEqual(['empty:open', 'strategy:open']);
+    expect(Methods.hints(m)[0].detail).toBe('Noch nichts unter: Schwächen, Chancen, Risiken.');
+    for (const [x, y] of [[2, 2], [1, 1], [2, 1]]) Ops.setValue(m, Ops.addItem(m, { title: 'F', x, y }).id, 'strategy', 'S');
+    Ops.setValue(m, a.id, 'strategy', 'Unterschriften');
+    expect(keys(m)).toEqual(['complete:ok']);
+    m.config.fields = [];
+    Ops.setValue(m, a.id, 'strategy', null);
+    expect(keys(m)).toEqual(['complete:ok']);
   });
 
   it('keine Hinweise einer Methode für eine andere Methode mit gleichen Einstellungen', () => {

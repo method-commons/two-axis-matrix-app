@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "id": "example-geschaeftsfelder",
+  "name": "Geschäftsfelder 2027",
+  "context": "Food-Truck · Standorte und Angebote",
+  "method": "ge-mckinsey",
+  "config": {
+    "x": {
+      "label": "Relative Wettbewerbsstärke",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Marktattraktivität",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "grid",
+    "view": "heatmap",
+    "split": {
+      "x": 2,
+      "y": 2
+    },
+    "regions": [
+      {
+        "id": "harvest",
+        "label": "Abschöpfen",
+        "hint": "Gewinne mitnehmen, Rückzug prüfen",
+        "color": "red",
+        "min": 0
+      },
+      {
+        "id": "selective",
+        "label": "Selektiv vorgehen",
+        "hint": "gezielt ausbauen oder halten",
+        "color": "yellow",
+        "min": 3
+      },
+      {
+        "id": "invest",
+        "label": "Investieren",
+        "hint": "wachsen, Position ausbauen",
+        "color": "green",
+        "min": 6
+      }
+    ],
+    "fields": [
+      {
+        "key": "measure",
+        "label": "Maßnahme",
+        "type": "textarea"
+      },
+      {
+        "key": "owner",
+        "label": "Verantwortlich",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "product",
+    "itemName": {
+      "one": "Geschäftsfeld",
+      "many": "Geschäftsfelder"
+    },
+    "noteLabel": "Begründung"
+  },
+  "items": [
+    {
+      "id": "geschaeftsfelder-1",
+      "no": 1,
+      "title": "Wochenmarkt Domplatz",
+      "note": "",
+      "x": 3,
+      "y": 3,
+      "values": {
+        "measure": "Fester Stellplatz beantragen",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-2",
+      "no": 2,
+      "title": "Stadtfeste",
+      "note": "",
+      "x": 2,
+      "y": 3,
+      "values": {
+        "measure": "Bewerbungen früh einreichen, zweite Fritteuse"
+      },
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-3",
+      "no": 3,
+      "title": "Mittag im Gewerbegebiet",
+      "note": "",
+      "x": 3,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-4",
+      "no": 4,
+      "title": "Firmen-Catering",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "measure": "Zwei Pilotkunden gewinnen",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-5",
+      "no": 5,
+      "title": "Uni-Campus",
+      "note": "Großer Markt, starke Konkurrenz durch Mensa",
+      "x": 1,
+      "y": 3,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-6",
+      "no": 6,
+      "title": "Hochzeiten",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-7",
+      "no": 7,
+      "title": "Lieferdienst",
+      "note": "Gebühren 30 %, Pommes kommen weich an",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

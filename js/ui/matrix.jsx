@@ -150,6 +150,8 @@ function Overview({ m }) {
   const ranking = m.config.rank !== 'none' ? Layout.ranking(m).slice(0, 5) : [];
   // Ohne Platz für Hinweise in der Fläche (Zonen, Raster) stehen sie hier
   const withHints = m.config.layout !== 'quadrants';
+  // Lange Namen passen nicht in zwei Spalten
+  const oneColumn = withHints || m.config.regions.some(r => (r.label || r.id).length > 14);
   return (
     <>
       <section class="card pad" id="distribution">
@@ -157,7 +159,7 @@ function Overview({ m }) {
         <div class="dist" aria-hidden="true">
           {[...groups].map(([r, items]) => items.length > 0 && <span key={r.id} class={`c-${r.color}`} style={{ width: `${(items.length / Math.max(total, 1)) * 100}%` }} />)}
         </div>
-        <div class={`dist-leg${withHints ? ' with-hints' : ''}`}>
+        <div class={`dist-leg${oneColumn ? ' with-hints' : ''}`}>
           {[...groups].map(([r, items]) => (
             <button type="button" key={r.id} class="dist-row" data-region={r.id}
               onClick={() => { highlighted.value = items.map(i => i.id); }}>

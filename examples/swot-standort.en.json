@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "id": "example-swot-standort",
+  "name": "SWOT Cathedral Square pitch",
+  "context": "Food truck · before the 2027 application",
+  "method": "swot",
+  "config": {
+    "x": {
+      "label": "Effect",
+      "low": "helpful",
+      "high": "harmful",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Origin",
+      "low": "external (environment)",
+      "high": "internal (ourselves)",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "board",
+    "split": {
+      "x": 1.5,
+      "y": 1.5
+    },
+    "regions": [
+      {
+        "id": "strengths",
+        "label": "Strengths",
+        "hint": "internal, helpful – build on them",
+        "color": "green",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "weaknesses",
+        "label": "Weaknesses",
+        "hint": "internal, harmful – reduce them",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "opportunities",
+        "label": "Opportunities",
+        "hint": "external, helpful – seize them",
+        "color": "blue",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "threats",
+        "label": "Threats",
+        "hint": "external, harmful – fend them off",
+        "color": "orange",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "strategy",
+        "label": "Strategy (e.g. use a strength to seize an opportunity)",
+        "type": "textarea"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "factor",
+      "many": "factors"
+    },
+    "noteLabel": "Evidence / description"
+  },
+  "items": [
+    {
+      "id": "swot-standort-1",
+      "no": 1,
+      "title": "Loyal regulars",
+      "note": "About 40 regulars a week",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "strategy": "Collect signatures for the application"
+      },
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-2",
+      "no": 2,
+      "title": "Regional ingredients",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-3",
+      "no": 3,
+      "title": "Fast service",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-4",
+      "no": 4,
+      "title": "Only one fryer",
+      "note": "Failure on 4 Oct (see 5 Why analysis)",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "strategy": "Second fryer before the city festival"
+      },
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-5",
+      "no": 5,
+      "title": "Strongly weather-dependent",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-6",
+      "no": 6,
+      "title": "Fixed pitch becomes available",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {
+        "strategy": "Apply with the regulars and market management"
+      },
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-7",
+      "no": 7,
+      "title": "Demand for vegan dishes",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-8",
+      "no": 8,
+      "title": "Corporate catering requests",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-9",
+      "no": 9,
+      "title": "Residents’ complaints",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "strategy": "Close at 8 pm, litter round"
+      },
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-10",
+      "no": 10,
+      "title": "Rising oil prices",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "swot-standort-11",
+      "no": 11,
+      "title": "New burger chain at the station",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

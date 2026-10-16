@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "id": "example-einkauf",
+  "name": "Einkauf Food-Truck",
+  "context": "Food-Truck · Materialien und Lieferanten",
+  "method": "kraljic",
+  "config": {
+    "x": {
+      "label": "Versorgungsrisiko",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "y": {
+      "label": "Einfluss auf das Ergebnis",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "plot",
+    "split": {
+      "x": 3,
+      "y": 3
+    },
+    "regions": [
+      {
+        "id": "leverage",
+        "label": "Hebelprodukte",
+        "hint": "Marktmacht nutzen, Angebote vergleichen",
+        "color": "blue",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "strategic",
+        "label": "Strategische Produkte",
+        "hint": "Partnerschaft, langfristig absichern",
+        "color": "red",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "routine",
+        "label": "Unkritische Produkte",
+        "hint": "Aufwand senken, bündeln, automatisieren",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "bottleneck",
+        "label": "Engpassprodukte",
+        "hint": "Versorgung sichern: Vorrat, Alternativen",
+        "color": "orange",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "supplier",
+        "label": "Lieferant",
+        "type": "text"
+      },
+      {
+        "key": "strategy",
+        "label": "Einkaufsstrategie",
+        "type": "textarea"
+      },
+      {
+        "key": "owner",
+        "label": "Verantwortlich",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "Material",
+      "many": "Materialien"
+    },
+    "noteLabel": "Begründung"
+  },
+  "items": [
+    {
+      "id": "einkauf-1",
+      "no": 1,
+      "title": "Kartoffeln",
+      "note": "",
+      "x": 2,
+      "y": 4.5,
+      "values": {
+        "supplier": "Kartoffelhof Berger",
+        "strategy": "Jahrespreis mit zwei Höfen vergleichen"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-2",
+      "no": 2,
+      "title": "Frittieröl",
+      "note": "Preis schwankt stark, wenige Anbieter in Bio-Qualität",
+      "x": 4,
+      "y": 4.5,
+      "values": {
+        "supplier": "Ölmühle Sander",
+        "strategy": "Rahmenvertrag über 12 Monate",
+        "owner": "Ben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-3",
+      "no": 3,
+      "title": "Bratwürste",
+      "note": "",
+      "x": 3.5,
+      "y": 4,
+      "values": {
+        "supplier": "Metzgerei Kurz"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-4",
+      "no": 4,
+      "title": "Gasflaschen",
+      "note": "",
+      "x": 3.5,
+      "y": 2.5,
+      "values": {
+        "supplier": "Gashandel Nord",
+        "strategy": "Immer zwei volle Flaschen in Reserve"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-5",
+      "no": 5,
+      "title": "Ersatzteile Fritteuse",
+      "note": "Nur über den Hersteller, 2 Wochen Lieferzeit",
+      "x": 4.5,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "einkauf-6",
+      "no": 6,
+      "title": "Chipotle für Spezialsauce",
+      "note": "",
+      "x": 4.5,
+      "y": 1.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "einkauf-7",
+      "no": 7,
+      "title": "Verpackung",
+      "note": "",
+      "x": 1.5,
+      "y": 2.5,
+      "values": {
+        "supplier": "Großhandel"
+      },
+      "answers": {}
+    },
+    {
+      "id": "einkauf-8",
+      "no": 8,
+      "title": "Servietten",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "id": "example-geschaeftsfelder",
+  "name": "Business units 2027",
+  "context": "Food truck · locations and offers",
+  "method": "ge-mckinsey",
+  "config": {
+    "x": {
+      "label": "Competitive strength",
+      "low": "low",
+      "high": "high",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Market attractiveness",
+      "low": "low",
+      "high": "high",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "grid",
+    "view": "heatmap",
+    "split": {
+      "x": 2,
+      "y": 2
+    },
+    "regions": [
+      {
+        "id": "harvest",
+        "label": "Harvest",
+        "hint": "take the profits, consider exiting",
+        "color": "red",
+        "min": 0
+      },
+      {
+        "id": "selective",
+        "label": "Selective",
+        "hint": "build or hold selectively",
+        "color": "yellow",
+        "min": 3
+      },
+      {
+        "id": "invest",
+        "label": "Invest",
+        "hint": "grow, build the position",
+        "color": "green",
+        "min": 6
+      }
+    ],
+    "fields": [
+      {
+        "key": "measure",
+        "label": "Action",
+        "type": "textarea"
+      },
+      {
+        "key": "owner",
+        "label": "Owner",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "product",
+    "itemName": {
+      "one": "business unit",
+      "many": "business units"
+    },
+    "noteLabel": "Rationale"
+  },
+  "items": [
+    {
+      "id": "geschaeftsfelder-1",
+      "no": 1,
+      "title": "Cathedral Square market",
+      "note": "",
+      "x": 3,
+      "y": 3,
+      "values": {
+        "measure": "Apply for a fixed pitch",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-2",
+      "no": 2,
+      "title": "City festivals",
+      "note": "",
+      "x": 2,
+      "y": 3,
+      "values": {
+        "measure": "Apply early, second fryer"
+      },
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-3",
+      "no": 3,
+      "title": "Lunch in the business park",
+      "note": "",
+      "x": 3,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-4",
+      "no": 4,
+      "title": "Corporate catering",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "measure": "Win two pilot customers",
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-5",
+      "no": 5,
+      "title": "University campus",
+      "note": "Big market, strong competition from the canteen",
+      "x": 1,
+      "y": 3,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-6",
+      "no": 6,
+      "title": "Weddings",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "geschaeftsfelder-7",
+      "no": 7,
+      "title": "Delivery",
+      "note": "Fees 30 %, fries arrive soggy",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}
