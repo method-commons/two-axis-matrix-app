@@ -154,6 +154,21 @@ export function pickFile(accept) {
   });
 }
 
+/**
+ * Logo: zwei Achsen mit Einträgen als Punkte – passt zu jeder Methode (vier Felder, Raster,
+ * Zonen). Farbe aus `currentColor` auf dem Quadrat `.logo`.
+ */
+export function Logo() {
+  return (
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true" style={{ width: '28px', height: '28px' }}>
+      <path d="M8.5 6.5V23.5H25.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="14" cy="13.5" r="2.7" fill="currentColor" />
+      <circle cx="20.5" cy="18" r="2.7" fill="currentColor" />
+      <circle cx="21.5" cy="9.5" r="2.1" fill="currentColor" opacity=".55" />
+    </svg>
+  );
+}
+
 /** Kreis mit Initialen (Farbe aus dem Namen). @param {{ name: string }} props */
 export function Avatar({ name }) {
   let h = 0;
