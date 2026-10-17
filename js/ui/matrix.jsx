@@ -5,6 +5,7 @@
  * Entf löscht, Esc hebt die Auswahl auf.
  */
 import { useEffect, useRef } from 'preact/hooks';
+import { IO } from '../io.js';
 import { Layout } from '../layout.js';
 import { Methods } from '../methods.js';
 import { Model } from '../model.js';
@@ -171,7 +172,7 @@ function Overview({ m }) {
       <HintsCard m={m} />
       {ranking.length > 0 && (
         <section class="card pad" id="ranking">
-          <h3>{Texts.report.score[m.config.rank]}</h3>
+          <h3>{IO.scoreLabel(m)}</h3>
           <ol class="rank-list">
             {ranking.map(r => (
               <li key={r.item.id}>

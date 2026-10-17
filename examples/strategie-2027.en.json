@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "id": "example-strategie-2027",
+  "name": "Strategy 2027",
+  "context": "Food truck · what do we want to stand for?",
+  "method": "porter",
+  "config": {
+    "x": {
+      "label": "Competitive advantage",
+      "low": "cost",
+      "high": "uniqueness",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Market scope",
+      "low": "niche",
+      "high": "broad market",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "board",
+    "split": {
+      "x": 1.5,
+      "y": 1.5
+    },
+    "regions": [
+      {
+        "id": "cost",
+        "label": "Cost leadership",
+        "hint": "cheapest for everyone",
+        "color": "blue",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "differentiation",
+        "label": "Differentiation",
+        "hint": "special for everyone – higher price",
+        "color": "violet",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "costFocus",
+        "label": "Cost focus",
+        "hint": "cheapest for one target group",
+        "color": "teal",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "diffFocus",
+        "label": "Differentiation focus",
+        "hint": "special for one target group",
+        "color": "orange",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "owner",
+        "label": "Owner",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "option",
+      "many": "options"
+    },
+    "noteLabel": "Description"
+  },
+  "items": [
+    {
+      "id": "strategie-2027-1",
+      "no": 1,
+      "title": "Cheapest fries on the square",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "strategie-2027-2",
+      "no": 2,
+      "title": "Premium fries with truffle mayo",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "strategie-2027-3",
+      "no": 3,
+      "title": "Own sauce brand",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "strategie-2027-4",
+      "no": 4,
+      "title": "Organic and regional only",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "strategie-2027-5",
+      "no": 5,
+      "title": "Fast lunch menu in the business park",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {
+        "owner": "Ben"
+      },
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

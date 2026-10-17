@@ -4,11 +4,11 @@ test.describe('Startseite', () => {
   test('zeigt ohne Matrizen Einstieg und Methoden', async ({ page }) => {
     await expect(page.locator('h1')).toHaveText('Meine Matrizen');
     await expect(page.locator('.mcard-home')).toHaveCount(0);
-    await expect(page.locator('.method-tile')).toHaveCount(10);
+    await expect(page.locator('.method-tile')).toHaveCount(14);
     await expect(page.locator('#methodFilter')).toHaveCount(0);
   });
 
-  for (const [method, view] of [['eisenhower', 'board'], ['value-effort', 'plot'], ['stakeholder', 'plot'], ['risk', 'heatmap'], ['stacey', 'plot'], ['bcg', 'plot'], ['ge-mckinsey', 'heatmap'], ['kraljic', 'plot'], ['ansoff', 'board'], ['swot', 'board'], ['custom', 'plot']]) {
+  for (const [method, view] of [['eisenhower', 'board'], ['value-effort', 'plot'], ['stakeholder', 'plot'], ['risk', 'heatmap'], ['stacey', 'plot'], ['bcg', 'plot'], ['ge-mckinsey', 'heatmap'], ['kraljic', 'plot'], ['ansoff', 'board'], ['swot', 'board'], ['urgency-impact', 'heatmap'], ['importance-performance', 'plot'], ['situational', 'plot'], ['porter', 'board'], ['custom', 'plot']]) {
     test(`legt eine Matrix nach „${method}“ an`, async ({ page }) => {
       await createMatrix(page, method, `M ${method}`);
       await expect(page.locator('#surface')).toHaveAttribute('data-view', view);

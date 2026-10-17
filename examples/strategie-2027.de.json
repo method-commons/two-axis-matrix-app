@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "id": "example-strategie-2027",
+  "name": "Strategie 2027",
+  "context": "Food-Truck · Wofür wollen wir stehen?",
+  "method": "porter",
+  "config": {
+    "x": {
+      "label": "Wettbewerbsvorteil",
+      "low": "Kosten",
+      "high": "Einzigartigkeit",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Marktabdeckung",
+      "low": "Nische",
+      "high": "Gesamtmarkt",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "board",
+    "split": {
+      "x": 1.5,
+      "y": 1.5
+    },
+    "regions": [
+      {
+        "id": "cost",
+        "label": "Kostenführerschaft",
+        "hint": "am günstigsten für alle",
+        "color": "blue",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "differentiation",
+        "label": "Differenzierung",
+        "hint": "besonders für alle – höherer Preis",
+        "color": "violet",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "costFocus",
+        "label": "Kostenfokus",
+        "hint": "am günstigsten für eine Zielgruppe",
+        "color": "teal",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "diffFocus",
+        "label": "Differenzierungsfokus",
+        "hint": "besonders für eine Zielgruppe",
+        "color": "orange",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "owner",
+        "label": "Verantwortlich",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "none",
+    "itemName": {
+      "one": "Option",
+      "many": "Optionen"
+    },
+    "noteLabel": "Beschreibung"
+  },
+  "items": [
+    {
+      "id": "strategie-2027-1",
+      "no": 1,
+      "title": "Günstigste Pommes am Domplatz",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "strategie-2027-2",
+      "no": 2,
+      "title": "Premium-Pommes mit Trüffelmayo",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "owner": "Lea"
+      },
+      "answers": {}
+    },
+    {
+      "id": "strategie-2027-3",
+      "no": 3,
+      "title": "Eigene Saucen-Marke",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "strategie-2027-4",
+      "no": 4,
+      "title": "Nur Bio und regional",
+      "note": "",
+      "x": 2,
+      "y": 1,
+      "values": {
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "strategie-2027-5",
+      "no": 5,
+      "title": "Schnelles Mittagsmenü im Gewerbegebiet",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {
+        "owner": "Ben"
+      },
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

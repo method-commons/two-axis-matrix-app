@@ -1,6 +1,6 @@
 # 2-Achsen-Matrix
 
-Responsive Web-App, mit der man die gängigsten **2-Achsen-Methoden** anwendet: **Eisenhower-Matrix**, **Wert/Aufwand**, **Macht/Interesse** (Stakeholder), **Risikomatrix**, **Stacey-Matrix**, **BCG-Matrix**, **GE-/McKinsey-Matrix**, **Kraljic-Matrix**, **Ansoff-Matrix** und **SWOT-Analyse** – dazu eigene Matrizen mit frei wählbaren Achsen. Einträge erfassen, per Ziehen oder Tastatur einordnen, Hinweise zur Methode bekommen, als Bericht drucken oder exportieren.
+Responsive Web-App, mit der man die gängigsten **2-Achsen-Methoden** anwendet: **Eisenhower-Matrix**, **Wert/Aufwand**, **Macht/Interesse** (Stakeholder), **Risikomatrix**, **Stacey-Matrix**, **BCG-Matrix**, **GE-/McKinsey-Matrix**, **Kraljic-Matrix**, **Ansoff-Matrix**, **SWOT-Analyse**, **Dringlichkeit/Auswirkung**, **Wichtigkeit/Zufriedenheit**, **Situatives Führen** und **Porters Wettbewerbsstrategien** – dazu eigene Matrizen mit frei wählbaren Achsen. Einträge erfassen, per Ziehen oder Tastatur einordnen, Hinweise zur Methode bekommen, als Bericht drucken oder exportieren.
 
 Läuft im Browser ohne Server-Backend; die Oberfläche nutzt [Preact](https://preactjs.com) mit [Signals](https://preactjs.com/guide/v10/signals/), gebaut wird mit [Vite](https://vite.dev) – technisch und gestalterisch wie die Schwester-Apps [Morphologische Matrix](https://github.com/method-commons/morphological-matrix-app), [User Stories](https://github.com/method-commons/user-story-app) und [5 Warum](https://github.com/method-commons/5-why-app).
 
@@ -26,7 +26,7 @@ Auf `main` veröffentlicht die CI die App auf GitHub Pages, sobald alle Prüfung
 - **Neue Matrix**: Methode wählen – Vorschau mit Achsen, Skala und Bereichen – oder eine eigene Vorlage bzw. „Eigene Matrix“.
 - **Methoden** (Vorlagen):
   - **Eisenhower** – Karten in vier Feldern (*Sofort erledigen · Einplanen · Delegieren · Weglassen*), „dringend“ links; Person, Termin (überschrittene rot) und Erledigt je Aufgabe; Hinweise zu Delegieren ohne Person, Einplanen ohne Termin, Verhältnis Sofort/Einplanen.
-  - **Wert/Aufwand** – Punkte stufenlos (0–10 in halben Schritten): *Quick Wins · Großprojekte · Lückenfüller · Zeitfresser*; Begründung je Idee; Rangfolge nach Wert ÷ Aufwand; Hinweis auf Ideen knapp an der Grenze.
+  - **Wert/Aufwand** – Punkte stufenlos (0–10 in halben Schritten): *Quick Wins · Großprojekte · Lückenfüller · Zeitfresser*; Begründung je Idee; Rangfolge nach Wert ÷ Aufwand; Hinweis auf Ideen knapp an der Grenze. (Die Rangfolge heißt in jeder Matrix nach ihren Achsen, z. B. „Wichtigkeit ÷ Zufriedenheit“.)
   - **Macht/Interesse** – Stakeholder mit Haltung (unterstützend/neutral/kritisch, als Farbe), Ziel-Haltung, Ziel-Position (Pfeil, ziehbar), Strategie, Kommunikation und Ansprechperson; Hinweis auf kritische Stakeholder mit viel Einfluss.
   - **Risikomatrix** – Raster 5 × 5 mit Stufen nach Wahrscheinlichkeit × Auswirkung; Strategie (vermeiden/vermindern/übertragen/akzeptieren), Maßnahme, Verantwortlich, Bewertung nach Maßnahme (gestrichelt); Rangfolge nach Risikowert; Hinweise zu hohen Risiken ohne Maßnahme und Maßnahmen ohne Wirkung.
   - **Stacey** – Zonen *einfach · kompliziert · komplex · chaotisch* um den Ursprung mit empfohlenem Vorgehen; Einordnen per vier Fragen (Position aus den Antworten) oder Ziehen.
@@ -35,6 +35,10 @@ Auf `main` veröffentlicht die CI die App auf GitHub Pages, sobald alle Prüfung
   - **Kraljic-Matrix** – Einkauf nach Versorgungsrisiko und Ergebniseinfluss: *Strategische · Engpass- · Hebel- · Unkritische Produkte*; Lieferant, Einkaufsstrategie; Hinweise zu kritischen Produkten ohne Strategie.
   - **Ansoff-Matrix** – Wachstumsideen als Karten nach Produkt und Markt (bestehend/neu): *Marktdurchdringung · Produktentwicklung · Marktentwicklung · Diversifikation*; Hinweise zum Risiko.
   - **SWOT-Analyse** – Faktoren als Karten: *Stärken · Schwächen · Chancen · Risiken*; Strategie je Faktor (TOWS); Hinweis auf leere Felder.
+  - **Dringlichkeit/Auswirkung** – Raster 3 × 3 mit Priorität P1–P5 wie in der üblichen ITIL-Tabelle; Verantwortlich, Fällig, Erledigt; Hinweise zu offenen P1 und hoher Priorität ohne Verantwortung.
+  - **Wichtigkeit/Zufriedenheit** (Importance-Performance-Analyse) – Befragungswerte 1–5: *Hier konzentrieren · Weiter so · Geringe Priorität · Zu viel des Guten*; Rangfolge nach Wichtigkeit ÷ Zufriedenheit; Maßnahme je Merkmal.
+  - **Situatives Führen** – Kompetenz × Motivation je Person und Aufgabe: *Anleiten · Überzeugen · Unterstützen · Delegieren*; Einordnen per vier Fragen; nächster Schritt.
+  - **Porters Wettbewerbsstrategien** – Optionen als Karten: *Kostenführerschaft · Differenzierung · Kostenfokus · Differenzierungsfokus*; Hinweis „zwischen den Stühlen“.
   - **Eigene Matrix** – freie Achsen und vier Felder als Ausgangspunkt.
 - **Arbeiten in der Matrix**: Eingang für neue Einträge (Enter), Ziehen mit Maus, Stift oder Finger (auch zurück in den Eingang), Tastatur (Pfeiltasten verschieben, 1–9 legt in einen Bereich, 0 in den Eingang, Entf löscht, Esc hebt die Auswahl auf). Seitenleiste: gewählter Eintrag (Titel, Bereich, Werte, Fragen, Notiz, Felder) bzw. Verteilung, Hinweise (anklicken markiert die Einträge), Rangfolge und Leitfragen. Namen oder nur Nummern an den Punkten; zweite Positionen ein-/ausblendbar.
 - **Liste**: alle Einträge als Tabelle (Titel, Werte, Bereich, Notiz, Felder), sortierbar nach Nummer, Bereich oder Rangfolge.

@@ -60,6 +60,16 @@ describe('IO – Texte', () => {
     expect(IO.formatValue(m, t, null)).toBe('');
   });
 
+  it('benennt die Rangfolge nach den Achsen', () => {
+    expect(IO.scoreLabel(matrixOf('value-effort'))).toBe('Wert / Nutzen ÷ Aufwand');
+    expect(IO.scoreLabel(matrixOf('risk'))).toBe('Auswirkung × Wahrscheinlichkeit');
+    const m = matrixOf('importance-performance');
+    m.config.x.label = ' ';
+    expect(IO.scoreLabel(m)).toBe('Wert ÷ Aufwand');
+    expect(IO.scoreLabel(matrixOf('custom'))).toBe('Nummer');
+    expect(IO.markdown(matrixOf('risk'))).not.toContain('Rangfolge');
+  });
+
   it('beschreibt Achsen', () => {
     expect(IO.axisText(Model.normAxis({ label: 'Aufwand', low: 'gering', high: 'hoch', min: 0, max: 10 }))).toBe('Aufwand: gering → hoch (0–10)');
     expect(IO.axisText(Model.normAxis({ min: 1, max: 5 }))).toBe('– (1–5)');

@@ -73,6 +73,17 @@ export const IO = (() => {
     return String(v);
   }
 
+  /**
+   * Bezeichnung der Rangfolge aus den Achsen („Wichtigkeit ÷ Zufriedenheit“ bzw. „Auswirkung ×
+   * Wahrscheinlichkeit“); ohne Achsennamen die allgemeine.
+   * @param {Matrix} m
+   */
+  function scoreLabel(m) {
+    const { x, y, rank } = m.config;
+    if (rank === 'none' || !x.label.trim() || !y.label.trim()) return Texts.report.score[rank];
+    return rank === 'ratio' ? `${y.label.trim()} ÷ ${x.label.trim()}` : `${x.label.trim()} × ${y.label.trim()}`;
+  }
+
   /** Markdown-Zeichen in Text maskieren. @param {string} s */
   const md = s => String(s).replace(/([\\`*_[\]#|<>])/g, '\\$1');
   /** Tabellenzelle: Zeilenumbrüche entfernen. @param {string} s */
@@ -116,7 +127,7 @@ export const IO = (() => {
       const ranking = Layout.ranking(m);
       if (ranking.length) {
         lines.push(`## ${R.ranking}`, '');
-        lines.push(`| ${R.rank} | ${names.one} | ${cell(m.config.y.label || 'Y')} | ${cell(m.config.x.label || 'X')} | ${R.score[m.config.rank]} |`, '|---|---|---|---|---|');
+        lines.push(`| ${R.rank} | ${names.one} | ${cell(m.config.y.label || 'Y')} | ${cell(m.config.x.label || 'X')} | ${cell(scoreLabel(m))} |`, '|---|---|---|---|---|');
         ranking.forEach((r, i) => lines.push(`| ${i + 1} | #${r.item.no} ${cell(r.item.title || T.ui.untitled)} | ${num(/** @type {number} */ (r.item.y))} | ${num(/** @type {number} */ (r.item.x))} | ${r.score == null || !Number.isFinite(r.score) ? '–' : num(r.score)} |`));
         lines.push('');
       }
@@ -150,5 +161,5 @@ export const IO = (() => {
     return [head, ...rows].map(row => row.map(s => csvCell(s, sep)).join(sep)).join('\r\n') + '\r\n';
   }
 
-  return { BACKUP_TYPE, matrixJson, backupJson, parse, resolveImport, formatValue, axisText, markdown, csv };
+  return { BACKUP_TYPE, matrixJson, backupJson, parse, resolveImport, formatValue, axisText, scoreLabel, markdown, csv };
 })();

@@ -1,0 +1,205 @@
+{
+  "version": 1,
+  "id": "example-team-saisonstart",
+  "name": "Team zum Saisonstart",
+  "context": "Food-Truck · Einschätzung je Person und Aufgabe",
+  "method": "situational",
+  "config": {
+    "x": {
+      "label": "Kompetenz (für diese Aufgabe)",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "y": {
+      "label": "Motivation (für diese Aufgabe)",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "plot",
+    "split": {
+      "x": 3,
+      "y": 3
+    },
+    "regions": [
+      {
+        "id": "directing",
+        "label": "Anleiten",
+        "hint": "genau erklären, eng begleiten",
+        "color": "orange",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "delegating",
+        "label": "Delegieren",
+        "hint": "Verantwortung übergeben, Ergebnis vereinbaren",
+        "color": "green",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "coaching",
+        "label": "Überzeugen",
+        "hint": "erklären warum, ermutigen, gemeinsam üben",
+        "color": "red",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "supporting",
+        "label": "Unterstützen",
+        "hint": "beteiligen, zuhören, Vertrauen stärken",
+        "color": "blue",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "task",
+        "label": "Aufgabe",
+        "type": "text"
+      },
+      {
+        "key": "next",
+        "label": "Nächster Schritt",
+        "type": "textarea"
+      }
+    ],
+    "questions": [
+      {
+        "id": "guidance",
+        "axis": "x",
+        "text": "Braucht bei dieser Aufgabe noch Anleitung"
+      },
+      {
+        "id": "unsure",
+        "axis": "x",
+        "text": "Macht bei dieser Aufgabe noch Fehler"
+      },
+      {
+        "id": "hesitant",
+        "axis": "y",
+        "text": "Zögert oder braucht Ermutigung"
+      },
+      {
+        "id": "distant",
+        "axis": "y",
+        "text": "Wirkt bei dieser Aufgabe wenig engagiert"
+      }
+    ],
+    "rank": "none",
+    "itemName": {
+      "one": "Einschätzung",
+      "many": "Einschätzungen"
+    },
+    "noteLabel": "Beobachtung"
+  },
+  "items": [
+    {
+      "id": "team-saisonstart-1",
+      "no": 1,
+      "title": "Tom – Fritteuse bedienen",
+      "note": "Neu im Team, sehr motiviert",
+      "x": 1.5,
+      "y": 4.5,
+      "values": {
+        "task": "Fritteuse bedienen",
+        "next": "Zwei Schichten mit Ben zusammen"
+      },
+      "answers": {
+        "guidance": 1,
+        "unsure": 2,
+        "hesitant": 4,
+        "distant": 5
+      }
+    },
+    {
+      "id": "team-saisonstart-2",
+      "no": 2,
+      "title": "Tom – Reinigung nach Plan",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {
+        "task": "Reinigung nach Plan"
+      },
+      "answers": {
+        "guidance": 2,
+        "unsure": 2,
+        "hesitant": 2,
+        "distant": 2
+      }
+    },
+    {
+      "id": "team-saisonstart-3",
+      "no": 3,
+      "title": "Ben – Kassenabrechnung",
+      "note": "Kann es, macht es ungern",
+      "x": 4,
+      "y": 2.5,
+      "values": {
+        "task": "Kassenabrechnung",
+        "next": "Ablauf gemeinsam vereinfachen"
+      },
+      "answers": {
+        "guidance": 4,
+        "unsure": 4,
+        "hesitant": 2,
+        "distant": 3
+      }
+    },
+    {
+      "id": "team-saisonstart-4",
+      "no": 4,
+      "title": "Ben – Wareneinkauf planen",
+      "note": "",
+      "x": 2.5,
+      "y": 3.5,
+      "values": {
+        "task": "Wareneinkauf planen"
+      },
+      "answers": {}
+    },
+    {
+      "id": "team-saisonstart-5",
+      "no": 5,
+      "title": "Mia – Social Media",
+      "note": "",
+      "x": 4.5,
+      "y": 4.5,
+      "values": {
+        "task": "Social Media"
+      },
+      "answers": {
+        "guidance": 5,
+        "unsure": 4,
+        "hesitant": 4,
+        "distant": 5
+      }
+    },
+    {
+      "id": "team-saisonstart-6",
+      "no": 6,
+      "title": "Lea – Lieferantengespräche",
+      "note": "",
+      "x": 4.5,
+      "y": 4,
+      "values": {
+        "task": "Lieferantengespräche"
+      },
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

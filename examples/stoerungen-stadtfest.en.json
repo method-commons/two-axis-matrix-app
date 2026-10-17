@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "id": "example-stoerungen-stadtfest",
+  "name": "Issues at the city festival",
+  "context": "Food truck · Saturday, during service",
+  "method": "urgency-impact",
+  "config": {
+    "x": {
+      "label": "Impact",
+      "low": "low",
+      "high": "high",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Urgency",
+      "low": "low",
+      "high": "high",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "grid",
+    "view": "heatmap",
+    "split": {
+      "x": 2,
+      "y": 2
+    },
+    "regions": [
+      {
+        "id": "p5",
+        "label": "P5 Planning",
+        "hint": "when convenient",
+        "color": "gray",
+        "min": 0
+      },
+      {
+        "id": "p4",
+        "label": "P4 Low",
+        "hint": "within the next days",
+        "color": "blue",
+        "min": 2
+      },
+      {
+        "id": "p3",
+        "label": "P3 Medium",
+        "hint": "today or tomorrow",
+        "color": "yellow",
+        "min": 3
+      },
+      {
+        "id": "p2",
+        "label": "P2 High",
+        "hint": "within a few hours",
+        "color": "orange",
+        "min": 6
+      },
+      {
+        "id": "p1",
+        "label": "P1 Critical",
+        "hint": "now, put everything else aside",
+        "color": "red",
+        "min": 9
+      }
+    ],
+    "fields": [
+      {
+        "key": "owner",
+        "label": "Owner",
+        "type": "person"
+      },
+      {
+        "key": "due",
+        "label": "Due",
+        "type": "date"
+      },
+      {
+        "key": "done",
+        "label": "Done",
+        "type": "check"
+      }
+    ],
+    "questions": [],
+    "rank": "product",
+    "itemName": {
+      "one": "issue",
+      "many": "issues"
+    },
+    "noteLabel": "Description"
+  },
+  "items": [
+    {
+      "id": "stoerungen-stadtfest-1",
+      "no": 1,
+      "title": "Fryer 2 shuts down",
+      "note": "Overheat protection, error code E3",
+      "x": 3,
+      "y": 3,
+      "values": {
+        "owner": "Ben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-2",
+      "no": 2,
+      "title": "Card reader offline",
+      "note": "",
+      "x": 2,
+      "y": 3,
+      "values": {
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-3",
+      "no": 3,
+      "title": "Drinks cooler too warm",
+      "note": "",
+      "x": 3,
+      "y": 2,
+      "values": {
+        "owner": "Ben",
+        "done": true
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-4",
+      "no": 4,
+      "title": "Counter light broken",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-5",
+      "no": 5,
+      "title": "Running out of napkins",
+      "note": "",
+      "x": 1,
+      "y": 3,
+      "values": {
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-6",
+      "no": 6,
+      "title": "Generator louder than usual",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "due": "2026-10-20"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-7",
+      "no": 7,
+      "title": "Receipt printer cuts crooked",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}
