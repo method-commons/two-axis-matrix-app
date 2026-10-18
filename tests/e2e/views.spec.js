@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { download, expect, menu, openExample, test } from './fixtures.js';
+import { APP_URL, download, expect, menu, openExample, test } from './fixtures.js';
 
 test.describe('Liste', () => {
   test('bearbeitet Titel und Werte, sortiert', async ({ page }) => {
@@ -221,5 +221,28 @@ test.describe('Mobil', () => {
     expect(nav.y + nav.height).toBeGreaterThan(800);
     await page.click('[data-nav="report"]');
     await expect(page.locator('#report')).toBeVisible();
+  });
+});
+
+test.describe('Mobil – Navigation zwischen den Ansichten', () => {
+  // isMobile: Der Browser verbreitert bei zu breitem Inhalt die Seite (wie auf dem Telefon)
+  test.use({ viewport: { width: 320, height: 640 }, isMobile: true, hasTouch: true });
+
+  test('Seite bleibt bildschirmbreit, Navigation fest, jede Ansicht beginnt oben', async ({ page }) => {
+    // Tabelle (Liste, Rangfolge), Namen am Rand, lange Achsenpole, Sortierung nach langer Rangfolge
+    for (const key of ['stadtfest-risiken', 'ideen-saison', 'vorhaben-2027', 'geschaeftsfelder']) {
+      await page.goto(APP_URL);
+      await openExample(page, key);
+      const nav = page.locator('nav.nav');
+      const first = await nav.boundingBox();
+      for (const tab of ['list', 'report', 'matrix', 'list']) {
+        await page.evaluate(() => window.scrollTo(0, 600));
+        await page.tap(`[data-nav="${tab}"]`);
+        await expect(page.locator(`[data-nav="${tab}"]`)).toHaveAttribute('aria-current', 'page');
+        expect(await page.evaluate(() => [window.innerWidth, document.documentElement.scrollWidth]), `${key}/${tab}`).toEqual([320, 320]);
+        expect(await page.evaluate(() => window.scrollY), `${key}/${tab}`).toBe(0);
+        expect(await nav.boundingBox(), `${key}/${tab}`).toEqual(first);
+      }
+    }
   });
 });

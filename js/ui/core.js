@@ -78,8 +78,11 @@ export function applyRoute() {
     matrix = null;
     selected.value = null;
   }
+  // Neue Ansicht beginnt oben (sonst landet man mitten in Liste oder Bericht)
+  const moved = hashOf(r) !== hashOf(route.value);
   route.value = r;
   render();
+  if (moved) window.scrollTo(0, 0);
 }
 
 /** Neu zeichnen. */

@@ -66,14 +66,16 @@ export function ReportView() {
             <p class="small"><b>X</b> {IO.axisText(c.x)}<br /><b>Y</b> {IO.axisText(c.y)}</p>
             {ranking.length > 0 && <>
               <h4>{R.ranking}</h4>
-              <table class="tbl compact" id="rankTable">
-                <thead><tr><th>{R.rank}</th><th>{names.one}</th><th>{c.y.label || 'Y'}</th><th>{c.x.label || 'X'}</th><th>{IO.scoreLabel(m)}</th></tr></thead>
-                <tbody>
-                  {ranking.slice(0, 10).map((r, i) => (
-                    <tr key={r.item.id}><td>{i + 1}</td><td>{IO.label(r.item)}</td><td>{IO.num(/** @type {number} */ (r.item.y))}</td><td>{IO.num(/** @type {number} */ (r.item.x))}</td><td>{IO.score(r.score)}</td></tr>
-                  ))}
-                </tbody>
-              </table>
+              <div class="table-wrap">
+                <table class="tbl compact" id="rankTable">
+                  <thead><tr><th>{R.rank}</th><th>{names.one}</th><th>{c.y.label || 'Y'}</th><th>{c.x.label || 'X'}</th><th>{IO.scoreLabel(m)}</th></tr></thead>
+                  <tbody>
+                    {ranking.slice(0, 10).map((r, i) => (
+                      <tr key={r.item.id}><td>{i + 1}</td><td>{IO.label(r.item)}</td><td>{IO.num(/** @type {number} */ (r.item.y))}</td><td>{IO.num(/** @type {number} */ (r.item.x))}</td><td>{IO.score(r.score)}</td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </>}
           </div>
         </div>
