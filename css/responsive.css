@@ -10,7 +10,7 @@
     .inbox { position: static; }
     .pick { grid-template-columns: 1fr; }
     .pick-side { border-left: 0; border-top: 1px solid var(--border); }
-    .report-top, .report-regions, .axes-grid { grid-template-columns: 1fr; }
+    .report-top, .report-regions, .axes-grid { grid-template-columns: minmax(0, 1fr); }
     .region-edit { grid-template-columns: 1fr 1fr; }
     .region-edit .swatches { grid-column: 1 / -1; }
   }
@@ -41,11 +41,15 @@
     .board .axis-x, .board .axis-y, .board > span { display: none; }
     .quad { grid-column: auto !important; grid-row: auto !important; }
     .plot { height: 62vh; }
+    /* Namen an Punkten am Rand würden sonst die Seite verbreitern (Punkte selbst liegen im Rand der Karte) */
+    .matrix-page { overflow-x: clip; }
     .tok span { max-width: 110px; }
     .cell { min-height: 56px; padding: 3px 3px 14px; }
     .heat { gap: 2px; }
     .heat-yl small, .heat-xl small { display: none; }
     .paper { padding: 16px; }
+    /* Bild im Bericht auf Bildschirmbreite (Größe sonst als Inline-Stil) */
+    .report-top .matrix-svg { width: 100% !important; height: auto !important; }
     .help { grid-template-columns: 1fr; }
     .help-nav { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--border); padding: 0 12px 10px; }
     .help-regions { grid-template-columns: 1fr; }
