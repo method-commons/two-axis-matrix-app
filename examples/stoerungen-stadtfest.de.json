@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "id": "example-stoerungen-stadtfest",
+  "name": "Störungen Stadtfest",
+  "context": "Food-Truck · Samstag, laufender Betrieb",
+  "method": "urgency-impact",
+  "config": {
+    "x": {
+      "label": "Auswirkung",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Dringlichkeit",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "reverse": false
+    },
+    "layout": "grid",
+    "view": "heatmap",
+    "split": {
+      "x": 2,
+      "y": 2
+    },
+    "regions": [
+      {
+        "id": "p5",
+        "label": "P5 Planbar",
+        "hint": "bei Gelegenheit",
+        "color": "gray",
+        "min": 0
+      },
+      {
+        "id": "p4",
+        "label": "P4 Niedrig",
+        "hint": "in den nächsten Tagen",
+        "color": "blue",
+        "min": 2
+      },
+      {
+        "id": "p3",
+        "label": "P3 Mittel",
+        "hint": "heute bzw. morgen",
+        "color": "yellow",
+        "min": 3
+      },
+      {
+        "id": "p2",
+        "label": "P2 Hoch",
+        "hint": "innerhalb weniger Stunden",
+        "color": "orange",
+        "min": 6
+      },
+      {
+        "id": "p1",
+        "label": "P1 Kritisch",
+        "hint": "sofort, alles andere zurückstellen",
+        "color": "red",
+        "min": 9
+      }
+    ],
+    "fields": [
+      {
+        "key": "owner",
+        "label": "Verantwortlich",
+        "type": "person"
+      },
+      {
+        "key": "due",
+        "label": "Fällig",
+        "type": "date"
+      },
+      {
+        "key": "done",
+        "label": "Erledigt",
+        "type": "check"
+      }
+    ],
+    "questions": [],
+    "rank": "product",
+    "itemName": {
+      "one": "Vorgang",
+      "many": "Vorgänge"
+    },
+    "noteLabel": "Beschreibung"
+  },
+  "items": [
+    {
+      "id": "stoerungen-stadtfest-1",
+      "no": 1,
+      "title": "Fritteuse 2 schaltet ab",
+      "note": "Überhitzungsschutz, Fehlercode E3",
+      "x": 3,
+      "y": 3,
+      "values": {
+        "owner": "Ben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-2",
+      "no": 2,
+      "title": "Kartenleser offline",
+      "note": "",
+      "x": 2,
+      "y": 3,
+      "values": {
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-3",
+      "no": 3,
+      "title": "Kühlung Getränke zu warm",
+      "note": "",
+      "x": 3,
+      "y": 2,
+      "values": {
+        "owner": "Ben",
+        "done": true
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-4",
+      "no": 4,
+      "title": "Licht über der Theke defekt",
+      "note": "",
+      "x": 2,
+      "y": 2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-5",
+      "no": 5,
+      "title": "Servietten gehen aus",
+      "note": "",
+      "x": 1,
+      "y": 3,
+      "values": {
+        "owner": "Mia"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-6",
+      "no": 6,
+      "title": "Generator lauter als sonst",
+      "note": "",
+      "x": 1,
+      "y": 2,
+      "values": {
+        "due": "2026-10-20"
+      },
+      "answers": {}
+    },
+    {
+      "id": "stoerungen-stadtfest-7",
+      "no": 7,
+      "title": "Bondrucker schneidet schief",
+      "note": "",
+      "x": 1,
+      "y": 1,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

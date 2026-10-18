@@ -1,0 +1,195 @@
+{
+  "version": 1,
+  "id": "example-gaestebefragung",
+  "name": "Gästebefragung Sommer 2026",
+  "context": "Food-Truck · 124 Antworten, Mittelwerte 1–5",
+  "method": "importance-performance",
+  "config": {
+    "x": {
+      "label": "Zufriedenheit",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "reverse": false
+    },
+    "y": {
+      "label": "Wichtigkeit",
+      "low": "gering",
+      "high": "hoch",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "reverse": false
+    },
+    "layout": "quadrants",
+    "view": "plot",
+    "split": {
+      "x": 3,
+      "y": 3
+    },
+    "regions": [
+      {
+        "id": "focus",
+        "label": "Hier konzentrieren",
+        "hint": "wichtig, aber unzufrieden – verbessern",
+        "color": "red",
+        "qx": "low",
+        "qy": "high"
+      },
+      {
+        "id": "keep",
+        "label": "Weiter so",
+        "hint": "wichtig und zufrieden – halten",
+        "color": "green",
+        "qx": "high",
+        "qy": "high"
+      },
+      {
+        "id": "low",
+        "label": "Geringe Priorität",
+        "hint": "unwichtig und unzufrieden – vorerst lassen",
+        "color": "gray",
+        "qx": "low",
+        "qy": "low"
+      },
+      {
+        "id": "overkill",
+        "label": "Zu viel des Guten",
+        "hint": "unwichtig, aber zufrieden – Aufwand senken?",
+        "color": "blue",
+        "qx": "high",
+        "qy": "low"
+      }
+    ],
+    "fields": [
+      {
+        "key": "measure",
+        "label": "Maßnahme",
+        "type": "textarea"
+      },
+      {
+        "key": "owner",
+        "label": "Verantwortlich",
+        "type": "person"
+      }
+    ],
+    "questions": [],
+    "rank": "ratio",
+    "itemName": {
+      "one": "Merkmal",
+      "many": "Merkmale"
+    },
+    "noteLabel": "Quelle / Beleg"
+  },
+  "items": [
+    {
+      "id": "gaestebefragung-1",
+      "no": 1,
+      "title": "Geschmack der Pommes",
+      "note": "",
+      "x": 4.2,
+      "y": 4.4,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "gaestebefragung-2",
+      "no": 2,
+      "title": "Wartezeit",
+      "note": "Häufigste Beschwerde",
+      "x": 2.4,
+      "y": 4.5,
+      "values": {
+        "measure": "Zweite Fritteuse, Vorbestellung",
+        "owner": "Ben"
+      },
+      "answers": {}
+    },
+    {
+      "id": "gaestebefragung-3",
+      "no": 3,
+      "title": "Preis",
+      "note": "",
+      "x": 3.2,
+      "y": 4,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "gaestebefragung-4",
+      "no": 4,
+      "title": "Sauberkeit",
+      "note": "",
+      "x": 4.1,
+      "y": 3.9,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "gaestebefragung-5",
+      "no": 5,
+      "title": "Kartenzahlung",
+      "note": "",
+      "x": 2.6,
+      "y": 3.8,
+      "values": {
+        "measure": "Zweites Lesegerät"
+      },
+      "answers": {}
+    },
+    {
+      "id": "gaestebefragung-6",
+      "no": 6,
+      "title": "Vegane Auswahl",
+      "note": "",
+      "x": 2.1,
+      "y": 3.4,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "gaestebefragung-7",
+      "no": 7,
+      "title": "Gestaltung des Trucks",
+      "note": "",
+      "x": 4.4,
+      "y": 1.8,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "gaestebefragung-8",
+      "no": 8,
+      "title": "Musik",
+      "note": "",
+      "x": 3.8,
+      "y": 1.5,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "gaestebefragung-9",
+      "no": 9,
+      "title": "Sitzplätze",
+      "note": "",
+      "x": 1.8,
+      "y": 2.2,
+      "values": {},
+      "answers": {}
+    },
+    {
+      "id": "gaestebefragung-10",
+      "no": 10,
+      "title": "Instagram-Auftritt",
+      "note": "",
+      "x": 2.5,
+      "y": 1.9,
+      "values": {},
+      "answers": {}
+    }
+  ],
+  "createdAt": "2026-10-14T08:00:00.000Z",
+  "updatedAt": "2026-10-14T08:00:00.000Z"
+}

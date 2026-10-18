@@ -68,7 +68,7 @@ export function ReportView() {
             {ranking.length > 0 && <>
               <h4>{R.ranking}</h4>
               <table class="tbl compact" id="rankTable">
-                <thead><tr><th>{R.rank}</th><th>{names.one}</th><th>{c.y.label || 'Y'}</th><th>{c.x.label || 'X'}</th><th>{R.score[c.rank]}</th></tr></thead>
+                <thead><tr><th>{R.rank}</th><th>{names.one}</th><th>{c.y.label || 'Y'}</th><th>{c.x.label || 'X'}</th><th>{IO.scoreLabel(m)}</th></tr></thead>
                 <tbody>
                   {ranking.slice(0, 10).map((r, i) => (
                     <tr key={r.item.id}><td>{i + 1}</td><td>#{r.item.no} {r.item.title.trim() || Texts.ui.untitled}</td><td>{num(/** @type {number} */ (r.item.y))}</td><td>{num(/** @type {number} */ (r.item.x))}</td><td>{r.score == null || !Number.isFinite(r.score) ? '–' : num(r.score)}</td></tr>

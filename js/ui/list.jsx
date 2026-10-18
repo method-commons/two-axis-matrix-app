@@ -56,7 +56,7 @@ export function ListView() {
           <select class="input select sm" id="listSort" value={sort} onChange={e => setSort(/** @type {Sort} */ (/** @type {HTMLSelectElement} */ (e.currentTarget).value))}>
             <option value="no">{L.sortNo}</option>
             <option value="region">{L.sortRegion}</option>
-            {c.rank !== 'none' && <option value="rank">{Texts.report.score[c.rank]}</option>}
+            {c.rank !== 'none' && <option value="rank">{IO.scoreLabel(m)}</option>}
           </select>
         </label>
         <button type="button" class="btn sm primary" id="listAdd" onClick={() => addAndEdit('listNew')}>+ {names.one}</button>

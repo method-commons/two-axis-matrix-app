@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { Layout } from '../../js/layout.js';
 import { Methods } from '../../js/methods.js';
 import { Model } from '../../js/model.js';
 import { Ops } from '../../js/ops.js';
@@ -8,7 +9,7 @@ const keys = m => Methods.hints(m).map(h => `${h.key}:${h.state}`);
 
 describe('Methods – Verzeichnis', () => {
   it('liest alle Methoden ein, sortiert, mit „Eigene Matrix“ am Ende', () => {
-    expect(Methods.list().map(d => d.id)).toEqual(['eisenhower', 'value-effort', 'stakeholder', 'risk', 'stacey', 'bcg', 'ge-mckinsey', 'kraljic', 'ansoff', 'swot', 'custom']);
+    expect(Methods.list().map(d => d.id)).toEqual(['eisenhower', 'value-effort', 'stakeholder', 'risk', 'stacey', 'bcg', 'ge-mckinsey', 'kraljic', 'ansoff', 'swot', 'urgency-impact', 'importance-performance', 'situational', 'porter', 'custom']);
     expect(Methods.get('gibt-es-nicht').id).toBe('custom');
     expect(Methods.known('risk')).toBe(true);
     expect(Methods.known('kano')).toBe(false);
@@ -186,6 +187,64 @@ describe('Methods – Hinweise', () => {
     m.config.fields = [];
     Ops.setValue(m, a.id, 'strategy', null);
     expect(keys(m)).toEqual(['complete:ok']);
+  });
+
+  it('Dringlichkeit/Auswirkung', () => {
+    const m = matrixOf('urgency-impact');
+    expect(keys(m)).toEqual(['empty:open']);
+    const a = Ops.addItem(m, { title: 'Fritteuse', x: 3, y: 3 });
+    Ops.addItem(m, { title: 'Bon', x: 1, y: 1 });
+    expect(keys(m)).toEqual(['open:warn', 'owner:warn']);
+    expect(Layout.regionOf(m, a)?.id).toBe('p1');
+    Ops.setValue(m, a.id, 'done', true);
+    expect(keys(m)).toEqual(['clear:ok']);
+    Ops.setValue(m, a.id, 'done', false);
+    Ops.setValue(m, a.id, 'owner', 'Ben');
+    expect(keys(m)).toEqual(['open:warn']);
+    m.config.fields = [];
+    expect(keys(m)).toEqual(['open:warn']);
+    expect([[1, 1], [2, 1], [3, 1], [2, 2], [3, 2], [3, 3]].map(([x, y]) => Layout.regionAt(m.config, x, y)?.id)).toEqual(['p5', 'p4', 'p3', 'p3', 'p2', 'p1']);
+  });
+
+  it('Wichtigkeit/Zufriedenheit', () => {
+    const m = matrixOf('importance-performance');
+    expect(keys(m)).toEqual(['empty:open']);
+    Ops.addItem(m, { title: 'Preis', x: 4, y: 4 });
+    expect(keys(m)).toEqual(['fine:ok']);
+    const a = Ops.addItem(m, { title: 'Wartezeit', x: 2.4, y: 4.5 });
+    Ops.addItem(m, { title: 'Musik', x: 4, y: 1.5 });
+    expect(keys(m)).toEqual(['focus:warn', 'measure:open', 'overkill:open']);
+    Ops.setValue(m, a.id, 'measure', 'Fritteuse');
+    expect(keys(m)).toEqual(['focus:warn', 'overkill:open']);
+    m.config.fields = [];
+    Ops.setValue(m, a.id, 'measure', null);
+    expect(keys(m)).toEqual(['focus:warn', 'overkill:open']);
+    expect(Layout.ranking(m)[0].item.title).toBe('Wartezeit');
+  });
+
+  it('Situatives Führen', () => {
+    const m = matrixOf('situational');
+    const a = Ops.addItem(m, { title: 'Tom' });
+    for (const [q, v] of [['guidance', 1], ['unsure', 2], ['hesitant', 4], ['distant', 5]]) Ops.setAnswer(m, a.id, q, v);
+    expect([a.x, a.y]).toEqual([1.5, 4.5]);
+    expect(Layout.regionOf(m, a)?.id).toBe('directing');
+    Ops.addItem(m, { title: 'Mia', x: 4.5, y: 4.5 });
+    expect(keys(m)).toEqual(['next:warn', 'delegate:ok', 'unanswered:open']);
+    Ops.setValue(m, a.id, 'next', 'Schichten');
+    m.config.questions = [];
+    expect(keys(m)).toEqual(['delegate:ok']);
+    m.config.fields = [];
+    expect(keys(m)).toEqual(['delegate:ok']);
+  });
+
+  it('Porter', () => {
+    const m = matrixOf('porter');
+    expect(keys(m)).toEqual(['empty:open']);
+    Ops.addItem(m, { title: 'Premium', x: 2, y: 2 });
+    expect(keys(m)).toEqual(['clear:ok']);
+    expect(Methods.hints(m)[0].detail).toBe('Alle Optionen gehören zu Differenzierung.');
+    Ops.addItem(m, { title: 'Günstig', x: 1, y: 1 });
+    expect(keys(m)).toEqual(['middle:warn', 'scope:open']);
   });
 
   it('keine Hinweise einer Methode für eine andere Methode mit gleichen Einstellungen', () => {
