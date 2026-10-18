@@ -112,18 +112,16 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const list = placed(m);
-    if (!list.length) return [];
-    const ids = list.map(it => { const r = regionOf(m, it); return r ? r.id : ''; });
+  hints(m, { items, regionId, inRegion, hint }) {
+    if (!items.length) return [];
+    const ids = items.map(regionId);
     /** @type {Hint[]} */
     const out = [];
-    if (!ids.includes('penetration')) out.push({ key: 'penetration', state: 'open', title: H.penetrationTitle, detail: H.penetrationDetail });
-    const div = list.filter((_, i) => ids[i] === 'diversification');
-    if (div.length * 2 > list.length) out.push({ key: 'risk', state: 'warn', title: H.riskTitle, detail: fill(H.riskDetail, { n: div.length, total: list.length }), items: div.map(i => i.id) });
+    if (!ids.includes('penetration')) out.push(hint('penetration', 'open'));
+    const div = inRegion('diversification');
+    if (div.length * 2 > items.length) out.push(hint('risk', 'warn', { n: div.length, total: items.length }, div));
     const used = new Set(ids.filter(Boolean)).size;
-    if (used >= 3) out.push({ key: 'spread', state: 'ok', title: H.spreadTitle, detail: fill(H.spreadDetail, { n: used }) });
+    if (used >= 3) out.push(hint('spread', 'ok', { n: used }));
     return out;
   },
 };

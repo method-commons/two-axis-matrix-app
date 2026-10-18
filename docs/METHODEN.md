@@ -78,7 +78,33 @@ Mit `questions: [{ id, axis: 'x' | 'y' }]` (Texte in `texts.questions`) beantwor
 
 ### Hinweise
 
-`hints(m, ctx)` liefert Hinweise für die Seitenleiste: `{ key, state: 'ok' | 'warn' | 'open', title, detail, items? }`. `items` (IDs) werden beim Anklicken markiert. `ctx` enthält `regionOf`, `placed`, `value` (liefert `null`, wenn ein Feld ausgeblendet ist), `fill` (Platzhalter) und `t` (Texte der Methode). Hinweise sollten mit ausgeblendeten Feldern und umbenannten Bereichen zurechtkommen (Bereiche über `id` ansprechen). Allgemeine Hinweise (leere Matrix, Eingang, Einträge ohne Titel) kommen aus `js/methods.js`.
+`hints(m, ctx)` liefert Hinweise für die Seitenleiste: `{ key, state: 'ok' | 'warn' | 'open', title, detail, items? }`. `items` (IDs) werden beim Anklicken markiert. `ctx` enthält Hilfen, mit denen die meisten Hinweise wenige Zeilen sind:
+
+| Hilfe | Inhalt |
+|---|---|
+| `items` | eingeordnete Einträge |
+| `inRegion('a', 'b', …)` | eingeordnete Einträge in einem der Bereiche |
+| `regionId(it)` | ID des Bereichs eines Eintrags (`''` ohne Bereich) |
+| `hasField(key)` | ob die Matrix das Feld (noch) hat |
+| `value(it, key)` | Wert eines Felds (`null`, wenn das Feld ausgeblendet ist) |
+| `isEmpty(it, key)` | Feld leer bzw. nur Leerzeichen |
+| `names(items)` | Titel (sonst Nummer) als Aufzählung |
+| `hint(key, state, params?, items?, text?)` | fertiger Hinweis; Titel und Text aus `hints[text + 'Title']` und `hints[text + 'Detail']` (`text` = `key`), Platzhalter aus `params` |
+| `H`, `t` | Texte der Hinweise bzw. der ganzen Methode |
+| `regionOf(m, it)`, `fill(text, params)` | Bereich als Objekt, Platzhalter füllen |
+
+Beispiel:
+
+```js
+hints(m, { inRegion, hasField, isEmpty, hint }) {
+  const critical = inRegion('strategic', 'bottleneck');
+  if (!critical.length || !hasField('strategy')) return [];
+  const none = critical.filter(it => isEmpty(it, 'strategy'));
+  return [none.length ? hint('strategy', 'warn', { n: none.length }, none) : hint('strategy', 'ok', { n: critical.length }, undefined, 'covered')];
+},
+```
+
+ Hinweise sollten mit ausgeblendeten Feldern und umbenannten Bereichen zurechtkommen (Bereiche über `id` ansprechen). Allgemeine Hinweise (leere Matrix, Eingang, Einträge ohne Titel) kommen aus `js/methods.js`.
 
 ## Ein Beispiel ergänzen
 

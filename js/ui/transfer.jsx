@@ -2,6 +2,7 @@
  * Einträge aus einer anderen Matrix übernehmen (z. B. Maßnahmen aus der Risikomatrix nach
  * Wert/Aufwand bewerten): Titel und Notiz landen im Eingang der geöffneten Matrix.
  */
+import { IO } from '../io.js';
 import { useState } from 'preact/hooks';
 import { Layout } from '../layout.js';
 import { Methods } from '../methods.js';
@@ -55,7 +56,7 @@ function CopyItems({ target }) {
                 return (
                   <label key={it.id} class="check-row" data-item={it.id}>
                     <input type="checkbox" checked={chosen.has(it.id)} onChange={() => toggle(it.id)} />
-                    <span>#{it.no} {it.title.trim() || Texts.ui.untitled}</span>
+                    <span>{IO.label(it)}</span>
                     <span class="spacer" />
                     {r && <span class={`chip sm region-chip c-${r.color}`}>{r.label}</span>}
                   </label>

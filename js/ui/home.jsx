@@ -3,7 +3,7 @@
  * Hinweis), Filter nach Methode, die Methoden im Überblick; Dialoge „Neue Matrix“ (Methode
  * bzw. eigene Vorlage wählen) und „Beispiel öffnen“; Import.
  */
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { Examples } from '../examples.js';
 import { IO } from '../io.js';
 import { Layout } from '../layout.js';
@@ -135,10 +135,13 @@ function NewMatrixDialog({ initial }) {
 }
 
 function ExamplesDialog() {
-  const list = Examples.list();
+  // Die Beispiele werden erst hier geladen (eigene Teildateien im Build)
+  const [list, setList] = useState(/** @type {{ key: string, matrix: Matrix }[] | null} */ (null));
+  const [failed, setFailed] = useState(false);
+  useEffect(() => { Examples.list().then(setList, () => setFailed(true)); }, []);
   /** @param {string} key */
-  const open = key => {
-    const m = Examples.load(key);
+  const open = async key => {
+    const m = await Examples.load(key);
     if (!m) return;
     Store.save(m);
     closeDialog();
@@ -147,9 +150,9 @@ function ExamplesDialog() {
   return (
     <Dialog title={Texts.examples.title} wide id="examplesDialog">
       <div class="dialog-body examples">
-        <p class="sub">{Texts.examples.intro}</p>
+        <p class="sub">{failed ? Texts.examples.failed : list ? Texts.examples.intro : Texts.examples.loading}</p>
         <div class="example-list">
-          {list.map(({ key, matrix }) => (
+          {(list || []).map(({ key, matrix }) => (
             <button type="button" key={key} class="example card" data-example={key} onClick={() => open(key)}>
               <MatrixSvg m={matrix} width={120} height={96} id={`ex-${key}`} />
               <span class="example-text">

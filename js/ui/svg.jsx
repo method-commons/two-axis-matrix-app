@@ -3,10 +3,9 @@
  * Methodenwahl, Bild im Bericht und für den Export als PNG. Feste Farben (helles Papier), damit
  * das Bild auch außerhalb der App gleich aussieht.
  */
+import { IO } from '../io.js';
 import { Layout } from '../layout.js';
 import { Model } from '../model.js';
-import { Util } from '../util.js';
-import { Texts } from '../texts.js';
 
 const INK = '#344054';
 const FONT = 'Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif';
@@ -24,7 +23,6 @@ export function MatrixSvg({ m, width, height, detail = false, id }) {
   const clip = `clip-${id || m.id}`;
   const dot = detail ? Math.max(8, Math.min(11, W / 40)) : Math.max(3.5, W / 30);
   const placed = Model.placed(m);
-  const num = (/** @type {number} */ v) => Util.formatNumber(v, Texts.locale);
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${width} ${height}`} width={width} height={height} style={{ width: `${width}px`, height: `${height}px` }}
       role="img" aria-label={m.name} id={id} class="matrix-svg" font-family={FONT}>
@@ -58,8 +56,8 @@ export function MatrixSvg({ m, width, height, detail = false, id }) {
       {detail && <>
         <text x={pad.l + W / 2} y={height - 6} text-anchor="middle" font-size="10.5" font-weight="700" fill={INK}>{(c.x.label || 'X').toUpperCase()} {c.x.reverse ? '←' : '→'}</text>
         <text x={12} y={pad.t + H / 2} text-anchor="middle" font-size="10.5" font-weight="700" fill={INK} transform={`rotate(-90 12 ${pad.t + H / 2})`}>{(c.y.label || 'Y').toUpperCase()} {c.y.reverse ? '←' : '→'}</text>
-        <text x={pad.l} y={pad.t + H + 13} text-anchor="start" font-size="9.5" fill="#667085">{c.x.reverse ? c.x.high || num(c.x.max) : c.x.low || num(c.x.min)}</text>
-        <text x={pad.l + W} y={pad.t + H + 13} text-anchor="end" font-size="9.5" fill="#667085">{c.x.reverse ? c.x.low || num(c.x.min) : c.x.high || num(c.x.max)}</text>
+        <text x={pad.l} y={pad.t + H + 13} text-anchor="start" font-size="9.5" fill="#667085">{c.x.reverse ? c.x.high || IO.num(c.x.max) : c.x.low || IO.num(c.x.min)}</text>
+        <text x={pad.l + W} y={pad.t + H + 13} text-anchor="end" font-size="9.5" fill="#667085">{c.x.reverse ? c.x.low || IO.num(c.x.min) : c.x.high || IO.num(c.x.max)}</text>
       </>}
     </svg>
   );

@@ -106,21 +106,16 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const list = placed(m);
-    const of = (/** @type {string} */ id) => list.filter(it => { const r = regionOf(m, it); return r != null && r.id === id; });
+  hints(m, { inRegion, hasField, isEmpty, names, hint }) {
     /** @type {Hint[]} */
     const out = [];
-    const invest = of('invest');
+    const invest = inRegion('invest');
     if (invest.length) {
-      const none = m.config.fields.some(f => f.key === 'measure') ? invest.filter(it => !String(value(it, 'measure') || '').trim()) : [];
-      out.push(none.length
-        ? { key: 'measure', state: 'warn', title: H.measureTitle, detail: fill(H.measureDetail, { n: none.length }), items: none.map(i => i.id) }
-        : { key: 'invest', state: 'ok', title: H.investTitle, detail: fill(H.investDetail, { n: invest.length }), items: invest.map(i => i.id) });
+      const none = hasField('measure') ? invest.filter(it => isEmpty(it, 'measure')) : [];
+      out.push(none.length ? hint('measure', 'warn', { n: none.length }, none) : hint('invest', 'ok', { n: invest.length }, invest));
     }
-    const harvest = of('harvest');
-    if (harvest.length) out.push({ key: 'harvest', state: 'open', title: H.harvestTitle, detail: fill(H.harvestDetail, { names: harvest.map(i => i.title.trim() || `#${i.no}`).join(', ') }), items: harvest.map(i => i.id) });
+    const harvest = inRegion('harvest');
+    if (harvest.length) out.push(hint('harvest', 'open', { names: names(harvest) }, harvest));
     return out;
   },
 };

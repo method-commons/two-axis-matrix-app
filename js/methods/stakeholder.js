@@ -128,26 +128,22 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const has = (/** @type {string} */ k) => m.config.fields.some(f => f.key === k);
-    const list = placed(m);
+  hints(m, { items, inRegion, hasField, value, isEmpty, names, hint }) {
     /** @type {Hint[]} */
     const out = [];
-    const powerful = list.filter(it => /** @type {number} */ (it.y) >= m.config.split.y);
-    if (has('stance')) {
+    const powerful = items.filter(it => /** @type {number} */ (it.y) >= m.config.split.y);
+    if (hasField('stance')) {
       const critical = powerful.filter(it => value(it, 'stance') === 'contra');
-      if (critical.length) out.push({ key: 'critical', state: 'warn', title: H.criticalTitle, detail: fill(H.criticalDetail, { names: critical.map(i => i.title.trim() || `#${i.no}`).join(', ') }), items: critical.map(i => i.id) });
-      const unknown = list.filter(it => !value(it, 'stance'));
-      if (unknown.length) out.push({ key: 'stance', state: 'open', title: H.stanceTitle, detail: fill(H.stanceDetail, { n: unknown.length }), items: unknown.map(i => i.id) });
+      if (critical.length) out.push(hint('critical', 'warn', { names: names(critical) }, critical));
+      const unknown = items.filter(it => !value(it, 'stance'));
+      if (unknown.length) out.push(hint('stance', 'open', { n: unknown.length }, unknown));
     }
-    if (has('strategy')) {
-      const manage = list.filter(it => { const r = regionOf(m, it); return r != null && r.id === 'manage'; });
-      const none = manage.filter(it => !String(value(it, 'strategy') || '').trim());
-      if (none.length) out.push({ key: 'strategy', state: 'warn', title: H.strategyTitle, detail: fill(H.strategyDetail, { n: none.length }), items: none.map(i => i.id) });
+    if (hasField('strategy')) {
+      const none = inRegion('manage').filter(it => isEmpty(it, 'strategy'));
+      if (none.length) out.push(hint('strategy', 'warn', { n: none.length }, none));
     }
-    const targets = list.filter(it => value(it, 'target') || value(it, 'stanceTarget'));
-    if (targets.length) out.push({ key: 'target', state: 'ok', title: H.targetTitle, detail: fill(H.targetDetail, { n: targets.length }), items: targets.map(i => i.id) });
+    const targets = items.filter(it => value(it, 'target') || value(it, 'stanceTarget'));
+    if (targets.length) out.push(hint('target', 'ok', { n: targets.length }, targets));
     return out;
   },
 };

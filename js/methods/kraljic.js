@@ -113,21 +113,16 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const list = placed(m);
-    const of = (/** @type {string} */ id) => list.filter(it => { const r = regionOf(m, it); return r != null && r.id === id; });
+  hints(m, { inRegion, hasField, isEmpty, names, hint }) {
     /** @type {Hint[]} */
     const out = [];
-    const critical = [...of('strategic'), ...of('bottleneck')];
-    if (critical.length && m.config.fields.some(f => f.key === 'strategy')) {
-      const none = critical.filter(it => !String(value(it, 'strategy') || '').trim());
-      out.push(none.length
-        ? { key: 'strategy', state: 'warn', title: H.strategyTitle, detail: fill(H.strategyDetail, { n: none.length }), items: none.map(i => i.id) }
-        : { key: 'strategy', state: 'ok', title: H.coveredTitle, detail: fill(H.coveredDetail, { n: critical.length }) });
+    const critical = inRegion('strategic', 'bottleneck');
+    if (critical.length && hasField('strategy')) {
+      const none = critical.filter(it => isEmpty(it, 'strategy'));
+      out.push(none.length ? hint('strategy', 'warn', { n: none.length }, none) : hint('strategy', 'ok', { n: critical.length }, undefined, 'covered'));
     }
-    const bottleneck = of('bottleneck');
-    if (bottleneck.length) out.push({ key: 'bottleneck', state: 'open', title: H.bottleneckTitle, detail: fill(H.bottleneckDetail, { names: bottleneck.map(i => i.title.trim() || `#${i.no}`).join(', ') }), items: bottleneck.map(i => i.id) });
+    const bottleneck = inRegion('bottleneck');
+    if (bottleneck.length) out.push(hint('bottleneck', 'open', { names: names(bottleneck) }, bottleneck));
     return out;
   },
 };

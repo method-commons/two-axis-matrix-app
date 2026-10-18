@@ -159,11 +159,27 @@ interface MethodTexts {
 
 /** Werkzeuge, die eine Methode für ihre Hinweise bekommt */
 interface HintContext {
-  regionOf: (m: Matrix, it: Item) => Region | null;
-  placed: (m: Matrix) => Item[];
-  value: (it: Item, key: string) => FieldValue;
-  fill: (text: string, params?: Record<string, string | number>) => string;
+  /** Texte der Methode in der Sprache der App */
   t: MethodTexts;
+  /** Texte der Hinweise (`t.hints`) */
+  H: Record<string, string>;
+  /** Eingeordnete Einträge */
+  items: Item[];
+  /** ID des Bereichs eines Eintrags ('' ohne Bereich) */
+  regionId: (it: Item) => string;
+  /** Eingeordnete Einträge in einem der Bereiche */
+  inRegion: (...ids: string[]) => Item[];
+  /** Hat die Matrix ein Feld mit diesem Schlüssel? */
+  hasField: (key: string) => boolean;
+  value: (it: Item, key: string) => FieldValue;
+  /** Feld leer (bzw. nur Leerzeichen)? */
+  isEmpty: (it: Item, key: string) => boolean;
+  /** Titel (sonst Nummer) als Aufzählung */
+  names: (items: Item[]) => string;
+  /** Hinweis mit Titel und Text aus `H[text + 'Title']` / `H[text + 'Detail']` (text = key) */
+  hint: (key: string, state: HintState, params?: Record<string, string | number>, items?: Item[], text?: string) => Hint;
+  regionOf: (m: Matrix, it: Item) => Region | null;
+  fill: (text: string, params?: Record<string, string | number>) => string;
 }
 
 /** Definition einer Methode – eine Datei je Methode unter js/methods/ */

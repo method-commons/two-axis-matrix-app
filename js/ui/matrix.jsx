@@ -20,7 +20,6 @@ import { ItemEditor } from './editor.jsx';
 import { openSettings } from './settings.jsx';
 import { Surface } from './surfaces.jsx';
 
-const num = (/** @type {number} */ v) => Util.formatNumber(v, Texts.locale);
 
 export function MatrixView() {
   const m = useMatrix();
@@ -127,11 +126,11 @@ function Inbox({ m }) {
       <div class="inbox-list">
         {open.map(it => (
           <div key={it.id} class={`inbox-item${selected.value === it.id ? ' sel' : ''}${highlighted.value.includes(it.id) ? ' hl' : ''}`} data-item={it.id} role="button" tabIndex={0}
-            onPointerDown={e => startDrag(e, it.id, `#${it.no} ${it.title.trim() || Texts.ui.untitled}`)}
+            onPointerDown={e => startDrag(e, it.id, IO.label(it))}
             onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(it.id); } }}>
             <span class="grip" aria-hidden="true">⋮⋮</span>
             <span class="no">#{it.no}</span>
-            <span class="t">{it.title.trim() || Texts.ui.untitled}</span>
+            <span class="t">{IO.title(it)}</span>
           </div>
         ))}
       </div>
@@ -176,8 +175,8 @@ function Overview({ m }) {
           <ol class="rank-list">
             {ranking.map(r => (
               <li key={r.item.id}>
-                <button type="button" class="link-row" onClick={() => select(r.item.id)}>#{r.item.no} {r.item.title.trim() || Texts.ui.untitled}</button>
-                <b>{r.score == null || !Number.isFinite(r.score) ? '–' : num(r.score)}</b>
+                <button type="button" class="link-row" onClick={() => select(r.item.id)}>{IO.label(r.item)}</button>
+                <b>{IO.score(r.score)}</b>
               </li>
             ))}
           </ol>

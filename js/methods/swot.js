@@ -109,20 +109,16 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const list = placed(m);
-    if (!list.length) return [];
-    const used = new Set(list.map(it => { const r = regionOf(m, it); return r ? r.id : ''; }));
+  hints(m, { items, regionId, hasField, isEmpty, hint }) {
+    if (!items.length) return [];
+    const used = new Set(items.map(regionId));
     const empty = m.config.regions.filter(r => !used.has(r.id));
     /** @type {Hint[]} */
     const out = [];
-    out.push(empty.length
-      ? { key: 'empty', state: 'open', title: H.emptyTitle, detail: fill(H.emptyDetail, { names: empty.map(r => r.label || r.id).join(', ') }) }
-      : { key: 'complete', state: 'ok', title: H.completeTitle, detail: H.completeDetail });
-    if (m.config.fields.some(f => f.key === 'strategy')) {
-      const none = list.filter(it => !String(value(it, 'strategy') || '').trim());
-      if (none.length) out.push({ key: 'strategy', state: 'open', title: H.strategyTitle, detail: fill(H.strategyDetail, { n: none.length }), items: none.map(i => i.id) });
+    out.push(empty.length ? hint('empty', 'open', { names: empty.map(r => r.label || r.id).join(', ') }) : hint('complete', 'ok'));
+    if (hasField('strategy')) {
+      const none = items.filter(it => isEmpty(it, 'strategy'));
+      if (none.length) out.push(hint('strategy', 'open', { n: none.length }, none));
     }
     return out;
   },

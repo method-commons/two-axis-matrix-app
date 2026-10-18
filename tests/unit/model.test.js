@@ -111,7 +111,5 @@ describe('Model – Anlegen und Abfragen', () => {
     expect(Model.value(m, m.items[0], 'owner')).toBe('Ben');
     expect(Model.value(m, m.items[0], 'gone')).toBeNull();
     expect(Model.value(m, m.items[1], 'owner')).toBeNull();
-    expect(Model.label(m.items[0], '–')).toBe('#4 A');
-    expect(Model.label(m.items[1], '–')).toBe('#2 –');
   });
 });

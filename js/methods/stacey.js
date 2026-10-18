@@ -122,19 +122,16 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const list = placed(m);
-    const zone = (/** @type {string} */ id) => list.filter(it => { const r = regionOf(m, it); return r != null && r.id === id; });
+  hints(m, { items, inRegion, names, hint }) {
     /** @type {Hint[]} */
     const out = [];
-    const chaotic = zone('chaotic');
-    if (chaotic.length) out.push({ key: 'chaotic', state: 'warn', title: H.chaoticTitle, detail: fill(H.chaoticDetail, { names: chaotic.map(i => i.title.trim() || `#${i.no}`).join(', ') }), items: chaotic.map(i => i.id) });
-    const complex = zone('complex');
-    if (complex.length) out.push({ key: 'complex', state: 'ok', title: H.complexTitle, detail: fill(H.complexDetail, { n: complex.length }), items: complex.map(i => i.id) });
+    const chaotic = inRegion('chaotic');
+    if (chaotic.length) out.push(hint('chaotic', 'warn', { names: names(chaotic) }, chaotic));
+    const complex = inRegion('complex');
+    if (complex.length) out.push(hint('complex', 'ok', { n: complex.length }, complex));
     if (m.config.questions.length) {
-      const guessed = list.filter(it => !Object.keys(it.answers).length);
-      if (guessed.length) out.push({ key: 'unanswered', state: 'open', title: H.unansweredTitle, detail: fill(H.unansweredDetail, { n: guessed.length }), items: guessed.map(i => i.id) });
+      const guessed = items.filter(it => !Object.keys(it.answers).length);
+      if (guessed.length) out.push(hint('unanswered', 'open', { n: guessed.length }, guessed));
     }
     return out;
   },

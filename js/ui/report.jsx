@@ -12,7 +12,6 @@ import { download, MethodChip } from './components.jsx';
 import { toast, useMatrix } from './core.js';
 import { MatrixSvg, svgToPng } from './svg.jsx';
 
-const num = (/** @type {number} */ v) => Util.formatNumber(v, Texts.locale);
 
 /** Markdown in die Zwischenablage. @param {string} text */
 async function copy(text) {
@@ -71,7 +70,7 @@ export function ReportView() {
                 <thead><tr><th>{R.rank}</th><th>{names.one}</th><th>{c.y.label || 'Y'}</th><th>{c.x.label || 'X'}</th><th>{IO.scoreLabel(m)}</th></tr></thead>
                 <tbody>
                   {ranking.slice(0, 10).map((r, i) => (
-                    <tr key={r.item.id}><td>{i + 1}</td><td>#{r.item.no} {r.item.title.trim() || Texts.ui.untitled}</td><td>{num(/** @type {number} */ (r.item.y))}</td><td>{num(/** @type {number} */ (r.item.x))}</td><td>{r.score == null || !Number.isFinite(r.score) ? '–' : num(r.score)}</td></tr>
+                    <tr key={r.item.id}><td>{i + 1}</td><td>{IO.label(r.item)}</td><td>{IO.num(/** @type {number} */ (r.item.y))}</td><td>{IO.num(/** @type {number} */ (r.item.x))}</td><td>{IO.score(r.score)}</td></tr>
                   ))}
                 </tbody>
               </table>
@@ -89,7 +88,7 @@ export function ReportView() {
                     const extra = c.fields.map(f => [f.label, IO.formatValue(m, f, it.values[f.key] ?? null)]).filter(([, v]) => v);
                     return (
                       <li key={it.id} value={it.no}>
-                        <b>{it.title.trim() || Texts.ui.untitled}</b>{it.note.trim() && <> – {it.note.trim()}</>}
+                        <b>{IO.title(it)}</b>{it.note.trim() && <> – {it.note.trim()}</>}
                         {extra.length > 0 && <div class="sub small">{extra.map(([k, v]) => `${k}: ${v}`).join(' · ')}</div>}
                       </li>
                     );
@@ -102,7 +101,7 @@ export function ReportView() {
         {open.length > 0 && (
           <section class="report-open">
             <h4>{R.unplaced} · {open.length}</h4>
-            <p class="small">{open.map(it => `#${it.no} ${it.title.trim() || Texts.ui.untitled}`).join(' · ')}</p>
+            <p class="small">{open.map(it => IO.label(it)).join(' · ')}</p>
           </section>
         )}
       </article>

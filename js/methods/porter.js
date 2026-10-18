@@ -109,19 +109,17 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const list = placed(m);
-    if (!list.length) return [];
-    const regions = list.map(it => regionOf(m, it)).filter(/** @returns {r is Region} */ r => r != null);
+  hints(m, { items, regionOf, hint }) {
+    if (!items.length) return [];
+    const regions = items.map(it => regionOf(m, it)).filter(/** @returns {r is Region} */ r => r != null);
     const cost = regions.filter(r => r.qx === 'low').length;
     const unique = regions.filter(r => r.qx === 'high').length;
     /** @type {Hint[]} */
     const out = [];
-    if (cost && unique) out.push({ key: 'middle', state: 'warn', title: H.middleTitle, detail: fill(H.middleDetail, { cost, unique }) });
-    if (regions.some(r => r.qy === 'high') && regions.some(r => r.qy === 'low')) out.push({ key: 'scope', state: 'open', title: H.scopeTitle, detail: H.scopeDetail });
+    if (cost && unique) out.push(hint('middle', 'warn', { cost, unique }));
+    if (regions.some(r => r.qy === 'high') && regions.some(r => r.qy === 'low')) out.push(hint('scope', 'open'));
     const ids = new Set(regions.map(r => r.id));
-    if (ids.size === 1) out.push({ key: 'clear', state: 'ok', title: H.clearTitle, detail: fill(H.clearDetail, { name: regions[0].label || regions[0].id }) });
+    if (ids.size === 1) out.push(hint('clear', 'ok', { name: regions[0].label || regions[0].id }));
     return out;
   },
 };

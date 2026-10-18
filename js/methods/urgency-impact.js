@@ -113,20 +113,18 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const open = placed(m).filter(it => value(it, 'done') !== true);
-    if (!placed(m).length) return [];
-    const level = (/** @type {Item} */ it) => { const r = regionOf(m, it); return r ? r.id : ''; };
-    const p1 = open.filter(it => level(it) === 'p1');
-    const high = open.filter(it => ['p1', 'p2'].includes(level(it)));
+  hints(m, { items, regionId, hasField, value, isEmpty, names, hint }) {
+    if (!items.length) return [];
+    const open = items.filter(it => value(it, 'done') !== true);
+    const p1 = open.filter(it => regionId(it) === 'p1');
+    const high = open.filter(it => ['p1', 'p2'].includes(regionId(it)));
     /** @type {Hint[]} */
     const out = [];
-    if (p1.length) out.push({ key: 'open', state: 'warn', title: H.openTitle, detail: fill(H.openDetail, { n: p1.length }), items: p1.map(i => i.id) });
-    else if (!high.length) out.push({ key: 'clear', state: 'ok', title: H.clearTitle, detail: H.clearDetail });
-    if (m.config.fields.some(f => f.key === 'owner')) {
-      const none = high.filter(it => !String(value(it, 'owner') || '').trim());
-      if (none.length) out.push({ key: 'owner', state: 'warn', title: H.ownerTitle, detail: fill(H.ownerDetail, { names: none.map(i => i.title.trim() || `#${i.no}`).join(', ') }), items: none.map(i => i.id) });
+    if (p1.length) out.push(hint('open', 'warn', { n: p1.length }, p1));
+    else if (!high.length) out.push(hint('clear', 'ok'));
+    if (hasField('owner')) {
+      const none = high.filter(it => isEmpty(it, 'owner'));
+      if (none.length) out.push(hint('owner', 'warn', { names: names(none) }, none));
     }
     return out;
   },

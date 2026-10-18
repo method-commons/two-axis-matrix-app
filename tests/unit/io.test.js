@@ -60,6 +60,14 @@ describe('IO – Texte', () => {
     expect(IO.formatValue(m, t, null)).toBe('');
   });
 
+  it('formatiert Zahlen, Titel und Werte der Rangfolge', () => {
+    const it = /** @type {Item} */ ({ no: 4, title: '  ' });
+    expect(IO.num(1.5)).toBe('1,5');
+    expect(IO.title(it)).toBe('(ohne Titel)');
+    expect(IO.label({ ...it, title: ' Pommes ' })).toBe('#4 Pommes');
+    expect([IO.score(2), IO.score(null), IO.score(Infinity)]).toEqual(['2', '–', '–']);
+  });
+
   it('benennt die Rangfolge nach den Achsen', () => {
     expect(IO.scoreLabel(matrixOf('value-effort'))).toBe('Wert / Nutzen ÷ Aufwand');
     expect(IO.scoreLabel(matrixOf('risk'))).toBe('Auswirkung × Wahrscheinlichkeit');

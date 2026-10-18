@@ -132,21 +132,18 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const list = placed(m);
-    const region = (/** @type {Item} */ it) => { const r = regionOf(m, it); return r ? r.id : ''; };
+  hints(m, { items, regionId, inRegion, hasField, isEmpty, names, hint }) {
     /** @type {Hint[]} */
     const out = [];
-    if (m.config.fields.some(f => f.key === 'next')) {
-      const none = list.filter(it => region(it) !== 'delegating' && !String(value(it, 'next') || '').trim());
-      if (none.length) out.push({ key: 'next', state: 'warn', title: H.nextTitle, detail: fill(H.nextDetail, { n: none.length }), items: none.map(i => i.id) });
+    if (hasField('next')) {
+      const none = items.filter(it => regionId(it) !== 'delegating' && isEmpty(it, 'next'));
+      if (none.length) out.push(hint('next', 'warn', { n: none.length }, none));
     }
-    const ready = list.filter(it => region(it) === 'delegating');
-    if (ready.length) out.push({ key: 'delegate', state: 'ok', title: H.delegateTitle, detail: fill(H.delegateDetail, { names: ready.map(i => i.title.trim() || `#${i.no}`).join(', ') }), items: ready.map(i => i.id) });
+    const ready = inRegion('delegating');
+    if (ready.length) out.push(hint('delegate', 'ok', { names: names(ready) }, ready));
     if (m.config.questions.length) {
-      const guessed = list.filter(it => !Object.keys(it.answers).length);
-      if (guessed.length) out.push({ key: 'unanswered', state: 'open', title: H.unansweredTitle, detail: fill(H.unansweredDetail, { n: guessed.length }), items: guessed.map(i => i.id) });
+      const guessed = items.filter(it => !Object.keys(it.answers).length);
+      if (guessed.length) out.push(hint('unanswered', 'open', { n: guessed.length }, guessed));
     }
     return out;
   },
