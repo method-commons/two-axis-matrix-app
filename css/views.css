@@ -248,8 +248,9 @@
   .row-actions { white-space: nowrap; text-align: right; }
 
   /* ===== Bericht ===== */
-  .paper { max-width: 980px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-lg); border-radius: 6px; padding: 28px 32px; }
+  .paper { max-width: 980px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-lg); border-radius: 6px; padding: 28px 32px; overflow-wrap: break-word; }
   .paper-head { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
+  .paper-head > div { min-width: 0; }
   .paper h1 { font-size: 20px; }
   .paper h4 { margin: 12px 0 6px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); display: flex; gap: 6px; align-items: center; }
   .report-top { display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 20px; margin-top: 14px; align-items: start; }

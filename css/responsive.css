@@ -48,6 +48,7 @@
     .heat { gap: 2px; }
     .heat-yl small, .heat-xl small { display: none; }
     .paper { padding: 16px; }
+    .paper-head { flex-wrap: wrap; }
     /* Bild im Bericht auf Bildschirmbreite (Größe sonst als Inline-Stil) */
     .report-top .matrix-svg { width: 100% !important; height: auto !important; }
     .help { grid-template-columns: 1fr; }
