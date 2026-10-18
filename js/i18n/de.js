@@ -74,6 +74,8 @@ export const TextsDe = {
   examples: {
     title: 'Beispiel öffnen',
     intro: 'Ein Beispiel wird als neue Matrix angelegt und kann frei verändert werden.',
+    loading: 'Beispiele werden geladen …',
+    failed: 'Die Beispiele konnten nicht geladen werden. Bitte die Seite neu laden.',
   },
   matrix: {
     name: 'Name der Matrix',

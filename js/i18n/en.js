@@ -74,6 +74,8 @@ export const TextsEn = {
   examples: {
     title: 'Open example',
     intro: 'An example is created as a new matrix and can be changed freely.',
+    loading: 'Loading examples …',
+    failed: 'The examples could not be loaded. Please reload the page.',
   },
   matrix: {
     name: 'Name of the matrix',

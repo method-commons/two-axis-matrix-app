@@ -115,26 +115,22 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const list = placed(m);
-    if (!list.length) return [];
-    const of = (/** @type {string} */ id) => list.filter(it => { const r = regionOf(m, it); return r != null && r.id === id; });
-    const names = (/** @type {Item[]} */ items) => items.map(i => i.title.trim() || `#${i.no}`).join(', ');
+  hints(m, { items, inRegion, hasField, isEmpty, names, hint }) {
+    if (!items.length) return [];
     /** @type {Hint[]} */
     const out = [];
-    const focus = of('focus');
+    const focus = inRegion('focus');
     if (focus.length) {
-      out.push({ key: 'focus', state: 'warn', title: H.focusTitle, detail: fill(H.focusDetail, { names: names(focus) }), items: focus.map(i => i.id) });
-      if (m.config.fields.some(f => f.key === 'measure')) {
-        const none = focus.filter(it => !String(value(it, 'measure') || '').trim());
-        if (none.length) out.push({ key: 'measure', state: 'open', title: H.measureTitle, detail: fill(H.measureDetail, { n: none.length }), items: none.map(i => i.id) });
+      out.push(hint('focus', 'warn', { names: names(focus) }, focus));
+      if (hasField('measure')) {
+        const none = focus.filter(it => isEmpty(it, 'measure'));
+        if (none.length) out.push(hint('measure', 'open', { n: none.length }, none));
       }
     } else {
-      out.push({ key: 'fine', state: 'ok', title: H.fineTitle, detail: H.fineDetail });
+      out.push(hint('fine', 'ok'));
     }
-    const overkill = of('overkill');
-    if (overkill.length) out.push({ key: 'overkill', state: 'open', title: H.overkillTitle, detail: fill(H.overkillDetail, { names: names(overkill) }), items: overkill.map(i => i.id) });
+    const overkill = inRegion('overkill');
+    if (overkill.length) out.push(hint('overkill', 'open', { names: names(overkill) }, overkill));
     return out;
   },
 };

@@ -65,11 +65,11 @@ Die Tests prüfen jede Methode und jedes Beispiel automatisch (vollständige Tex
 |---|---|
 | `js/model.js` | Datenmodell, Farben, Normalisieren (inkl. Versionen), Anlegen |
 | `js/layout.js` | Geometrie: Werte ↔ Fläche, Bereich eines Punkts je Aufteilung, Mitte eines Bereichs, Umrechnen, Position aus Antworten, Rangfolge, Flächen zum Zeichnen |
-| `js/methods.js`, `js/methods/*.js` | Verzeichnis der Methoden (automatisch eingelesen), Einstellungen aus einer Methode, Hinweise, Leitfragen; je Methode eine Datei |
+| `js/methods.js`, `js/methods/*.js` | Verzeichnis der Methoden (automatisch eingelesen), Einstellungen aus einer Methode, Hinweise (mit Hilfen für die Methoden), Leitfragen; je Methode eine Datei |
 | `js/ops.js` | Änderungen (Einträge, Position, Bereich, Felder, Antworten, Einstellungen übernehmen, duplizieren, Einträge übernehmen) |
 | `js/storage.js` | Speicherung im localStorage (Matrizen, eigene Vorlagen) |
-| `js/io.js` | JSON-Export/-Import, Sicherung, Markdown-Bericht, CSV |
-| `js/examples.js`, `examples/` | Beispiele (automatisch eingelesen) |
+| `js/io.js` | JSON-Export/-Import, Sicherung, Markdown-Bericht, CSV; Formatierung von Zahlen, Titeln und Rangwerten |
+| `js/examples.js`, `examples/` | Beispiele (automatisch gefunden, erst beim Öffnen der Beispiele und nur in der benötigten Sprache geladen) |
 | `js/texts.js`, `js/i18n/` | Texte der Oberfläche (Deutsch maßgeblich, Englisch gleiche Struktur) |
 | `js/ui/core.js` | Route, geöffnete Matrix, Speichern, Verlauf, Auswahl, Dialoge, Meldungen |
 | `js/ui/surfaces.jsx`, `js/ui/drag.js` | Arbeitsflächen (Karten, Punkte, Zellen) und Ziehen |

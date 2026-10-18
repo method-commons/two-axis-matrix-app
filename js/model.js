@@ -283,13 +283,9 @@ export const Model = (() => {
     return field(m, key) ? (it.values[key] ?? null) : null;
   }
 
-  /** Bezeichnung des Eintrags („#3 Vegane Pommes“). @param {Item} it @param {string} untitled */
-  function label(it, untitled) {
-    return `#${it.no} ${it.title.trim() || untitled}`;
-  }
 
   return {
     SCHEMA_VERSION, PALETTE, COLORS, LAYOUTS, VIEWS, RANKS, FIELD_TYPES, ANSWER_MAX, MIGRATIONS,
-    normAxis, normConfig, normalize, defaultConfig, create, nextNo, placed, unplaced, field, value, label,
+    normAxis, normConfig, normalize, defaultConfig, create, nextNo, placed, unplaced, field, value,
   };
 })();

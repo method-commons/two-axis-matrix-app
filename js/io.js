@@ -53,6 +53,15 @@ export const IO = (() => {
   /** Zahl in der Sprache der App. @param {number} v */
   const num = v => Util.formatNumber(v, Texts.locale);
 
+  /** Titel eines Eintrags (sonst „ohne Titel“). @param {Item} it */
+  const title = it => it.title.trim() || Texts.ui.untitled;
+
+  /** Eintrag mit Nummer („#3 Vegane Pommes“). @param {Item} it */
+  const label = it => `#${it.no} ${title(it)}`;
+
+  /** Wert der Rangfolge („–“ ohne Wert). @param {number | null} s */
+  const score = s => (s == null || !Number.isFinite(s) ? '–' : num(s));
+
   /** Position als Text („X / Y“). @param {Point} p */
   const point = p => `${num(p.x)} / ${num(p.y)}`;
 
@@ -117,7 +126,7 @@ export const IO = (() => {
       if (region.hint.trim()) lines.push(`*${md(region.hint.trim())}*`, '');
       for (const it of items) {
         const extra = fields.map(f => [f.label, formatValue(m, f, it.values[f.key] ?? null)]).filter(([, v]) => v).map(([k, v]) => `${md(k)}: ${md(v)}`);
-        lines.push(`- **#${it.no} ${md(it.title.trim() || T.ui.untitled)}** (${point({ x: /** @type {number} */ (it.x), y: /** @type {number} */ (it.y) })})${it.note.trim() ? ` – ${md(it.note.trim().replace(/\s*\n\s*/g, ' '))}` : ''}`);
+        lines.push(`- **#${it.no} ${md(title(it))}** (${point({ x: /** @type {number} */ (it.x), y: /** @type {number} */ (it.y) })})${it.note.trim() ? ` – ${md(it.note.trim().replace(/\s*\n\s*/g, ' '))}` : ''}`);
         if (extra.length) lines.push(`  ${extra.join(' · ')}`);
       }
       if (items.length) lines.push('');
@@ -128,7 +137,7 @@ export const IO = (() => {
       if (ranking.length) {
         lines.push(`## ${R.ranking}`, '');
         lines.push(`| ${R.rank} | ${names.one} | ${cell(m.config.y.label || 'Y')} | ${cell(m.config.x.label || 'X')} | ${cell(scoreLabel(m))} |`, '|---|---|---|---|---|');
-        ranking.forEach((r, i) => lines.push(`| ${i + 1} | #${r.item.no} ${cell(r.item.title || T.ui.untitled)} | ${num(/** @type {number} */ (r.item.y))} | ${num(/** @type {number} */ (r.item.x))} | ${r.score == null || !Number.isFinite(r.score) ? '–' : num(r.score)} |`));
+        ranking.forEach((r, i) => lines.push(`| ${i + 1} | #${r.item.no} ${cell(title(r.item))} | ${num(/** @type {number} */ (r.item.y))} | ${num(/** @type {number} */ (r.item.x))} | ${score(r.score)} |`));
         lines.push('');
       }
     }
@@ -136,7 +145,7 @@ export const IO = (() => {
     const open = Model.unplaced(m);
     if (open.length) {
       lines.push(`## ${R.unplaced} (${open.length})`, '');
-      open.forEach(it => lines.push(`- #${it.no} ${md(it.title.trim() || T.ui.untitled)}`));
+      open.forEach(it => lines.push(`- #${it.no} ${md(title(it))}`));
       lines.push('');
     }
     return lines.join('\n');
@@ -161,5 +170,5 @@ export const IO = (() => {
     return [head, ...rows].map(row => row.map(s => csvCell(s, sep)).join(sep)).join('\r\n') + '\r\n';
   }
 
-  return { BACKUP_TYPE, matrixJson, backupJson, parse, resolveImport, formatValue, axisText, scoreLabel, markdown, csv };
+  return { BACKUP_TYPE, matrixJson, backupJson, parse, resolveImport, num, title, label, score, formatValue, axisText, scoreLabel, markdown, csv };
 })();

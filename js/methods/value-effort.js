@@ -113,24 +113,22 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
+  hints(m, { items, inRegion, hint }) {
     const c = m.config;
-    const list = placed(m);
-    if (!list.length) return [];
-    const of = (/** @type {string} */ id) => list.filter(it => { const r = regionOf(m, it); return r != null && r.id === id; });
+    if (!items.length) return [];
     /** @type {Hint[]} */
     const out = [];
-    const quick = of('quick').sort((a, b) => /** @type {number} */ (b.y) / Math.max(/** @type {number} */ (b.x), 0.5) - /** @type {number} */ (a.y) / Math.max(/** @type {number} */ (a.x), 0.5));
+    const ratio = (/** @type {Item} */ it) => /** @type {number} */ (it.y) / Math.max(/** @type {number} */ (it.x), 0.5);
+    const quick = inRegion('quick').sort((a, b) => ratio(b) - ratio(a));
     out.push(quick.length
-      ? { key: 'quick', state: 'ok', title: H.quickTitle, detail: fill(H.quickDetail, { n: quick.length, first: quick[0].title.trim() || `#${quick[0].no}` }), items: quick.map(i => i.id) }
-      : { key: 'quick', state: 'warn', title: H.noQuickTitle, detail: H.noQuickDetail });
+      ? hint('quick', 'ok', { n: quick.length, first: quick[0].title.trim() || `#${quick[0].no}` }, quick)
+      : hint('quick', 'warn', {}, undefined, 'noQuick'));
     const nx = NEAR * (c.x.max - c.x.min);
     const ny = NEAR * (c.y.max - c.y.min);
-    const near = list.filter(it => Math.abs(/** @type {number} */ (it.x) - c.split.x) < nx || Math.abs(/** @type {number} */ (it.y) - c.split.y) < ny);
-    if (near.length) out.push({ key: 'near', state: 'warn', title: H.nearTitle, detail: fill(H.nearDetail, { n: near.length }), items: near.map(i => i.id) });
-    const sink = of('sink');
-    if (sink.length) out.push({ key: 'sink', state: 'open', title: H.sinkTitle, detail: fill(H.sinkDetail, { n: sink.length }), items: sink.map(i => i.id) });
+    const near = items.filter(it => Math.abs(/** @type {number} */ (it.x) - c.split.x) < nx || Math.abs(/** @type {number} */ (it.y) - c.split.y) < ny);
+    if (near.length) out.push(hint('near', 'warn', { n: near.length }, near));
+    const sink = inRegion('sink');
+    if (sink.length) out.push(hint('sink', 'open', { n: sink.length }, sink));
     return out;
   },
 };

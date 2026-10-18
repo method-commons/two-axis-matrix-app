@@ -3,6 +3,7 @@
  * Einordnen, Notiz und die Felder der Matrix (je nach Art Text, Person, Datum, Haken, Auswahl
  * oder zweite Position).
  */
+import { IO } from '../io.js';
 import { Layout } from '../layout.js';
 import { Ops } from '../ops.js';
 import { Texts } from '../texts.js';
@@ -11,7 +12,6 @@ import { RegionChip } from './components.jsx';
 import { fieldProps, mutate, select } from './core.js';
 import { removeItem } from './items.js';
 
-const num = (/** @type {number} */ v) => Util.formatNumber(v, Texts.locale);
 
 /**
  * Zahlenfeld für einen Wert auf einer Achse (übernimmt beim Verlassen bzw. Enter).
@@ -142,7 +142,7 @@ function FieldInput({ m, it, f, people }) {
           <button type="button" class="btn sm dashed" id={`${id}-set`} disabled={it.x == null}
             onClick={() => set({ x: /** @type {number} */ (it.x), y: /** @type {number} */ (it.y) })}>{Texts.editor.setPoint}</button>
         )}
-        {p && it.x != null && <p class="sub small">{Util.fill(Texts.editor.pointHelp, { from: `${num(it.x)} / ${num(/** @type {number} */ (it.y))}`, to: `${num(p.x)} / ${num(p.y)}` })}</p>}
+        {p && it.x != null && <p class="sub small">{Util.fill(Texts.editor.pointHelp, { from: `${IO.num(it.x)} / ${IO.num(/** @type {number} */ (it.y))}`, to: `${IO.num(p.x)} / ${IO.num(p.y)}` })}</p>}
       </div>
     );
   }

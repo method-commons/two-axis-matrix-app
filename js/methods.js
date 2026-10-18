@@ -79,6 +79,40 @@ export const Methods = (() => {
   }
 
   /**
+   * Werkzeuge für die Hinweise einer Methode (siehe `HintContext` in types.d.ts).
+   * @param {Matrix} m @param {MethodDef} def @returns {HintContext}
+   */
+  function hintContext(m, def) {
+    const t = texts(def);
+    const H = t.hints || {};
+    const items = Model.placed(m);
+    /** @param {Item} it */
+    const regionId = it => { const r = Layout.regionOf(m, it); return r ? r.id : ''; };
+    /** @param {Item} it @param {string} key */
+    const value = (it, key) => Model.value(m, it, key);
+    return {
+      t,
+      H,
+      items,
+      regionId,
+      inRegion: (...ids) => items.filter(it => ids.includes(regionId(it))),
+      hasField: key => m.config.fields.some(f => f.key === key),
+      value,
+      isEmpty: (it, key) => !String(value(it, key) ?? '').trim(),
+      names: list => list.map(i => i.title.trim() || `#${i.no}`).join(', '),
+      hint: (key, state, params, list, text = key) => ({
+        key,
+        state,
+        title: H[`${text}Title`],
+        detail: Util.fill(H[`${text}Detail`], params),
+        ...(list && { items: list.map(i => i.id) }),
+      }),
+      regionOf: Layout.regionOf,
+      fill: Util.fill,
+    };
+  }
+
+  /**
    * Hinweise zu einer Matrix: allgemeine (Eingang, Einträge ohne Titel) und die der Methode.
    * @param {Matrix} m @returns {Hint[]}
    */
@@ -93,13 +127,7 @@ export const Methods = (() => {
     if (untitled.length) out.push({ key: 'untitled', state: 'warn', title: H.untitledTitle, detail: Util.fill(H.untitledDetail, { n: untitled.length }), items: untitled.map(i => i.id) });
     const def = get(m.method);
     if (def.hints && def.id === m.method) {
-      out.push(...def.hints(m, {
-        regionOf: Layout.regionOf,
-        placed: Model.placed,
-        value: (it, key) => Model.value(m, it, key),
-        fill: Util.fill,
-        t: texts(def),
-      }));
+      out.push(...def.hints(m, hintContext(m, def)));
     }
     return out;
   }

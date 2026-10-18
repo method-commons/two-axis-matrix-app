@@ -123,25 +123,20 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const list = placed(m);
-    if (!list.length) return [];
-    const of = (/** @type {string} */ id) => list.filter(it => { const r = regionOf(m, it); return r != null && r.id === id; });
-    const cows = of('cow');
-    const stars = of('star');
-    const questions = of('question');
+  hints(m, { items, inRegion, hasField, isEmpty, names, hint }) {
+    if (!items.length) return [];
+    const cows = inRegion('cow');
+    const stars = inRegion('star');
+    const questions = inRegion('question');
     /** @type {Hint[]} */
     const out = [];
-    out.push(cows.length
-      ? { key: 'balance', state: 'ok', title: H.balanceTitle, detail: fill(H.balanceDetail, { cows: cows.length, stars: stars.length, questions: questions.length }) }
-      : { key: 'cow', state: 'warn', title: H.cowTitle, detail: H.cowDetail });
-    if (m.config.fields.some(f => f.key === 'strategy')) {
-      const open = questions.filter(it => !value(it, 'strategy'));
-      if (open.length) out.push({ key: 'question', state: 'warn', title: H.questionTitle, detail: fill(H.questionDetail, { n: open.length }), items: open.map(i => i.id) });
+    out.push(cows.length ? hint('balance', 'ok', { cows: cows.length, stars: stars.length, questions: questions.length }) : hint('cow', 'warn'));
+    if (hasField('strategy')) {
+      const open = questions.filter(it => isEmpty(it, 'strategy'));
+      if (open.length) out.push(hint('question', 'warn', { n: open.length }, open));
     }
-    const dogs = of('dog');
-    if (dogs.length) out.push({ key: 'dog', state: 'open', title: H.dogTitle, detail: fill(H.dogDetail, { names: dogs.map(i => i.title.trim() || `#${i.no}`).join(', ') }), items: dogs.map(i => i.id) });
+    const dogs = inRegion('dog');
+    if (dogs.length) out.push(hint('dog', 'open', { names: names(dogs) }, dogs));
     return out;
   },
 };

@@ -120,32 +120,28 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const has = (/** @type {string} */ k) => m.config.fields.some(f => f.key === k);
-    const list = placed(m);
-    const level = (/** @type {Item} */ it) => { const r = regionOf(m, it); return r ? r.id : ''; };
-    const high = list.filter(it => ['high', 'critical'].includes(level(it)));
+  hints(m, { items, inRegion, hasField, value, isEmpty, names, hint }) {
+    const high = inRegion('high', 'critical');
     /** @type {Hint[]} */
     const out = [];
-    if (has('measure')) {
-      const none = high.filter(it => !String(value(it, 'measure') || '').trim());
-      if (none.length) out.push({ key: 'measure', state: 'warn', title: H.measureTitle, detail: fill(H.measureDetail, { names: none.map(i => i.title.trim() || `#${i.no}`).join(', ') }), items: none.map(i => i.id) });
-      else if (high.length) out.push({ key: 'measure', state: 'ok', title: H.coveredTitle, detail: fill(H.coveredDetail, { n: high.length }) });
-      if (has('residual')) {
-        const withMeasure = list.filter(it => String(value(it, 'measure') || '').trim());
+    if (hasField('measure')) {
+      const none = high.filter(it => isEmpty(it, 'measure'));
+      if (none.length) out.push(hint('measure', 'warn', { names: names(none) }, none));
+      else if (high.length) out.push(hint('measure', 'ok', { n: high.length }, undefined, 'covered'));
+      if (hasField('residual')) {
+        const withMeasure = items.filter(it => !isEmpty(it, 'measure'));
         const unrated = withMeasure.filter(it => !value(it, 'residual'));
-        if (unrated.length) out.push({ key: 'residual', state: 'open', title: H.residualTitle, detail: fill(H.residualDetail, { n: unrated.length }), items: unrated.map(i => i.id) });
+        if (unrated.length) out.push(hint('residual', 'open', { n: unrated.length }, unrated));
         const notLower = withMeasure.filter(it => {
           const p = /** @type {Point | null} */ (value(it, 'residual'));
           return p && p.x * p.y >= /** @type {number} */ (it.x) * /** @type {number} */ (it.y);
         });
-        if (notLower.length) out.push({ key: 'notLower', state: 'warn', title: H.notLowerTitle, detail: fill(H.notLowerDetail, { n: notLower.length }), items: notLower.map(i => i.id) });
+        if (notLower.length) out.push(hint('notLower', 'warn', { n: notLower.length }, notLower));
       }
     }
-    if (has('response')) {
-      const accepted = list.filter(it => level(it) === 'critical' && value(it, 'response') === 'accept');
-      if (accepted.length) out.push({ key: 'accept', state: 'warn', title: H.acceptTitle, detail: fill(H.acceptDetail, { n: accepted.length }), items: accepted.map(i => i.id) });
+    if (hasField('response')) {
+      const accepted = inRegion('critical').filter(it => value(it, 'response') === 'accept');
+      if (accepted.length) out.push(hint('accept', 'warn', { n: accepted.length }, accepted));
     }
     return out;
   },

@@ -3,6 +3,7 @@
  * mit Zellen (heatmap). Alle nutzen dasselbe Ziehen (drag.js) und dieselbe Auswahl.
  * Neue Darstellung ergänzen: Komponente hier schreiben und in `Surface` eintragen.
  */
+import { IO } from '../io.js';
 import { Layout } from '../layout.js';
 import { Methods } from '../methods.js';
 import { Model } from '../model.js';
@@ -13,7 +14,6 @@ import { Avatar, fill } from './components.jsx';
 import { highlighted, mutate, select, selected, viewPrefs } from './core.js';
 import { drag, startDrag } from './drag.js';
 
-const num = (/** @type {number} */ v) => Util.formatNumber(v, Texts.locale);
 
 /** Klassen für Auswahl und Markierung eines Eintrags. @param {string} id */
 function stateClass(id) {
@@ -22,7 +22,6 @@ function stateClass(id) {
 }
 
 /** Kurzer Name eines Eintrags. @param {Item} it */
-const nameOf = it => it.title.trim() || Texts.ui.untitled;
 
 /** Darstellung je nach Einstellung. @param {{ m: Matrix }} props */
 export function Surface({ m }) {
@@ -99,13 +98,13 @@ function Card({ m, it }) {
   const d = /** @type {string} */ (it.values.due || '');
   return (
     <div class={`card-item${isDone ? ' done' : ''}${stateClass(it.id)}`} data-item={it.id} role="button" tabIndex={0}
-      onPointerDown={e => { if (!(/** @type {HTMLElement} */ (e.target)).closest('input')) startDrag(e, it.id, `#${it.no} ${nameOf(it)}`); }}
+      onPointerDown={e => { if (!(/** @type {HTMLElement} */ (e.target)).closest('input')) startDrag(e, it.id, IO.label(it)); }}
       onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(it.id); } }}>
       {done && (
         <input type="checkbox" checked={isDone} aria-label={done.label} title={done.label}
           onChange={e => { const v = /** @type {HTMLInputElement} */ (e.currentTarget).checked; mutate(x => Ops.setValue(x, it.id, 'done', v)); }} />
       )}
-      <span class="t">{nameOf(it)}</span>
+      <span class="t">{IO.title(it)}</span>
       <span class="meta">
         {due && d && <span class={`chip sm${!isDone && d < today ? ' bad' : !isDone && d === today ? ' warn' : ''}`}>{Util.formatDay(d, Texts.locale)}</span>}
         {owner && String(it.values.owner || '').trim() && <span class="who" title={String(it.values.owner)}><Avatar name={String(it.values.owner)} /></span>}
@@ -124,10 +123,10 @@ function Plot({ m }) {
   const points = viewPrefs.value.points ? c.fields.filter(f => f.type === 'point') : [];
   const split = c.layout === 'quadrants' ? Layout.toScreen(c, c.split.x, c.split.y) : null;
   const names = viewPrefs.value.names;
-  const leftPole = c.x.reverse ? c.x.high || num(c.x.max) : c.x.low || num(c.x.min);
-  const rightPole = c.x.reverse ? c.x.low || num(c.x.min) : c.x.high || num(c.x.max);
-  const bottomPole = c.y.reverse ? c.y.high || num(c.y.max) : c.y.low || num(c.y.min);
-  const topPole = c.y.reverse ? c.y.low || num(c.y.min) : c.y.high || num(c.y.max);
+  const leftPole = c.x.reverse ? c.x.high || IO.num(c.x.max) : c.x.low || IO.num(c.x.min);
+  const rightPole = c.x.reverse ? c.x.low || IO.num(c.x.min) : c.x.high || IO.num(c.x.max);
+  const bottomPole = c.y.reverse ? c.y.high || IO.num(c.y.max) : c.y.low || IO.num(c.y.min);
+  const topPole = c.y.reverse ? c.y.low || IO.num(c.y.min) : c.y.high || IO.num(c.y.max);
   return (
     <div class="plot-frame">
       <div class="plot-y">
@@ -167,7 +166,7 @@ function Plot({ m }) {
             const s = Layout.toScreen(c, p.x, p.y);
             return (
               <button type="button" key={`${it.id}-${f.key}`} class={`tok ghost${stateClass(it.id)}`} style={{ left: `${s.left}%`, bottom: `${s.bottom}%` }}
-                data-item={it.id} data-point={f.key} title={`${f.label}: #${it.no} ${nameOf(it)}`} aria-label={`${f.label}: #${it.no} ${nameOf(it)}`}
+                data-item={it.id} data-point={f.key} title={`${f.label}: ${IO.label(it)}`} aria-label={`${f.label}: ${IO.label(it)}`}
                 onPointerDown={e => startDrag(e, it.id, `${f.label}: #${it.no}`, f.key)}>
                 <i>{it.no}</i>
               </button>
@@ -180,10 +179,10 @@ function Plot({ m }) {
             return (
               <button type="button" key={it.id} class={`tok${left ? ' lbl-l' : ''}${stateClass(it.id)}${it.values.done === true ? ' done' : ''}`}
                 style={{ left: `${s.left}%`, bottom: `${s.bottom}%` }} data-item={it.id}
-                aria-label={`#${it.no} ${nameOf(it)}`} title={`#${it.no} ${nameOf(it)} (${num(/** @type {number} */ (it.x))} / ${num(/** @type {number} */ (it.y))})`}
-                onPointerDown={e => startDrag(e, it.id, `#${it.no} ${nameOf(it)}`)}>
+                aria-label={IO.label(it)} title={`${IO.label(it)} (${IO.num(/** @type {number} */ (it.x))} / ${IO.num(/** @type {number} */ (it.y))})`}
+                onPointerDown={e => startDrag(e, it.id, IO.label(it))}>
                 <i class={`c-${color}`}>{it.no}</i>
-                {names && <span>{nameOf(it)}</span>}
+                {names && <span>{IO.title(it)}</span>}
               </button>
             );
           })}
@@ -219,38 +218,38 @@ function Heatmap({ m }) {
       <div class="heat-y-title">{c.y.label} {c.y.reverse ? '↓' : '↑'}</div>
       <div class="heat" style={{ gridTemplateColumns: `minmax(64px, auto) repeat(${cols.length}, minmax(0, 1fr))` }} id="heat">
         {rows.map(y => [
-          <div class="heat-yl" key={`yl${y}`}><b>{num(y)}</b>{pole(c.y, y) && <small>{pole(c.y, y)}</small>}</div>,
+          <div class="heat-yl" key={`yl${y}`}><b>{IO.num(y)}</b>{pole(c.y, y) && <small>{pole(c.y, y)}</small>}</div>,
           ...cols.map(x => {
             const r = Layout.regionAt(c, x, y);
             const here = placed.filter(it => it.x === x && it.y === y);
             const ghosts = placed.flatMap(it => points.filter(f => { const p = /** @type {Point | null} */ (it.values[f.key] || null); return p && p.x === x && p.y === y; }).map(f => ({ it, f })));
             return (
               <div key={`${x}:${y}`} class={`cell c-${r ? r.color : 'gray'}${over(`cell:${x}:${y}`)}`} data-drop="cell" data-x={x} data-y={y}
-                title={`${c.x.label} ${num(x)} × ${c.y.label} ${num(y)} = ${num(Layout.score(x, y))}${r ? ` (${r.label})` : ''}`}
+                title={`${c.x.label} ${IO.num(x)} × ${c.y.label} ${IO.num(y)} = ${IO.num(Layout.score(x, y))}${r ? ` (${r.label})` : ''}`}
                 onClick={e => { if (sel && e.target === e.currentTarget) mutate(mm => Ops.move(mm, sel, { x, y })); }}>
                 {here.map(it => (
-                  <button type="button" key={it.id} class={`pill${stateClass(it.id)}`} data-item={it.id} title={`#${it.no} ${nameOf(it)}`}
-                    onPointerDown={e => startDrag(e, it.id, `#${it.no} ${nameOf(it)}`)}>
-                    {names ? <><b>#{it.no}</b> {nameOf(it)}</> : <b>#{it.no}</b>}
+                  <button type="button" key={it.id} class={`pill${stateClass(it.id)}`} data-item={it.id} title={IO.label(it)}
+                    onPointerDown={e => startDrag(e, it.id, IO.label(it))}>
+                    {names ? <><b>#{it.no}</b> {IO.title(it)}</> : <b>#{it.no}</b>}
                   </button>
                 ))}
                 {ghosts.map(({ it, f }) => (
-                  <button type="button" key={`${it.id}-${f.key}`} class={`pill ghost${stateClass(it.id)}`} data-item={it.id} data-point={f.key} title={`${f.label}: #${it.no} ${nameOf(it)}`}
+                  <button type="button" key={`${it.id}-${f.key}`} class={`pill ghost${stateClass(it.id)}`} data-item={it.id} data-point={f.key} title={`${f.label}: ${IO.label(it)}`}
                     onPointerDown={e => startDrag(e, it.id, `${f.label}: #${it.no}`, f.key)}>
                     #{it.no}
                   </button>
                 ))}
-                <span class="score" aria-hidden="true">{num(Layout.score(x, y))}</span>
+                <span class="score" aria-hidden="true">{IO.num(Layout.score(x, y))}</span>
               </div>
             );
           }),
         ])}
         <span />
-        {cols.map(x => <div class="heat-xl" key={`xl${x}`}><b>{num(x)}</b>{pole(c.x, x) && <small>{pole(c.x, x)}</small>}</div>)}
+        {cols.map(x => <div class="heat-xl" key={`xl${x}`}><b>{IO.num(x)}</b>{pole(c.x, x) && <small>{pole(c.x, x)}</small>}</div>)}
       </div>
       <div class="heat-x-title">{c.x.label} {c.x.reverse ? '←' : '→'}</div>
       <div class="legend">
-        {c.regions.slice().sort((a, b) => (a.min ?? 0) - (b.min ?? 0)).map(r => <span key={r.id}><span class={`sw c-${r.color}`} />{r.label}{r.min != null ? ` ≥ ${num(r.min)}` : ''}</span>)}
+        {c.regions.slice().sort((a, b) => (a.min ?? 0) - (b.min ?? 0)).map(r => <span key={r.id}><span class={`sw c-${r.color}`} />{r.label}{r.min != null ? ` ≥ ${IO.num(r.min)}` : ''}</span>)}
         {points.map(f => <span key={f.key}><span class="pill ghost mini">#</span> {f.label}</span>)}
       </div>
     </div>

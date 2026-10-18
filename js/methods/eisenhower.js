@@ -119,29 +119,28 @@ export const method = {
       },
     },
   },
-  hints(m, { regionOf, placed, value, fill, t }) {
-    const H = /** @type {Record<string, string>} */ (t.hints);
-    const open = placed(m).filter(it => value(it, 'done') !== true);
-    const inRegion = (/** @type {string} */ id) => open.filter(it => { const r = regionOf(m, it); return r != null && r.id === id; });
+  hints(m, { items, regionId, hasField, value, isEmpty, hint }) {
+    const open = items.filter(it => value(it, 'done') !== true);
+    const inRegion = (/** @type {string} */ id) => open.filter(it => regionId(it) === id);
     /** @type {Hint[]} */
     const out = [];
     const doList = inRegion('do');
     const plan = inRegion('plan');
     if (doList.length || plan.length) {
       out.push(doList.length > plan.length
-        ? { key: 'balance', state: 'warn', title: H.balanceTitle, detail: fill(H.balanceDetail, { do: doList.length, plan: plan.length }) }
-        : { key: 'balance', state: 'ok', title: H.balanceOkTitle, detail: fill(H.balanceOkDetail, { plan: plan.length }) });
+        ? hint('balance', 'warn', { do: doList.length, plan: plan.length })
+        : hint('balance', 'ok', { plan: plan.length }, undefined, 'balanceOk'));
     }
-    if (m.config.fields.some(f => f.key === 'owner')) {
-      const noOwner = inRegion('delegate').filter(it => !String(value(it, 'owner') || '').trim());
-      if (noOwner.length) out.push({ key: 'delegate', state: 'warn', title: H.delegateTitle, detail: fill(H.delegateDetail, { n: noOwner.length }), items: noOwner.map(i => i.id) });
+    if (hasField('owner')) {
+      const noOwner = inRegion('delegate').filter(it => isEmpty(it, 'owner'));
+      if (noOwner.length) out.push(hint('delegate', 'warn', { n: noOwner.length }, noOwner));
     }
-    if (m.config.fields.some(f => f.key === 'due')) {
-      const noDue = plan.filter(it => !value(it, 'due'));
-      if (noDue.length) out.push({ key: 'plan', state: 'warn', title: H.planTitle, detail: fill(H.planDetail, { n: noDue.length }), items: noDue.map(i => i.id) });
+    if (hasField('due')) {
+      const noDue = plan.filter(it => isEmpty(it, 'due'));
+      if (noDue.length) out.push(hint('plan', 'warn', { n: noDue.length }, noDue));
     }
     const drop = inRegion('drop');
-    if (drop.length) out.push({ key: 'drop', state: 'open', title: H.dropTitle, detail: fill(H.dropDetail, { n: drop.length }), items: drop.map(i => i.id) });
+    if (drop.length) out.push(hint('drop', 'open', { n: drop.length }, drop));
     return out;
   },
 };
