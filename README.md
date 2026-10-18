@@ -78,3 +78,7 @@ Die Tests prüfen jede Methode und jedes Beispiel automatisch (vollständige Tex
 | `tests/unit/`, `tests/e2e/` | Vitest (Logik, Mindestabdeckung) und Playwright (gegen den Build) |
 
 Datenformat: [docs/DATENFORMAT.md](docs/DATENFORMAT.md). Entwürfe: [docs/mockups/](docs/mockups/).
+
+## Lizenz
+
+[MIT](LICENSE)
