@@ -2,6 +2,8 @@
 
 Eine Matrix wird als JSON gespeichert (localStorage, Schlüssel `two-axis:matrix:<id>`) und so auch exportiert. Typen: [`types.d.ts`](../types.d.ts). Beim Laden und Importieren bringt `Model.normalize` jede Matrix in die aktuelle Form: fehlende Angaben werden ergänzt, ungültige ersetzt, Positionen auf die Skala gerundet, ältere Versionen umgewandelt.
 
+Im localStorage liegt jede Matrix in einer Hülle `{ "savedAt": <Zeitpunkt in ms>, "data": <Matrix> }` – wie in den anderen Methoden-Apps, als Grundlage für die geplante gemeinsame Ablage ([method-commons/sync](https://github.com/method-commons/sync/blob/main/docs/KONZEPT.md)). Ältere Einträge ohne Hülle werden weiter gelesen und beim nächsten Speichern umgestellt. Export, Sicherung und Beispiele enthalten nur die Matrix selbst.
+
 ## Beispiel (gekürzt)
 
 ```json
