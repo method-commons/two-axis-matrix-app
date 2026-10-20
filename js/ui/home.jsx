@@ -17,6 +17,7 @@ import { closeDialog, openDialog, openMatrix, render, toast, useRevision } from 
 import { openHelp } from './help.jsx';
 import { deleteMatrix, duplicateMatrix } from './manage.js';
 import { MatrixSvg } from './svg.jsx';
+import { SyncDocState, SyncRemoteOnly } from './sync.jsx';
 
 /** JSON-Datei importieren (Matrix, Sicherung oder Liste). */
 export async function importFiles() {
@@ -195,6 +196,7 @@ function MatrixCard({ m }) {
         {hint ? <span class="warn small">⚠ {hint.title}</span> : <span />}
         <span class="spacer" />
         <span class="sub small">{Util.formatDay(day, Texts.locale)}</span>
+        <SyncDocState id={m.id} />
         <button type="button" class="icon-btn sm" title={Texts.manage.duplicate} aria-label={Texts.manage.duplicate} data-action="duplicate" onClick={() => duplicateMatrix(m)}>⧉</button>
         <button type="button" class="icon-btn sm" title={Texts.ui.delete} aria-label={Texts.ui.delete} data-action="delete" onClick={() => deleteMatrix(m)}>✕</button>
       </div>
@@ -238,6 +240,7 @@ export function Home() {
           <span class="plus" aria-hidden="true">+</span>{H.new}<small>{H.newHelp}</small>
         </button>
       </div>
+      <SyncRemoteOnly />
       <section class="card methods-strip" aria-label={H.methods}>
         {Methods.list().filter(d => d.id !== Methods.CUSTOM).map(d => {
           const t = Methods.texts(d);

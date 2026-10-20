@@ -48,14 +48,26 @@ export const Store = (() => {
     } catch (e) { return null; }
   }
 
+  /**
+   * Beobachter für Schreiben und Löschen von Dokumenten (die Ablage meldet so Änderungen,
+   * siehe js/ui/sync.jsx). Ohne Beobachter geschieht nichts.
+   * @type {{ written: (id: string) => void, removed: (id: string) => void }}
+   */
+  let observer = { written: () => {}, removed: () => {} };
+  /** @param {{ written: (id: string) => void, removed: (id: string) => void }} o */
+  function observe(o) { observer = o; }
+
   /** @param {string} id @param {Matrix} data @param {number} [savedAt] z. B. beim Übernehmen aus einer Ablage @returns {boolean} */
   function writeDoc(id, data, savedAt = Date.now()) {
-    return set(PREFIX + id, JSON.stringify({ savedAt, data }));
+    const ok = set(PREFIX + id, JSON.stringify({ savedAt, data }));
+    if (ok) observer.written(id);
+    return ok;
   }
 
   /** @param {string} id */
   function removeDoc(id) {
     remove(PREFIX + id);
+    observer.removed(id);
   }
 
   /** ID einer Matrix zu einem Speicherschlüssel (z. B. aus einem `storage`-Ereignis), sonst `null`. @param {string | null} key */
@@ -101,5 +113,5 @@ export const Store = (() => {
     return set(TEMPLATES_KEY, JSON.stringify(list));
   }
 
-  return { PREFIX, TEMPLATES_KEY, readDoc, writeDoc, removeDoc, docIdFromKey, listDocs, load, save, all, templates, saveTemplates };
+  return { PREFIX, TEMPLATES_KEY, readDoc, writeDoc, removeDoc, docIdFromKey, listDocs, observe, load, save, all, templates, saveTemplates };
 })();
