@@ -67,7 +67,7 @@ Die Tests prüfen jede Methode und jedes Beispiel automatisch (vollständige Tex
 | `js/layout.js` | Geometrie: Werte ↔ Fläche, Bereich eines Punkts je Aufteilung, Mitte eines Bereichs, Umrechnen, Position aus Antworten, Rangfolge, Flächen zum Zeichnen |
 | `js/methods.js`, `js/methods/*.js` | Verzeichnis der Methoden (automatisch eingelesen), Einstellungen aus einer Methode, Hinweise (mit Hilfen für die Methoden), Leitfragen; je Methode eine Datei |
 | `js/ops.js` | Änderungen (Einträge, Position, Bereich, Felder, Antworten, Einstellungen übernehmen, duplizieren, Einträge übernehmen) |
-| `js/storage.js` | Speicherung im localStorage (Matrizen, eigene Vorlagen) |
+| `js/storage.js` | Speicherung im localStorage (`{ savedAt, data }` je Matrix, `readDoc`/`writeDoc`/`listDocs` wie in den anderen Methoden-Apps) (Matrizen, eigene Vorlagen) |
 | `js/io.js` | JSON-Export/-Import, Sicherung, Markdown-Bericht, CSV; Formatierung von Zahlen, Titeln und Rangwerten |
 | `js/examples.js`, `examples/` | Beispiele (automatisch gefunden, erst beim Öffnen der Beispiele und nur in der benötigten Sprache geladen) |
 | `js/texts.js`, `js/i18n/` | Texte der Oberfläche (Deutsch maßgeblich, Englisch gleiche Struktur) |

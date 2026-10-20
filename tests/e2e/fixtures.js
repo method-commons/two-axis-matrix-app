@@ -65,7 +65,7 @@ export async function dragTo(page, from, to, fx = 0.5, fy = 0.5) {
 /** Gespeicherte Matrizen aus dem localStorage (wartet auf das verzögerte Speichern). */
 export async function stored(page) {
   await page.waitForTimeout(400);
-  return page.evaluate(() => Object.keys(localStorage).filter(k => k.startsWith('two-axis:matrix:')).map(k => JSON.parse(localStorage.getItem(k))));
+  return page.evaluate(() => Object.keys(localStorage).filter(k => k.startsWith('two-axis:matrix:')).map(k => JSON.parse(localStorage.getItem(k)).data));
 }
 
 /** Download auslösen und Inhalt lesen. */
