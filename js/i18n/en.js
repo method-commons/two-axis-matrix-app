@@ -41,12 +41,14 @@ export const TextsEn = {
     example: 'Open example …',
     help: 'Methods & usage',
     storage: 'Storage …',
+    versions: 'Versions …',
     language: 'Language',
   },
   // Storage (method-commons/sync); all other texts come from the shared core
   sync: {
     notSet: 'not set up',
     storage: 'storage',
+    previewLocked: 'Earlier state – view only. Choose “Back to current state” to edit.',
     nouns: { one: 'matrix', many: 'matrices', list: 'My matrices' },
   },
   home: {

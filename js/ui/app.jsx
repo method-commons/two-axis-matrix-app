@@ -16,7 +16,7 @@ import { MatrixView } from './matrix.jsx';
 import { ReportView } from './report.jsx';
 import { openSettings } from './settings.jsx';
 import { openCopyItems } from './transfer.jsx';
-import { openStorage, SyncStatus, syncMenuHint } from './sync.jsx';
+import { openStorage, openVersions, SyncPreview, SyncStatus, syncMenuHint } from './sync.jsx';
 
 /** @param {string} lang */
 function switchLanguage(lang) {
@@ -66,6 +66,7 @@ function Menu() {
             <hr />
           </>}
           <button type="button" role="menuitem" data-action="storage" class="menu-split" onClick={run(openStorage)}>{M.storage}<span class="menu-hint" id="storageHint">{syncMenuHint()}</span></button>
+          {m && <button type="button" role="menuitem" data-action="versions" onClick={run(openVersions)}>{M.versions}</button>}
           <hr />
           <button type="button" role="menuitem" data-action="help" onClick={run(() => openHelp(m ? m.method : undefined))}>{M.help}</button>
           <hr />
@@ -141,6 +142,7 @@ export function App() {
   return (
     <>
       <Header />
+      <SyncPreview />
       <main id="main">
         {r.view === 'home' && <Home />}
         {r.view === 'matrix' && m && r.tab === 'matrix' && <MatrixView />}
