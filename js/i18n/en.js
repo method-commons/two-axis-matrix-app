@@ -40,7 +40,14 @@ export const TextsEn = {
     backup: 'Back up all matrices (JSON)',
     example: 'Open example …',
     help: 'Methods & usage',
+    storage: 'Storage …',
     language: 'Language',
+  },
+  // Storage (method-commons/sync); all other texts come from the shared core
+  sync: {
+    notSet: 'not set up',
+    storage: 'storage',
+    nouns: { one: 'matrix', many: 'matrices', list: 'My matrices' },
   },
   home: {
     title: 'My matrices',

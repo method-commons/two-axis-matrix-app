@@ -114,6 +114,9 @@ export function scheduleSave() {
   saveTimer = setTimeout(flushSave, 300);
 }
 
+/** Gibt es Eingaben, die noch nicht gespeichert sind (verzögertes Speichern läuft)? */
+export const hasPendingSave = () => saveTimer != null;
+
 /** Ausstehendes Speichern sofort ausführen. */
 export function flushSave() {
   if (!saveTimer) return;
@@ -138,6 +141,24 @@ export function replaceMatrix(m) {
   matrix = m;
   if (selected.value && !m.items.some(it => it.id === selected.value)) selected.value = null;
   render();
+}
+
+/**
+ * Gespeicherten Stand übernehmen, nachdem ein anderer Browser-Tab (oder die Ablage) die Matrix
+ * geändert hat: geöffnete Matrix neu laden – außer während einer Texteingabe –, sonst die Übersicht.
+ * `force`: auch während einer Texteingabe (die Ablage übernimmt nur ohne ungespeicherte Eingaben).
+ * @param {string} id @param {boolean} [force]
+ */
+export function adoptStored(id, force = false) {
+  if (matrix && matrix.id === id) {
+    const doc = Store.load(id);
+    if (!doc) { applyRoute(); return; }
+    const active = document.activeElement;
+    if (!force && active && /^(INPUT|TEXTAREA)$/.test(active.tagName)) return;
+    replaceMatrix(doc);
+  } else if (route.value.view === 'home') {
+    render();
+  }
 }
 
 // ===== Änderungen und Verlauf =====
